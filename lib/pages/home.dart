@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:orphanage_management_system/models/Category.dart';
+import 'package:orphanage_management_system/services/CategoryService.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -6,6 +8,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  List<Category> categories = CategoryService.getAllCatories();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,45 +30,64 @@ class _HomeState extends State<Home> {
           padding: const EdgeInsets.symmetric(horizontal: 30),
           itemCount: 4,
           itemBuilder: (ctx, i) {
-            return Card(
-              child: Container(
-                height: 290,
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(20)),
-                margin: EdgeInsets.all(5),
-                padding: EdgeInsets.all(5),
-                child: Stack(
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Expanded(
-                          child: Image.network(
-                            'https://tech.pelmorex.com/wp-content/uploads/2020/10/flutter.png',
-                            fit: BoxFit.fill,
-                          ),
-                        ),
-                        Text(
-                          'Title',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              'Subtitle',
+            return Center(
+              child: InkWell(
+                child: Container(
+                  height: 290,
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(20)),
+                  margin: EdgeInsets.all(5),
+                  padding: EdgeInsets.all(5),
+                  child: Stack(
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Expanded(
+                              // child: Image.network(
+                              //   'https://tech.pelmorex.com/wp-content/uploads/2020/10/flutter.png',
+                              //   fit: BoxFit.fill,
+                              // ),
+                              child: CircleAvatar(
+                            backgroundImage: AssetImage(
+                              'assets/images/flutter.png',
+                            ),
+                            backgroundColor: Colors.transparent,
+                            // radius: 20.0,
+                          )),
+                          Center(
+                            child: Text(
+                              'Title',
                               style: TextStyle(
+                                fontSize: 18,
                                 fontWeight: FontWeight.bold,
-                                fontSize: 15,
                               ),
                             ),
-                          ],
-                        )
-                      ],
-                    ),
-                  ],
+                          ),
+                          Center(
+                            child: Text(
+                              'Sub Title',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          // Row(
+                          //   children: [
+                          //     Text(
+                          //       'Subtitle',
+                          //       style: TextStyle(
+                          //         fontWeight: FontWeight.bold,
+                          //         fontSize: 15,
+                          //       ),
+                          //     ),
+                          //   ],
+                          // )
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             );
