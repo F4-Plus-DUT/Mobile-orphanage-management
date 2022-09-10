@@ -28,8 +28,8 @@ class _HomeState extends State<Home> {
         child: GridView.builder(
           shrinkWrap: true,
           padding: const EdgeInsets.symmetric(horizontal: 30),
-          itemCount: 4,
-          itemBuilder: (ctx, i) {
+          itemCount: categories.length,
+          itemBuilder: (context, i) {
             return Center(
               child: InkWell(
                 child: Container(
@@ -50,26 +50,26 @@ class _HomeState extends State<Home> {
                               // ),
                               child: CircleAvatar(
                             backgroundImage: AssetImage(
-                              'assets/images/flutter.png',
+                              'assets/${categories[i].image}',
                             ),
                             backgroundColor: Colors.transparent,
                             // radius: 20.0,
                           )),
                           Center(
                             child: Text(
-                              'Title',
+                              '${categories[i].title}',
                               style: TextStyle(
-                                fontSize: 18,
+                                fontSize: 16,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
                           Center(
                             child: Text(
-                              'Sub Title',
+                              '${categories[i].subtitle}',
                               style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
+                                fontSize: 12,
+                                fontStyle: FontStyle.italic,
                               ),
                             ),
                           ),

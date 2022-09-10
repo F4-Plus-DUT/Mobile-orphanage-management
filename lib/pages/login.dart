@@ -71,21 +71,21 @@ class _LoginState extends State<Login> {
                     child: ElevatedButton(
                       child: const Text('Login'),
                       onPressed: () {
-                        if (nameController.text == username &&
-                            passwordController.text == password) {
-                          Navigator.pushNamed(context, '/home');
-                        } else {
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(const SnackBar(
-                            content: Text(
-                              'Account is unvalid. Please try again!',
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
-                            ),
-                            backgroundColor: Colors.red,
-                          ));
-                        }
+                        // if (nameController.text == username &&
+                        //     passwordController.text == password) {
+                        Navigator.pushNamed(context, '/home');
+                        // } else {
+                        //   ScaffoldMessenger.of(context)
+                        //       .showSnackBar(const SnackBar(
+                        //     content: Text(
+                        //       'Account is unvalid. Please try again!',
+                        //       style: TextStyle(
+                        //         color: Colors.white,
+                        //       ),
+                        //     ),
+                        //     backgroundColor: Colors.red,
+                        //   ));
+                        // }
                       },
                     )),
                 Row(

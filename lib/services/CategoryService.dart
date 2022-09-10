@@ -20,18 +20,18 @@ class CategoryService {
           image: 'images/staff.png'),
       Category(
           name: 'Activity',
-          title: 'Donate, Valuntary Activities',
-          subtitle: '',
+          title: 'Activities',
+          subtitle: 'Donation, Valuntary',
           image: 'images/activity.png'),
       Category(
           name: 'Event',
-          title: 'Funny, Picnic events',
-          subtitle: '',
+          title: 'Events',
+          subtitle: 'Funny, Picnic',
           image: 'images/event.png'),
       Category(
           name: 'Adoption and Introduction',
-          title: 'Children Adoption and Introduction',
-          subtitle: '',
+          title: 'Children Activity',
+          subtitle: 'Adoption, Introduction',
           image: 'images/adoption.png'),
       Category(
           name: 'Statistic',
