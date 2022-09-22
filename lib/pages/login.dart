@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -8,8 +11,28 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  String username = "tranviet";
-  String password = "tranviet";
+  String base_url =
+      "https://4cfd-2001-ee0-294-a44a-3d9f-e484-deec-8da5.ap.ngrok.io/api/v1/user/action/login";
+  Future<bool> loginToServer(username, password) async {
+    bool isSuccessfully = false;
+    await http
+        .post(Uri.parse(base_url),
+            headers: <String, String>{
+              'Content-Type': 'application/json; charset=UTF-8',
+            },
+            body: jsonEncode(
+                <String, String>{'email': username, 'password': password}))
+        .then((response) {
+      // var body = json.decode(response.body);
+      print(response.statusCode);
+      // print(body);
+      if (response.statusCode == 200) {
+        isSuccessfully = true;
+      }
+    });
+    return isSuccessfully;
+  }
+
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   @override
@@ -70,15 +93,16 @@ class _LoginState extends State<Login> {
                     padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                     child: ElevatedButton(
                       child: const Text('Login'),
-                      onPressed: () {
-                        if (nameController.text == username &&
-                            passwordController.text == password) {
+                      onPressed: () async {
+                        String username = nameController.text;
+                        String password = passwordController.text;
+                        if (await loginToServer(username, password)) {
                           Navigator.pushNamed(context, '/home');
                         } else {
                           ScaffoldMessenger.of(context)
                               .showSnackBar(const SnackBar(
                             content: Text(
-                              'Account is unvalid. Please try again!',
+                              'Account is invalid. Please try again!',
                               style: TextStyle(
                                 color: Colors.white,
                               ),
