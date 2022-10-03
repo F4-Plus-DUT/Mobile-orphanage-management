@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:orphanage_management_system/pages/utils.dart';
+
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
 
@@ -10,12 +12,12 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  String base_url="https://4cfd-2001-ee0-294-a44a-3d9f-e484-deec-8da5.ap.ngrok.io/api/v1/user/action/sign_up";
+  String signup_url = Utility.BASE_URL + "api/v1/user/action/sign_up";
   Future<bool> sign_up (String name, String email, String pwd) async{
     bool isSuccessfully = false;
 
     await http
-        .post(Uri.parse(base_url),
+        .post(Uri.parse(signup_url),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
