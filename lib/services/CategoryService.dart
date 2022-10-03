@@ -1,4 +1,4 @@
-import 'package:orphanage_management_system/models/Category.dart';
+import 'package:orphanage_management_system/models/category.dart';
 
 class CategoryService {
   static List<Category> getAllCatories() {
@@ -7,37 +7,44 @@ class CategoryService {
           name: 'Account',
           title: 'Account',
           subtitle: '',
-          image: 'images/account.png'),
+          image: 'images/account.png',
+          page: ''),
       Category(
           name: 'Children',
           title: 'Children',
           subtitle: '',
-          image: 'images/children.png'),
+          image: 'images/children.png',
+          page: '/children_item'),
       Category(
           name: 'Staff',
           title: 'Staff',
           subtitle: '',
-          image: 'images/staff.png'),
+          image: 'images/staff.png',
+          page: ''),
       Category(
           name: 'Activity',
           title: 'Activities',
           subtitle: 'Donation, Valuntary',
-          image: 'images/activity.png'),
+          image: 'images/activity.png',
+          page: ''),
       Category(
           name: 'Event',
           title: 'Events',
           subtitle: 'Funny, Picnic',
-          image: 'images/event.png'),
+          image: 'images/event.png',
+          page: ''),
       Category(
           name: 'Adoption and Introduction',
           title: 'Children Activity',
           subtitle: 'Adoption, Introduction',
-          image: 'images/adoption.png'),
+          image: 'images/adoption.png',
+          page: ''),
       Category(
           name: 'Statistic',
           title: 'Statistic',
           subtitle: '',
-          image: 'images/statistic.png')
+          image: 'images/statistic.png',
+          page: '')
     ];
   }
 }

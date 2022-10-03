@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:orphanage_management_system/models/Category.dart';
+import 'package:orphanage_management_system/models/category.dart';
+import 'package:orphanage_management_system/pages/children_page.dart';
 import 'package:orphanage_management_system/services/CategoryService.dart';
 
 class Home extends StatefulWidget {
@@ -32,6 +33,11 @@ class _HomeState extends State<Home> {
           itemBuilder: (context, i) {
             return Center(
               child: InkWell(
+                onTap: () {
+                  // print(categories[i].page);
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => ChildrenPage()));
+                },
                 child: Container(
                   height: 290,
                   decoration:
