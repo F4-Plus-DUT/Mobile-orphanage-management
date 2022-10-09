@@ -8,7 +8,7 @@ class Children {
   late String name;
   late int gender;
   late int age;
-  late String personal_picture;
+  late String? personal_picture;
   late String join_date;
   late String status;
 

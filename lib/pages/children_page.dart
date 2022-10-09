@@ -12,7 +12,7 @@ class ChildrenPage extends StatefulWidget {
 }
 
 class _ChildrenPageState extends State<ChildrenPage> {
-  late List<Children> children = [
+  late List<Children> childrenList = [
     Children(
         id: "0eef8b2e-c9bb-46e1-af95-cd75a1ce3ecf",
         created_at: "2022-10-01T15:46:18.352835+07:00",
@@ -67,16 +67,16 @@ class _ChildrenPageState extends State<ChildrenPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Children Info'),
+        title: Text('Children Listing Page'),
       ),
-      body: GridView(
-        padding: EdgeInsets.all(10),
-        children: children
-            .map((eachCategories) => ChildrenItem(eachCategories))
-            .toList(),
-        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-          maxCrossAxisExtent: 1000,
-          childAspectRatio: 7 / 3,
+      body: Container(
+        padding: const EdgeInsets.only(top: 16),
+        child: ListView.separated(
+          itemCount: childrenList.length,
+          separatorBuilder: (_, __) => Divider(),
+          itemBuilder: (_, index) {
+            return ChildrenItem(children: childrenList[index]);
+          },
         ),
       ),
     );

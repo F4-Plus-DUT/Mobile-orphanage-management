@@ -2,11 +2,15 @@
 
 import 'package:flutter/material.dart';
 import 'package:orphanage_management_system/models/children.dart';
+import 'package:orphanage_management_system/pages/children_detail.dart';
 
 class ChildrenItem extends StatefulWidget {
-  Children children;
+  final Children children;
 
-  ChildrenItem(this.children);
+  ChildrenItem({
+    Key? key,
+    required this.children,
+  }) : super(key: key);
 
   @override
   State<ChildrenItem> createState() => _ChildrenItemState();
@@ -31,59 +35,54 @@ class _ChildrenItemState extends State<ChildrenItem> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => ChildrenDetail(
+                  children: widget.children,
+                )));
       },
       highlightColor: (Colors.black26),
       splashColor: Colors.lightBlue,
-      child: Container(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
-              height: 100,
-              width: 100,
-              child: CircleAvatar(
-                child: Image.network(
-                  widget.children.personal_picture,
-                  width: 100,
-                  height: 100,
-                  fit: BoxFit.cover,
-                ),
-                backgroundColor: Colors.transparent,
-
-                // radius: 20.0,
-              ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(width: 12),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(99),
+            child: Image.network(
+              widget.children.personal_picture ??
+                  "https://img4.thuthuatphanmem.vn/uploads/2020/12/26/hinh-nen-one-piece-chibi-cute_120602855.jpg",
+              width: 70,
+              height: 70,
+              fit: BoxFit.cover,
             ),
-            Container(
-              padding: EdgeInsets.all(10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ValueListenableBuilder(
-                    valueListenable: _textNotifier,
-                    builder: (_, text, __) {
-                      return Text(
-                        text,
-                        style: TextStyle(
-                            fontSize: 30, fontWeight: FontWeight.bold),
-                      );
-                    },
-                  ),
-                  Text(
-                    widget.children.status,
-                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    widget.children.join_date,
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                  ),
-                ],
+            // radius: 20.0,
+          ),
+          SizedBox(width: 16),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ValueListenableBuilder(
+                valueListenable: _textNotifier,
+                builder: (_, text, __) {
+                  return Text(
+                    text,
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  );
+                },
               ),
-            ),
-          ],
-        ),
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
+              Text(
+                widget.children.status,
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.normal),
+              ),
+              // Text(
+              //   widget.children.join_date,
+              //   style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+              // ),
+            ],
+          ),
+        ],
       ),
     );
   }
