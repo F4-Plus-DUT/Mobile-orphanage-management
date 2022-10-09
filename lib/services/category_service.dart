@@ -1,7 +1,7 @@
 import 'package:orphanage_management_system/models/category.dart';
 
 class CategoryService {
-  static List<Category> getAllCatories() {
+  static List<Category> getAllCategories() {
     return [
       Category(
           name: 'Account',

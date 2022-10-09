@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:orphanage_management_system/models/category.dart';
 import 'package:orphanage_management_system/pages/children_page.dart';
 import 'package:orphanage_management_system/services/category_service.dart';
+import 'package:orphanage_management_system/models/Category.dart';
+import 'package:orphanage_management_system/pages/user.dart';
+import 'package:orphanage_management_system/pages/utils.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -9,7 +12,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  List<Category> categories = CategoryService.getAllCatories();
+  List<Category> categories = CategoryService.getAllCategories();
 
   @override
   Widget build(BuildContext context) {
@@ -54,13 +57,24 @@ class _HomeState extends State<Home> {
                               //   'https://tech.pelmorex.com/wp-content/uploads/2020/10/flutter.png',
                               //   fit: BoxFit.fill,
                               // ),
-                              child: CircleAvatar(
-                            backgroundImage: AssetImage(
-                              'assets/${categories[i].image}',
-                            ),
-                            backgroundColor: Colors.transparent,
-                            // radius: 20.0,
-                          )),
+                              child: GestureDetector(
+                                  onTap: () {
+                                    // Navigator.pushNamed(context, '/user');
+                                    // print("Navigate to account page");
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => Utility.getStatefulWidget(categories[i].name),
+                                      ),
+                                    );
+                                  },
+
+                                  child: CircleAvatar(
+                                    backgroundImage: AssetImage(
+                                      'assets/${categories[i].image}',
+                                    ),
+                                    backgroundColor: Colors.transparent,
+                                  ))),
                           Center(
                             child: Text(
                               '${categories[i].title}',

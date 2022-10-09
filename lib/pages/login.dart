@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:orphanage_management_system/pages/utils.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -11,12 +12,11 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  String base_url =
-      "https://3f10-113-185-53-132.ap.ngrok.io/api/v1/user/action/login";
+  String login_url = Utility.BASE_URL + "api/v1/user/action/login";
   Future<bool> loginToServer(username, password) async {
     bool isSuccessfully = false;
     await http
-        .post(Uri.parse(base_url),
+        .post(Uri.parse(login_url),
             headers: <String, String>{
               'Content-Type': 'application/json; charset=UTF-8',
             },
@@ -94,22 +94,22 @@ class _LoginState extends State<Login> {
                     child: ElevatedButton(
                       child: const Text('Login'),
                       onPressed: () async {
-                        String username = nameController.text;
-                        String password = passwordController.text;
-                        if (await loginToServer(username, password)) {
+                        // String username = nameController.text;
+                        // String password = passwordController.text;
+                        // if (await loginToServer(username, password)) {
                           Navigator.pushNamed(context, '/home');
-                        } else {
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(const SnackBar(
-                            content: Text(
-                              'Account is invalid. Please try again!',
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
-                            ),
-                            backgroundColor: Colors.red,
-                          ));
-                        }
+                        // } else {
+                        //   ScaffoldMessenger.of(context)
+                        //       .showSnackBar(const SnackBar(
+                        //     content: Text(
+                        //       'Account is invalid. Please try again!',
+                        //       style: TextStyle(
+                        //         color: Colors.white,
+                        //       ),
+                        //     ),
+                        //     backgroundColor: Colors.red,
+                        //   ));
+                        // }
                       },
                     )),
                 Row(
