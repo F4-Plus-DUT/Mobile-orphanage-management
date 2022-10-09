@@ -1,7 +1,7 @@
 import 'package:orphanage_management_system/models/Category.dart';
 
 class CategoryService {
-  static List<Category> getAllCatories() {
+  static List<Category> getAllCategories() {
     return [
       Category(
           name: 'Account',
@@ -21,7 +21,7 @@ class CategoryService {
       Category(
           name: 'Activity',
           title: 'Activities',
-          subtitle: 'Donation, Valuntary',
+          subtitle: 'Donation, Voluntary',
           image: 'images/activity.png'),
       Category(
           name: 'Event',
