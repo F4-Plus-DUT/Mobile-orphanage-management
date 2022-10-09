@@ -118,7 +118,12 @@ class _SignUpState extends State<SignUp> {
                               return const SizedBox.shrink();
                             }
 
-                            return Text(validateText);
+                            return Text(validateText,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.red,
+                                ));
                           },
                         ),
                         SizedBox(
@@ -163,35 +168,16 @@ class _SignUpState extends State<SignUp> {
                             String email = emailController.text;
                             String password = passwordController.text;
                             String password_2 = password2Controller.text;
+                            if (password == "") {
+                              _validateNotifer.value = "Please fill password.";
+                            }
                             //Xử lý regex cho name và email
                             if (!hexEmail.hasMatch(email)) {
                               _validateNotifer.value = 'Email is not valid.';
-
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(const SnackBar(
-                                content: Text(
-                                  'Email is not valid.',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                backgroundColor: Colors.red,
-                              ));
                             }
                             if (password.compareTo(password_2) != 0) {
                               _validateNotifer.value =
                                   'Password does not match.';
-
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(const SnackBar(
-                                content: Text(
-                                  'Password does not match.',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                backgroundColor: Colors.red,
-                              ));
                             }
                             if (await sign_up(name, email, password)) {
                               _validateNotifer.value = null;

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:orphanage_management_system/models/children.dart';
 
 class ChildrenDetail extends StatefulWidget {
@@ -89,6 +90,7 @@ class _ChildrenDetailState extends State<ChildrenDetail> {
               ),
             ),
             ElevatedButton(
+              // Edit 
               onPressed: () {},
               child: Text('Edit Children Profile'),
             ),
@@ -106,6 +108,19 @@ class _ChildrenDetailState extends State<ChildrenDetail> {
               widget: widget,
               label: "Status",
               value: widget.children.status.toString(),
+            ),
+            ChildrenInfo(
+              widget: widget,
+              label: "Join Date",
+              value: DateFormat("yyyy-MM-dd")
+                  .format(DateFormat("yyyy-MM-dd'T'HH:mm:ss")
+                      .parse(widget.children.join_date))
+                  .toString(),
+            ),
+            ChildrenInfo(
+              widget: widget,
+              label: "Active",
+              value: widget.children.is_active.toString(),
             )
           ],
         ),
@@ -134,11 +149,21 @@ class ChildrenInfo extends StatelessWidget {
           flex: 4,
           child: Text(
             label,
-            style: TextStyle(fontSize: 16),
+            style: TextStyle(fontSize: 24),
           ),
         ),
-        Expanded(flex: 1, child: Text(" : ")),
-        Expanded(flex: 20, child: Text(value))
+        Expanded(
+            flex: 1,
+            child: Text(
+              " : ",
+              style: TextStyle(fontSize: 24),
+            )),
+        Expanded(
+            flex: 7,
+            child: Text(
+              value,
+              style: TextStyle(fontSize: 24),
+            ))
       ],
     );
   }
