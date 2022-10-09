@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:orphanage_management_system/models/category.dart';
 import 'package:orphanage_management_system/pages/children_page.dart';
 import 'package:orphanage_management_system/services/category_service.dart';
-import 'package:orphanage_management_system/models/Category.dart';
-import 'package:orphanage_management_system/pages/user.dart';
 import 'package:orphanage_management_system/pages/utils.dart';
 
 class Home extends StatefulWidget {
@@ -64,11 +62,12 @@ class _HomeState extends State<Home> {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => Utility.getStatefulWidget(categories[i].name),
+                                        builder: (context) =>
+                                            Utility.getStatefulWidget(
+                                                categories[i].name),
                                       ),
                                     );
                                   },
-
                                   child: CircleAvatar(
                                     backgroundImage: AssetImage(
                                       'assets/${categories[i].image}',
