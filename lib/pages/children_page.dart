@@ -22,7 +22,7 @@ class _ChildrenPageState extends State<ChildrenPage> {
         gender: 2,
         age: 8,
         personal_picture:
-            "https://res.cloudinary.com/boninguci/image/upload/v1664611125/pbl6/children/1_phajxg.jpg",
+            "https://anhdephd.vn/wp-content/uploads/2022/04/hinh-anh-one-piece-chibi-ngay-ngo.jpg",
         join_date: "2022-10-01T07:00:00+07:00",
         status: "Unadopted"),
     Children(
@@ -34,7 +34,7 @@ class _ChildrenPageState extends State<ChildrenPage> {
         gender: 2,
         age: 8,
         personal_picture:
-            "https://res.cloudinary.com/boninguci/image/upload/v1664611125/pbl6/children/1_phajxg.jpg",
+            "https://img4.thuthuatphanmem.vn/uploads/2020/12/26/hinh-nen-one-piece-chibi-cute_120602855.jpg",
         join_date: "2022-10-01T07:00:00+07:00",
         status: "Unadopted"),
     Children(
@@ -66,16 +66,18 @@ class _ChildrenPageState extends State<ChildrenPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Children Info'),
+      ),
       body: GridView(
-        padding: EdgeInsets.all(12),
+        padding: EdgeInsets.all(10),
         children: children
             .map((eachCategories) => ChildrenItem(eachCategories))
             .toList(),
         gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-            maxCrossAxisExtent: 300,
-            childAspectRatio: 7 / 2,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10),
+          maxCrossAxisExtent: 1000,
+          childAspectRatio: 7 / 3,
+        ),
       ),
     );
   }

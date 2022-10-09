@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:orphanage_management_system/models/category.dart';
 import 'package:orphanage_management_system/pages/children_page.dart';
-import 'package:orphanage_management_system/services/CategoryService.dart';
+import 'package:orphanage_management_system/services/category_service.dart';
 
 class Home extends StatefulWidget {
   @override

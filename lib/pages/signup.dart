@@ -47,6 +47,20 @@ class _SignUpState extends State<SignUp> {
   RegExp hexEmail = RegExp(
       r'[a-zA-Z0-9.!#$%&*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$');
 
+  late ValueNotifier<String?> _validateNotifer;
+
+  @override
+  void initState() {
+    super.initState();
+    _validateNotifer = ValueNotifier(null);
+  }
+
+  @override
+  void dispose() {
+    _validateNotifer.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -97,6 +111,16 @@ class _SignUpState extends State<SignUp> {
                             color: Colors.grey[700],
                           ),
                         ),
+                        ValueListenableBuilder(
+                          valueListenable: _validateNotifer,
+                          builder: (_, validateText, __) {
+                            if (validateText == null) {
+                              return const SizedBox.shrink();
+                            }
+
+                            return Text(validateText);
+                          },
+                        ),
                         SizedBox(
                           height: 30,
                         )
@@ -141,6 +165,8 @@ class _SignUpState extends State<SignUp> {
                             String password_2 = password2Controller.text;
                             //Xử lý regex cho name và email
                             if (!hexEmail.hasMatch(email)) {
+                              _validateNotifer.value = 'Email is not valid.';
+
                               ScaffoldMessenger.of(context)
                                   .showSnackBar(const SnackBar(
                                 content: Text(
@@ -153,6 +179,9 @@ class _SignUpState extends State<SignUp> {
                               ));
                             }
                             if (password.compareTo(password_2) != 0) {
+                              _validateNotifer.value =
+                                  'Password does not match.';
+
                               ScaffoldMessenger.of(context)
                                   .showSnackBar(const SnackBar(
                                 content: Text(
@@ -165,6 +194,7 @@ class _SignUpState extends State<SignUp> {
                               ));
                             }
                             if (await sign_up(name, email, password)) {
+                              _validateNotifer.value = null;
                               print("Create successfully!");
                               Navigator.pushNamed(context, '/login');
                             }
