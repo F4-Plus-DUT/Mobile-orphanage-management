@@ -13,16 +13,19 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   String signup_url = Utility.BASE_URL + "api/v1/user/action/sign_up";
-  Future<bool> sign_up (String name, String email, String pwd) async{
+  Future<bool> sign_up(String name, String email, String pwd) async {
     bool isSuccessfully = false;
 
     await http
         .post(Uri.parse(signup_url),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: jsonEncode(
-            <String, String>{'name': name, 'email': email,  'password': pwd}))
+            headers: <String, String>{
+              'Content-Type': 'application/json; charset=UTF-8',
+            },
+            body: jsonEncode(<String, String>{
+              'name': name,
+              'email': email,
+              'password': pwd
+            }))
         .then((response) {
       // var body = json.decode(response.body);
       print(response);
@@ -168,14 +171,44 @@ class _SignUpState extends State<SignUp> {
                             String password_2 = password2Controller.text;
                             if (password == "") {
                               _validateNotifer.value = "Please fill password.";
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(const SnackBar(
+                                content: Text(
+                                  'Please fill password.',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                backgroundColor: Colors.red,
+                              ));
                             }
                             //Xử lý regex cho name và email
                             if (!hexEmail.hasMatch(email)) {
                               _validateNotifer.value = 'Email is not valid.';
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(const SnackBar(
+                                content: Text(
+                                  'Email is not valid.',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                backgroundColor: Colors.red,
+                              ));
                             }
                             if (password.compareTo(password_2) != 0) {
                               _validateNotifer.value =
                                   'Password does not match.';
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(const SnackBar(
+                                content: Text(
+                                  'Password does not match.',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                backgroundColor: Colors.red,
+                              ));
                             }
                             if (await sign_up(name, email, password)) {
                               _validateNotifer.value = null;
