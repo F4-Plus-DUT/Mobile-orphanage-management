@@ -6,6 +6,7 @@ class Profile {
   late String address;
   late int age;
   late String? avatar;
+  late String phone;
   late String email;
   late String occupation;
 
@@ -17,6 +18,7 @@ class Profile {
       required this.address,
       required this.age,
       required this.avatar,
+      required this.phone,
       required this.email,
       required this.occupation});
 
@@ -30,6 +32,7 @@ class Profile {
         age: data['age'],
         avatar: data['avatar'],
         email: data['email'],
+        phone: data['phone'],
         occupation: data['occupation']);
   }
 }
