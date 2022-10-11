@@ -6,7 +6,7 @@ import 'package:orphanage_management_system/pages/signup.dart';
 
 void main() {
   runApp(MaterialApp(initialRoute: '/', routes: {
-    '/': (context) => Home(),
+    '/': (context) => Loading(),
     '/home': (context) => Home(),
     '/login': (context) => Login(),
     '/signup': (context) => SignUp(),

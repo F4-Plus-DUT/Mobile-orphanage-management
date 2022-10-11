@@ -15,7 +15,7 @@ class _SignUpState extends State<SignUp> {
   String signup_url = Utility.BASE_URL + "api/v1/user/action/sign_up";
   Future<bool> sign_up (String name, String email, String pwd) async{
     bool isSuccessfully = false;
-
+    print("This is sign up function");
     await http
         .post(Uri.parse(signup_url),
         headers: <String, String>{

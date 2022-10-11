@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:orphanage_management_system/models/Account.dart';
 import 'package:orphanage_management_system/models/Category.dart';
 import 'package:orphanage_management_system/pages/user.dart';
 import 'package:orphanage_management_system/pages/utils.dart';
@@ -11,7 +12,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   List<Category> categories = CategoryService.getAllCategories();
-
+  Account account = new Account(name: 'Tran Cong Viet', email: 'trancongviet0710@gmail.com', avatar: 'https://images.unsplash.com/photo-1611915387288-fd8d2f5f928b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80');
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,6 +59,9 @@ class _HomeState extends State<Home> {
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) => Utility.getStatefulWidget(categories[i].name),
+                                        settings: RouteSettings(
+                                          arguments: account
+                                        ),
                                       ),
                                     );
                                   },

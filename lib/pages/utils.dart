@@ -5,7 +5,7 @@ import 'package:orphanage_management_system/pages/user.dart';
 import 'children.dart';
 
 class Utility {
-  static String BASE_URL = "https://b6c8-116-105-172-59.ap.ngrok.io/";
+  static String BASE_URL = "https://3f10-113-185-53-132.ap.ngrok.io/";
   static StatefulWidget getStatefulWidget(String name){
     if (name == 'Account'){
       return User();
