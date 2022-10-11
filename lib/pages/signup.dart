@@ -86,7 +86,7 @@ class _SignUpState extends State<SignUp> {
                           height: 20,
                         ),
                         Text(
-                          "Create an Account,Its free",
+                          "Create an Account",
                           style: TextStyle(
                             fontSize: 15,
                             color: Colors.grey[700],

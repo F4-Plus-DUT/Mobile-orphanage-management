@@ -125,6 +125,7 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.grey[700],
         child: const Icon(Icons.settings),
       ),
+
     );
   }
 }
