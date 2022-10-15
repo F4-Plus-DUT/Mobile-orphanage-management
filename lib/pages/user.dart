@@ -161,10 +161,8 @@ class _UserState extends State<User> {
                     gradient: LinearGradient(
                         begin: Alignment.centerLeft,
                         end: Alignment.centerRight,
-                        colors: [Colors.pink,Colors.redAccent]
-                    ),
+                        colors: [Colors.pink, Colors.redAccent]),
                     borderRadius: BorderRadius.circular(30.0),
-
                   ),
                   child: Container(
                     constraints: BoxConstraints(
@@ -194,8 +192,7 @@ class _UserState extends State<User> {
                     gradient: LinearGradient(
                         begin: Alignment.centerLeft,
                         end: Alignment.centerRight,
-                        colors: [Colors.pink,Colors.redAccent]
-                    ),
+                        colors: [Colors.pink, Colors.redAccent]),
                     borderRadius: BorderRadius.circular(80.0),
                   ),
                   child: Container(

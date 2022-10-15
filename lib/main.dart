@@ -11,6 +11,6 @@ void main() {
     '/home': (context) => Home(),
     '/login': (context) => Login(),
     '/signup': (context) => SignUp(),
-    '/resetpwd': (context)=> ResetPassword(),
+    '/reset_pwd': (context)=> ResetPassword(),
   }));
 }

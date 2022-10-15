@@ -140,7 +140,7 @@ class _LoginState extends State<Login> {
                         vertical: 16, horizontal: 24),
                     child: InkWell(
                       onTap: () {
-                        Navigator.pushNamed(context, '/resetpwd');
+                        Navigator.pushNamed(context, '/reset_pwd');
                       },
                       child: Text(
                         "Forgot Password?",

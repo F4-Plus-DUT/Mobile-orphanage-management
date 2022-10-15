@@ -133,14 +133,14 @@ class _SignUpState extends State<SignUp> {
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 40),
                         child: Container(
-                        //   padding: EdgeInsets.only(top: 3, left: 3),
-                        //   decoration: BoxDecoration(
-                        //       borderRadius: BorderRadius.circular(40),
-                        //       border: Border(
-                        //           bottom: BorderSide(color: Colors.black),
-                        //           top: BorderSide(color: Colors.black),
-                        //           right: BorderSide(color: Colors.black),
-                        //           left: BorderSide(color: Colors.black))),
+                          //   padding: EdgeInsets.only(top: 3, left: 3),
+                          //   decoration: BoxDecoration(
+                          //       borderRadius: BorderRadius.circular(40),
+                          //       border: Border(
+                          //           bottom: BorderSide(color: Colors.black),
+                          //           top: BorderSide(color: Colors.black),
+                          //           right: BorderSide(color: Colors.black),
+                          //           left: BorderSide(color: Colors.black))),
                           child: MaterialButton(
                             minWidth: double.infinity,
                             height: 50,
@@ -150,12 +150,11 @@ class _SignUpState extends State<SignUp> {
                             child: Text(
                               "SIGN UP",
                               style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20,
-                                letterSpacing: 3,
-                                wordSpacing: 5
-                              ),
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                  letterSpacing: 3,
+                                  wordSpacing: 5),
                             ),
                             onPressed: () async {
                               String name = nameController.text;
@@ -192,7 +191,6 @@ class _SignUpState extends State<SignUp> {
                                 Navigator.pushNamed(context, '/login');
                               }
                             },
-
                           ),
                         ),
                       ),
@@ -207,8 +205,9 @@ class _SignUpState extends State<SignUp> {
                             child: const Text(
                               "Login",
                               style: TextStyle(
-                                color: Colors.cyanAccent,
-                                  fontWeight: FontWeight.w600, fontSize: 18),
+                                  color: Colors.cyanAccent,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 18),
                             ),
                             onPressed: () {
                               Navigator.pushNamed(context, '/login');

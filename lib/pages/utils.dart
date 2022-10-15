@@ -6,11 +6,10 @@ import 'children.dart';
 
 class Utility {
   static String BASE_URL = "https://3f10-113-185-53-132.ap.ngrok.io/";
-  static StatefulWidget getStatefulWidget(String name){
-    if (name == 'Account'){
+  static StatefulWidget getStatefulWidget(String name) {
+    if (name == 'Account') {
       return User();
-    }
-    else if (name == 'Children'){
+    } else if (name == 'Children') {
       return Children();
     }
     return Login();
