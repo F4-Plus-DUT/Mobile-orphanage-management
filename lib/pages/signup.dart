@@ -51,13 +51,10 @@ class _SignUpState extends State<SignUp> {
   Widget build(BuildContext context) {
     return Container(
       child: Scaffold(
-        // resizeToAvoidBottomInset: false,
-        // resizeToAvoidBottomPadding: false,
         backgroundColor: Colors.white,
         appBar: AppBar(
-          toolbarHeight: 30,
+          title: Text('Sign Up Page'),
           elevation: 0,
-          // brightness: Brightness.light,
           backgroundColor: Colors.lightBlueAccent,
           leading: IconButton(
               onPressed: () {
@@ -73,7 +70,6 @@ class _SignUpState extends State<SignUp> {
           child: SingleChildScrollView(
             child: Container(
               decoration: BoxDecoration(
-                // color: Colors.redAccent.withOpacity(0.5),
                 color: Color.fromARGB(100, 22, 44, 33),
                 image: DecorationImage(
                     image: AssetImage("assets/images/sign_up_background.jpg"),
@@ -84,138 +80,131 @@ class _SignUpState extends State<SignUp> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Column(
-                    children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Text(
-                            "Sign Up",
-                            style: TextStyle(
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Text(
-                            "Create an Account",
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.grey[700],
-                            ),
-                          ),
-                          SizedBox(
-                            height: 30,
-                          )
-                        ],
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 40),
-                        child: Column(
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            makeInput(
-                                label: "Name", controller: nameController),
-                            makeInput(
-                                label: "Email", controller: emailController),
-                            makeInput(
-                                label: "Password",
-                                obsureText: true,
-                                controller: passwordController),
-                            makeInput(
-                                label: "Confirm Password",
-                                obsureText: true,
-                                controller: password2Controller)
+                            Text(
+                              "Create an Account",
+                              style: TextStyle(
+                                fontSize: 25,
+                                color: Colors.cyanAccent,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 30,
+                            )
                           ],
                         ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 40),
-                        child: Container(
-                          //   padding: EdgeInsets.only(top: 3, left: 3),
-                          //   decoration: BoxDecoration(
-                          //       borderRadius: BorderRadius.circular(40),
-                          //       border: Border(
-                          //           bottom: BorderSide(color: Colors.black),
-                          //           top: BorderSide(color: Colors.black),
-                          //           right: BorderSide(color: Colors.black),
-                          //           left: BorderSide(color: Colors.black))),
-                          child: MaterialButton(
-                            minWidth: double.infinity,
-                            height: 50,
-                            color: Colors.pink,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(50)),
-                            child: Text(
-                              "SIGN UP",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20,
-                                  letterSpacing: 3,
-                                  wordSpacing: 5),
-                            ),
-                            onPressed: () async {
-                              String name = nameController.text;
-                              String email = emailController.text;
-                              String password = passwordController.text;
-                              String password_2 = password2Controller.text;
-                              //Xử lý regex cho name và email
-                              if (!hexEmail.hasMatch(email)) {
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(const SnackBar(
-                                  content: Text(
-                                    'Email is not valid.',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  backgroundColor: Colors.red,
-                                ));
-                              }
-                              if (password.compareTo(password_2) != 0) {
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(const SnackBar(
-                                  content: Text(
-                                    'Password does not match.',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  backgroundColor: Colors.red,
-                                ));
-                              }
-                              if (await sign_up(name, email, password)) {
-                                print("Create successfully!");
-                                Navigator.pushNamed(context, '/login');
-                              }
-                            },
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 40),
+                          child: Column(
+                            children: [
+                              makeInput(
+                                  label: "Name", controller: nameController),
+                              makeInput(
+                                  label: "Email", controller: emailController),
+                              makeInput(
+                                  label: "Password",
+                                  obsureText: true,
+                                  controller: passwordController),
+                              makeInput(
+                                  label: "Confirm Password",
+                                  obsureText: true,
+                                  controller: password2Controller)
+                            ],
                           ),
                         ),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text("Already have an account? "),
-                          TextButton(
-                            child: const Text(
-                              "Login",
-                              style: TextStyle(
-                                  color: Colors.cyanAccent,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 18),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 40),
+                          child: Container(
+                            //   padding: EdgeInsets.only(top: 3, left: 3),
+                            //   decoration: BoxDecoration(
+                            //       borderRadius: BorderRadius.circular(40),
+                            //       border: Border(
+                            //           bottom: BorderSide(color: Colors.black),
+                            //           top: BorderSide(color: Colors.black),
+                            //           right: BorderSide(color: Colors.black),
+                            //           left: BorderSide(color: Colors.black))),
+                            child: MaterialButton(
+                              minWidth: double.infinity,
+                              height: 50,
+                              color: Colors.pink,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(50)),
+                              child: Text(
+                                "SIGN UP",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                    letterSpacing: 3,
+                                    wordSpacing: 5),
+                              ),
+                              onPressed: () async {
+                                String name = nameController.text;
+                                String email = emailController.text;
+                                String password = passwordController.text;
+                                String password_2 = password2Controller.text;
+                                //Xử lý regex cho name và email
+                                if (!hexEmail.hasMatch(email)) {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(const SnackBar(
+                                    content: Text(
+                                      'Email is not valid.',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    backgroundColor: Colors.red,
+                                  ));
+                                }
+                                if (password.compareTo(password_2) != 0) {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(const SnackBar(
+                                    content: Text(
+                                      'Password does not match.',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    backgroundColor: Colors.red,
+                                  ));
+                                }
+                                if (await sign_up(name, email, password)) {
+                                  print("Create successfully!");
+                                  Navigator.pushNamed(context, '/login');
+                                }
+                              },
                             ),
-                            onPressed: () {
-                              Navigator.pushNamed(context, '/login');
-                            },
                           ),
-                        ],
-                      )
-                    ],
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("Already have an account? "),
+                            TextButton(
+                              child: const Text(
+                                "Login",
+                                style: TextStyle(
+                                    color: Colors.cyanAccent,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 18),
+                              ),
+                              onPressed: () {
+                                Navigator.pushNamed(context, '/login');
+                              },
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 ],
               ),

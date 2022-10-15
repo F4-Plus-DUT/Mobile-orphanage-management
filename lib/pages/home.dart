@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:orphanage_management_system/models/Account.dart';
 import 'package:orphanage_management_system/models/Category.dart';
-import 'package:orphanage_management_system/pages/user.dart';
 import 'package:orphanage_management_system/pages/utils.dart';
 import 'package:orphanage_management_system/services/CategoryService.dart';
 
@@ -20,6 +19,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text('Home Page'),
         backgroundColor: Colors.blue,
@@ -51,14 +51,8 @@ class _HomeState extends State<Home> {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           Expanded(
-                              // child: Image.network(
-                              //   'https://tech.pelmorex.com/wp-content/uploads/2020/10/flutter.png',
-                              //   fit: BoxFit.fill,
-                              // ),
                               child: GestureDetector(
                                   onTap: () {
-                                    // Navigator.pushNamed(context, '/user');
-                                    // print("Navigate to account page");
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -71,16 +65,23 @@ class _HomeState extends State<Home> {
                                     );
                                   },
                                   child: CircleAvatar(
-                                    backgroundImage: AssetImage(
-                                      'assets/${categories[i].image}',
+                                    radius: 30,
+                                    backgroundColor: Colors.white,
+                                    // backgroundImage: AssetImage(
+                                    //   'assets/${categories[i].image}',
+                                    // ),
+                                    // backgroundColor: Colors.transparent,
+                                    child: ClipOval(
+                                      child: Image.asset(
+                                        'assets/${categories[i].image}',
+                                      ),
                                     ),
-                                    backgroundColor: Colors.transparent,
                                   ))),
                           Center(
                             child: Text(
                               '${categories[i].title}',
                               style: TextStyle(
-                                fontSize: 16,
+                                fontSize: 20,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -94,17 +95,6 @@ class _HomeState extends State<Home> {
                               ),
                             ),
                           ),
-                          // Row(
-                          //   children: [
-                          //     Text(
-                          //       'Subtitle',
-                          //       style: TextStyle(
-                          //         fontWeight: FontWeight.bold,
-                          //         fontSize: 15,
-                          //       ),
-                          //     ),
-                          //   ],
-                          // )
                         ],
                       ),
                     ],
@@ -115,19 +105,24 @@ class _HomeState extends State<Home> {
           },
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            childAspectRatio: 1.0,
-            crossAxisSpacing: 0.0,
-            mainAxisSpacing: 5,
-            mainAxisExtent: 264,
+            childAspectRatio: 2,
+            crossAxisSpacing: 30,
+            mainAxisSpacing: 10,
+            mainAxisExtent: 300,
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Add your onPressed code here!
-        },
-        backgroundColor: Colors.grey[700],
-        child: const Icon(Icons.settings),
+      floatingActionButton: Container(
+        width: 50.0,
+        height: 50.0,
+        child: FloatingActionButton(
+          onPressed: () {
+
+          },
+          backgroundColor: Colors.pink,
+          child: const Icon(Icons.settings),
+
+        ),
       ),
     );
   }

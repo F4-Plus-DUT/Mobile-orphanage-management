@@ -6,7 +6,6 @@ import 'package:orphanage_management_system/pages/utils.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
-
   @override
   State<Login> createState() => _LoginState();
 }

@@ -16,9 +16,8 @@ class _ResetPasswordState extends State<ResetPassword> {
       child: Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
-            toolbarHeight: 30,
+            title: Text("Reset Password Page"),
             elevation: 0,
-            // brightness: Brightness.light,
             backgroundColor: Colors.lightBlueAccent,
             leading: IconButton(
                 onPressed: () {
@@ -56,10 +55,9 @@ class _ResetPasswordState extends State<ResetPassword> {
                     decoration: InputDecoration(
                       contentPadding:
                           EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-
                       border: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(50.0),
+                        borderSide: BorderSide(color: Colors.grey),
+                        borderRadius: BorderRadius.circular(50.0),
                       ),
                     ),
                   ),
@@ -75,15 +73,15 @@ class _ResetPasswordState extends State<ResetPassword> {
 
                     children: [
                       ElevatedButton(
-
-                        onPressed: () {
-                          // Add your onPressed code here!
-                        },
-                        child: Text("Send Reset Link", style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),),
+                        onPressed: () {},
+                        child: Text(
+                          "Send Reset Link",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
+                        ),
                         style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.pink,
                             fixedSize: const Size(300, 50),
