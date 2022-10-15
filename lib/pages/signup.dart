@@ -51,7 +51,7 @@ class _SignUpState extends State<SignUp> {
   Widget build(BuildContext context) {
     return Container(
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
+        // resizeToAvoidBottomInset: false,
         // resizeToAvoidBottomPadding: false,
         backgroundColor: Colors.white,
         appBar: AppBar(

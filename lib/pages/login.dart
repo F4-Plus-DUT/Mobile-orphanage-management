@@ -74,7 +74,6 @@ class _LoginState extends State<Login> {
                 child: TextField(
                   controller: nameController,
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(),
                     labelText: 'User Name',
                     labelStyle: TextStyle(
                         color: myFocusNode.hasFocus
