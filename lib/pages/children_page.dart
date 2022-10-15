@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:orphanage_management_system/models/children.dart';
+import 'package:orphanage_management_system/network/children.dart';
 import 'package:orphanage_management_system/pages/children_item.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -12,6 +13,20 @@ class ChildrenPage extends StatefulWidget {
 }
 
 class _ChildrenPageState extends State<ChildrenPage> {
+  List<Children> data = [];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    ChildrenNetWork.fetchChildren().then((value) => {
+          setState(
+            () {
+              data = value;
+            },
+          )
+        });
+  }
+
   late List<Children> childrenList = [
     Children(
         id: "0eef8b2e-c9bb-46e1-af95-cd75a1ce3ecf",

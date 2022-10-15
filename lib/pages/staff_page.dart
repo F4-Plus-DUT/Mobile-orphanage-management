@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:orphanage_management_system/models/profile.dart';
+import 'package:orphanage_management_system/network/profile.dart';
 import 'package:orphanage_management_system/pages/staff_item.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -12,6 +13,20 @@ class StaffPage extends StatefulWidget {
 }
 
 class _StaffPageState extends State<StaffPage> {
+  List<Profile> data = [];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    ProfileNetWork.fetchProfile().then((value) => {
+          setState(
+            () {
+              data = value;
+            },
+          )
+        });
+  }
+
   late List<Profile> ProfileList = [
     Profile(
         id: "0eef8b2e-c9bb-46e1-af95-cd75a1ce3ecf",

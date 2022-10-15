@@ -97,7 +97,7 @@ class _LoginState extends State<Login> {
                         // String username = nameController.text;
                         // String password = passwordController.text;
                         // if (await loginToServer(username, password)) {
-                          Navigator.pushNamed(context, '/home');
+                        Navigator.pushNamed(context, '/home');
                         // } else {
                         //   ScaffoldMessenger.of(context)
                         //       .showSnackBar(const SnackBar(

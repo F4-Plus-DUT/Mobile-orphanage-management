@@ -1,4 +1,3 @@
-
 class Children {
   late String id;
   late String created_at;
@@ -35,5 +34,20 @@ class Children {
         personal_picture: data['personal_picture'],
         join_date: data['join_date'],
         status: data['status']);
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['created_at'] = this.created_at;
+    data['updated_at'] = this.updated_at;
+    data['is_active'] = this.is_active;
+    data['name'] = this.name;
+    data['gender'] = this.gender;
+    data['age'] = this.age;
+    data['personal_picture'] = this.personal_picture;
+    data['join_date'] = this.join_date;
+    data['status'] = this.status;
+    return data;
   }
 }
