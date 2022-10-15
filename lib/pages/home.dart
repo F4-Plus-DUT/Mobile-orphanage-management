@@ -3,6 +3,7 @@ import 'package:orphanage_management_system/models/Account.dart';
 import 'package:orphanage_management_system/models/Category.dart';
 import 'package:orphanage_management_system/pages/utils.dart';
 import 'package:orphanage_management_system/services/CategoryService.dart';
+import 'package:orphanage_management_system/services/SettingConstant.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -12,10 +13,8 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   List<Category> categories = CategoryService.getAllCategories();
   Account account = new Account(
-      name: 'Tran Cong Viet',
-      email: 'trancongviet0710@gmail.com',
-      avatar:
-          'https://images.unsplash.com/photo-1611915387288-fd8d2f5f928b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80');
+      name: 'Tran Cong Viet', email: 'trancongviet0710@gmail.com', avatar: '');
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +26,11 @@ class _HomeState extends State<Home> {
           IconButton(
             icon: const Icon(Icons.notifications),
             tooltip: 'Notifications',
-            onPressed: () {},
+            mouseCursor: MouseCursor.defer,
+            hoverColor: Colors.red,
+            onPressed: () {
+              print("Notifications");
+            },
           ),
         ],
       ),
@@ -65,15 +68,14 @@ class _HomeState extends State<Home> {
                                     );
                                   },
                                   child: CircleAvatar(
-                                    radius: 30,
                                     backgroundColor: Colors.white,
-                                    // backgroundImage: AssetImage(
-                                    //   'assets/${categories[i].image}',
-                                    // ),
-                                    // backgroundColor: Colors.transparent,
                                     child: ClipOval(
-                                      child: Image.asset(
-                                        'assets/${categories[i].image}',
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(15),
+                                        child: Container(
+                                          child: Image.asset(
+                                              'assets/${categories[i].image}'),
+                                        ),
                                       ),
                                     ),
                                   ))),
@@ -81,7 +83,7 @@ class _HomeState extends State<Home> {
                             child: Text(
                               '${categories[i].title}',
                               style: TextStyle(
-                                fontSize: 20,
+                                fontSize: 15,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -90,7 +92,7 @@ class _HomeState extends State<Home> {
                             child: Text(
                               '${categories[i].subtitle}',
                               style: TextStyle(
-                                fontSize: 12,
+                                fontSize: 10,
                                 fontStyle: FontStyle.italic,
                               ),
                             ),
@@ -105,25 +107,43 @@ class _HomeState extends State<Home> {
           },
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            childAspectRatio: 2,
-            crossAxisSpacing: 30,
+            childAspectRatio: 1,
+            crossAxisSpacing: 50,
             mainAxisSpacing: 10,
             mainAxisExtent: 300,
           ),
         ),
       ),
       floatingActionButton: Container(
-        width: 50.0,
-        height: 50.0,
-        child: FloatingActionButton(
-          onPressed: () {
-
-          },
-          backgroundColor: Colors.pink,
-          child: const Icon(Icons.settings),
-
-        ),
-      ),
+          width: 50.0,
+          height: 50.0,
+          decoration: new BoxDecoration(
+              color: Colors.pink, borderRadius: BorderRadius.circular(50.0)),
+          child: Container(
+            child: PopupMenuButton<String>(
+              color: Colors.pinkAccent,
+              icon: Icon(Icons.settings),
+              onSelected: choiceAction,
+              itemBuilder: (BuildContext context) {
+                return SettingConstant.choices.map((choice) {
+                  return PopupMenuItem<String>(
+                    height: 30,
+                    padding: EdgeInsets.all(5),
+                    mouseCursor: MaterialStateMouseCursor.clickable,
+                    value: choice,
+                    child: Text(
+                      choice,
+                      style: TextStyle(color: Colors.white, fontSize: 15.0),
+                    ),
+                  );
+                }).toList();
+              },
+            ),
+          )),
     );
+  }
+
+  void choiceAction(String choice) {
+    print(choice);
   }
 }
