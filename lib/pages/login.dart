@@ -24,7 +24,7 @@ class _LoginState extends State<Login> {
                 <String, String>{'email': username, 'password': password}))
         .then((response) {
       // var body = json.decode(response.body);
-      print(response.statusCode);
+      // print(response.statusCode);
       // print(body);
       if (response.statusCode == 200) {
         isSuccessfully = true;
@@ -35,122 +35,188 @@ class _LoginState extends State<Login> {
 
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  FocusNode myFocusNode = new FocusNode();
+  bool _value = false;
   @override
   Widget build(BuildContext context) {
     return Center(
-      // child: Column(
-      //   mainAxisAlignment: MainAxisAlignment
-      //       .center, //Center Column contents vertically,
-      //   crossAxisAlignment: CrossAxisAlignment
-      //       .center, //Center Column contents horizontally,
-      //   children: [
       child: Scaffold(
           body: Padding(
         padding: const EdgeInsets.all(10),
-        child: ListView(
-          children: <Widget>[
-            Container(
-                alignment: Alignment.center,
-                padding: const EdgeInsets.all(10),
-                child: const Text(
-                  'F5 DUT',
-                  style: TextStyle(
-                      color: Colors.blue,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 50),
-                )),
-            DecoratedBox(
-                decoration: BoxDecoration(),
-                child: Center(child: FlutterLogo(size: 200))),
-            Container(
-              alignment: Alignment.center,
-              padding: const EdgeInsets.all(10),
-              child: const Text(
-                'Login',
-                style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.blue,
-                ),
-              ),
+        child: Center(
+          child: Container(
+            decoration: BoxDecoration(
+              // color: Colors.redAccent.withOpacity(0.5),
+              color: Color.fromARGB(100, 22, 44, 33),
+              image: DecorationImage(
+                  image: AssetImage("assets/images/background.jpg"),
+                  fit: BoxFit.cover),
             ),
-            Container(
-              padding: const EdgeInsets.all(10),
-              child: TextField(
-                controller: nameController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'User Name',
-                ),
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-              child: TextField(
-                obscureText: true,
-                controller: passwordController,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Password',
-                ),
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-                //forgot password screen
-                Navigator.pushNamed(context, '/resetpwd');
-              },
-              child: const Text(
-                'Forgot Password',
-              ),
-            ),
-            Container(
-                height: 50,
-                padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                child: ElevatedButton(
-                  child: const Text('Login'),
-                  onPressed: () async {
-                    // String username = nameController.text;
-                    // String password = passwordController.text;
-                    // if (await loginToServer(username, password)) {
-                    Navigator.pushNamed(context, '/home');
-                    // } else {
-                    //   ScaffoldMessenger.of(context)
-                    //       .showSnackBar(const SnackBar(
-                    //     content: Text(
-                    //       'Account is invalid. Please try again!',
-                    //       style: TextStyle(
-                    //         color: Colors.white,
-                    //       ),
-                    //     ),
-                    //     backgroundColor: Colors.red,
-                    //   ));
-                    // }
-                  },
-                )),
-            Row(
-              mainAxisAlignment:
-                  MainAxisAlignment.center, //Center Row contents horizontally,
-              crossAxisAlignment:
-                  CrossAxisAlignment.center, //Center Row contents vertically,
+            child: ListView(
               children: <Widget>[
-                const Text('Does not have account?'),
-                TextButton(
-                  child: const Text(
-                    'Sign up',
-                    style: TextStyle(fontSize: 20),
+                Container(
+                    alignment: Alignment.center,
+                    padding: const EdgeInsets.all(10),
+                    child: const Text(
+                      'F5 DUT',
+                      style: TextStyle(
+                          color: Colors.blue,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 50),
+                    )),
+                Container(
+                  child: Image.asset(
+                    'assets/images/login_logo.png',
+                    width: 100,
+                    height: 100,
                   ),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/signup');
-                  },
-                )
+                ),
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  child: TextField(
+                    controller: nameController,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'User Name',
+                      labelStyle: TextStyle(
+                          color: myFocusNode.hasFocus
+                              ? Colors.yellow
+                              : Colors.white),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            width: 3, color: Colors.greenAccent), //<-- SEE HERE
+                        borderRadius: BorderRadius.circular(50.0),
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  child: TextField(
+                    obscureText: true,
+                    controller: passwordController,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Password',
+                      labelStyle: TextStyle(
+                          color: myFocusNode.hasFocus
+                              ? Colors.yellow
+                              : Colors.white),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            width: 3, color: Colors.greenAccent), //<-- SEE HERE
+                        borderRadius: BorderRadius.circular(50.0),
+                      ),
+                    ),
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    new Flexible(
+                      child: CheckboxListTile(
+                        title: Text(
+                          "remember me",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blue,
+                              fontSize: 15),
+                        ),
+                        autofocus: false,
+                        activeColor: Colors.green,
+                        checkColor: Colors.white,
+                        selected: _value,
+                        value: _value,
+                        onChanged: (bool? value) {
+                          setState(() {
+                            _value = value!;
+                          });
+                        },
+                        controlAffinity: ListTileControlAffinity
+                            .leading, //  <-- leading Checkbox
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 16, horizontal: 24),
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.pushNamed(context, '/resetpwd');
+                        },
+                        child: Text(
+                          "Forgot Password?",
+                          style: TextStyle(
+                              color: Colors.blue,
+                              fontWeight: FontWeight.bold,
+                              fontStyle: FontStyle.italic),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Container(
+                    height: 50,
+                    padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    child: ElevatedButton(
+                      child: const Text('LOGIN',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              letterSpacing: 5)),
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.pink,
+                          fixedSize: const Size(300, 100),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50))),
+                      onPressed: () async {
+                        // String username = nameController.text;
+                        // String password = passwordController.text;
+                        // if (await loginToServer(username, password)) {
+                        Navigator.pushNamed(context, '/home');
+                        // } else {
+                        //   ScaffoldMessenger.of(context)
+                        //       .showSnackBar(const SnackBar(
+                        //     content: Text(
+                        //       'Account is invalid. Please try again!',
+                        //       style: TextStyle(
+                        //         color: Colors.white,
+                        //       ),
+                        //     ),
+                        //     backgroundColor: Colors.red,
+                        //   ));
+                        // }
+                      },
+                    )),
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment
+                        .center, //Center Row contents horizontally,
+                    crossAxisAlignment: CrossAxisAlignment
+                        .center, //Center Row contents vertically,
+                    children: <Widget>[
+                      const Text(
+                        "Don't have an account?",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      TextButton(
+                        child: const Text(
+                          'Sign up',
+                          style: TextStyle(
+                              fontSize: 15, fontStyle: FontStyle.italic),
+                        ),
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/signup');
+                        },
+                      )
+                    ],
+                  ),
+                ),
               ],
             ),
-          ],
+          ),
         ),
       )),
-      //   ],
-      // ),
     );
   }
 }
