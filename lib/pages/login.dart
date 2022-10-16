@@ -2,6 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:orphanage_management_system/pages/home.dart';
+import 'package:orphanage_management_system/pages/reset_pwd.dart';
+import 'package:orphanage_management_system/pages/signup.dart';
 import 'package:orphanage_management_system/pages/utils.dart';
 
 class Login extends StatefulWidget {
@@ -144,7 +147,10 @@ class _LoginState extends State<Login> {
                         vertical: 16, horizontal: 24),
                     child: InkWell(
                       onTap: () {
-                        Navigator.pushNamed(context, '/reset_pwd');
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ResetPassword()));
                       },
                       child: Text(
                         "Forgot Password?",
@@ -175,7 +181,8 @@ class _LoginState extends State<Login> {
                       // String username = nameController.text;
                       // String password = passwordController.text;
                       // if (await loginToServer(username, password)) {
-                      Navigator.pushNamed(context, '/home');
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Home()));
                       // } else {
                       //   ScaffoldMessenger.of(context)
                       //       .showSnackBar(const SnackBar(
@@ -209,7 +216,8 @@ class _LoginState extends State<Login> {
                             fontSize: 15, fontStyle: FontStyle.italic),
                       ),
                       onPressed: () {
-                        Navigator.pushNamed(context, '/signup');
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => SignUp()));
                       },
                     )
                   ],

@@ -22,8 +22,8 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    _themeManager.addListener(themeListener);
     super.initState();
+    _themeManager.addListener(themeListener);
   }
 
   themeListener() {

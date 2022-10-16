@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:orphanage_management_system/pages/login.dart';
 import 'package:orphanage_management_system/pages/utils.dart';
 
 class SignUp extends StatefulWidget {
@@ -199,7 +200,10 @@ class _SignUpState extends State<SignUp> {
                                     fontSize: 18),
                               ),
                               onPressed: () {
-                                Navigator.pushNamed(context, '/login');
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Login()));
                               },
                             ),
                           ],
