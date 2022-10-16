@@ -1,4 +1,4 @@
-class SettingConstant{
+class SettingConstant {
   static const String Display = "Display";
   static const String Privacy = "Privacy";
   static const String Subscribe = "Subscribe";
@@ -7,8 +7,11 @@ class SettingConstant{
   static const String LogOut = "Logout";
 
   static List<String> choices = <String>[
-    Display, Privacy, Subscribe, Help, Feedback, LogOut
+    Display,
+    Privacy,
+    Subscribe,
+    Help,
+    Feedback,
+    LogOut
   ];
-
-
 }

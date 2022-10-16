@@ -7,6 +7,7 @@ class Loading extends StatefulWidget {
   @override
   State<Loading> createState() => _LoadingState();
 }
+
 class _LoadingState extends State<Loading> {
   void goToLogin() async {
     await Future.delayed(Duration(seconds: 4));

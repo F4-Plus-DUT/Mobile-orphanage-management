@@ -6,12 +6,14 @@ import 'package:orphanage_management_system/pages/utils.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
+
   @override
   State<Login> createState() => _LoginState();
 }
 
 class _LoginState extends State<Login> {
   String login_url = Utility.BASE_URL + "api/v1/user/action/login";
+
   Future<bool> loginToServer(username, password) async {
     bool isSuccessfully = false;
     await http
@@ -25,6 +27,7 @@ class _LoginState extends State<Login> {
       // var body = json.decode(response.body);
       // print(response.statusCode);
       // print(body);
+      // Utility.ACCESS_TOKEN = body['access_token'];
       if (response.statusCode == 200) {
         isSuccessfully = true;
       }
@@ -36,6 +39,7 @@ class _LoginState extends State<Login> {
   TextEditingController passwordController = TextEditingController();
   FocusNode myFocusNode = new FocusNode();
   bool _value = false;
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -43,7 +47,6 @@ class _LoginState extends State<Login> {
           body: Center(
         child: Container(
           decoration: BoxDecoration(
-            // color: Colors.redAccent.withOpacity(0.5),
             color: Color.fromARGB(100, 22, 44, 33),
             image: DecorationImage(
                 image: AssetImage("assets/images/background.jpg"),
@@ -79,8 +82,9 @@ class _LoginState extends State<Login> {
                             ? Colors.yellow
                             : Colors.white),
                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                          width: 3, color: Colors.greenAccent), //<-- SEE HERE
+                      borderSide:
+                          BorderSide(width: 3, color: Colors.greenAccent),
+                      //<-- SEE HERE
                       borderRadius: BorderRadius.circular(50.0),
                     ),
                   ),
@@ -99,8 +103,9 @@ class _LoginState extends State<Login> {
                             ? Colors.yellow
                             : Colors.white),
                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                          width: 3, color: Colors.greenAccent), //<-- SEE HERE
+                      borderSide:
+                          BorderSide(width: 3, color: Colors.greenAccent),
+                      //<-- SEE HERE
                       borderRadius: BorderRadius.circular(50.0),
                     ),
                   ),

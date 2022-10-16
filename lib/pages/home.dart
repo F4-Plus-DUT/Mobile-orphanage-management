@@ -1,28 +1,71 @@
 import 'package:flutter/material.dart';
-import 'package:orphanage_management_system/models/Account.dart';
 import 'package:orphanage_management_system/models/Category.dart';
 import 'package:orphanage_management_system/pages/utils.dart';
 import 'package:orphanage_management_system/services/CategoryService.dart';
 import 'package:orphanage_management_system/services/SettingConstant.dart';
+import 'package:orphanage_management_system/services/ThemeManager.dart';
+
+import '../services/ThemeConstant.dart';
+
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void dispose() {
+    _themeManager.removeListener(themeListener);
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    _themeManager.addListener(themeListener);
+    super.initState();
+  }
+
+  themeListener() {
+    if (mounted) {
+      setState(() {});
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: lightTheme,
+      darkTheme: darkTheme,
+      themeMode: _themeManager.themeMode,
+      home: Home(),
+    );
+  }
+}
 
 class Home extends StatefulWidget {
   @override
-  State<Home> createState() => _HomeState();
+  _HomeState createState() => _HomeState();
 }
+
+ThemeManager _themeManager = ThemeManager();
 
 class _HomeState extends State<Home> {
   List<Category> categories = CategoryService.getAllCategories();
-  Account account = new Account(
-      name: 'Tran Cong Viet', email: 'trancongviet0710@gmail.com', avatar: '');
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      // backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text('Home Page'),
         backgroundColor: Colors.blue,
         actions: [
+          Switch(
+              value: _themeManager.themeMode == ThemeMode.dark,
+              onChanged: (newValue) {
+                _themeManager.toggleTheme(newValue);
+              }),
           IconButton(
             icon: const Icon(Icons.notifications),
             tooltip: 'Notifications',
@@ -62,13 +105,13 @@ class _HomeState extends State<Home> {
                                         builder: (context) =>
                                             Utility.getStatefulWidget(
                                                 categories[i].name),
-                                        settings:
-                                            RouteSettings(arguments: account),
+                                        // settings:
+                                        //     RouteSettings(arguments: account),
                                       ),
                                     );
                                   },
                                   child: CircleAvatar(
-                                    backgroundColor: Colors.white,
+                                    backgroundColor: Colors.blue,
                                     child: ClipOval(
                                       child: Padding(
                                         padding: const EdgeInsets.all(15),
@@ -144,6 +187,17 @@ class _HomeState extends State<Home> {
   }
 
   void choiceAction(String choice) {
-    print(choice);
+    if (choice == 'Display') {
+    } else if (choice == 'Privacy') {
+    } else if (choice == 'Subscribe') {
+    } else if (choice == 'Help & Support') {
+    } else if (choice == 'Feedback') {
+    } else if (choice == 'Logout') {
+      // Navigator.push(context, new MaterialPageRoute(
+      //     builder: (context) =>
+      //     new Login())
+      // );
+      // Navigator.pushNamed(context, '/login');
+    }
   }
 }

@@ -10,6 +10,7 @@ class ResetPassword extends StatefulWidget {
 class _ResetPasswordState extends State<ResetPassword> {
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -70,7 +71,6 @@ class _ResetPasswordState extends State<ResetPassword> {
                         .center, //Center Row contents horizontally,
                     crossAxisAlignment: CrossAxisAlignment
                         .center, //Center Row contents vertically,
-
                     children: [
                       ElevatedButton(
                         onPressed: () {},

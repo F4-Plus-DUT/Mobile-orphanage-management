@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:orphanage_management_system/pages/utils.dart';
 
 class SignUp extends StatefulWidget {
@@ -13,6 +13,7 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   String signup_url = Utility.BASE_URL + "api/v1/user/action/sign_up";
+
   Future<bool> sign_up(String name, String email, String pwd) async {
     bool isSuccessfully = false;
     print("This is sign up function");
