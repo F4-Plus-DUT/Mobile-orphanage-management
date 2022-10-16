@@ -182,7 +182,7 @@ class _LoginState extends State<Login> {
                       // String password = passwordController.text;
                       // if (await loginToServer(username, password)) {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Home()));
+                          MaterialPageRoute(builder: (context) => MyApp()));
                       // } else {
                       //   ScaffoldMessenger.of(context)
                       //       .showSnackBar(const SnackBar(
