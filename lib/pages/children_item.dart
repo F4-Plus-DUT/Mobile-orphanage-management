@@ -37,7 +37,7 @@ class _ChildrenItemState extends State<ChildrenItem> {
             borderRadius: BorderRadius.circular(99),
             child: Image.network(
               widget.children.personal_picture ??
-                  "https://img4.thuthuatphanmem.vn/uploads/2020/12/26/hinh-nen-one-piece-chibi-cute_120602855.jpg",
+                  "https://t3.ftcdn.net/jpg/02/09/37/00/360_F_209370065_JLXhrc5inEmGl52SyvSPeVB23hB6IjrR.jpg  ",
               width: 70,
               height: 70,
               fit: BoxFit.cover,
