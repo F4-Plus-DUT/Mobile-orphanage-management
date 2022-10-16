@@ -15,6 +15,5 @@ class _ChildrenState extends State<Children> {
     return Scaffold(
       body: Text("Children Page"),
     );
-
   }
 }
