@@ -1,12 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.orphanage_management_system">
-<<<<<<< HEAD
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />  
-=======
 
     <uses-permission android:name="android.permission.INTERNET" />
->>>>>>> viet-branch
     <application
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
