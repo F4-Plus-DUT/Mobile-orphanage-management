@@ -1,30 +1,80 @@
 import 'package:flutter/material.dart';
 import 'package:orphanage_management_system/models/category.dart';
 import 'package:orphanage_management_system/pages/children_page.dart';
-import 'package:orphanage_management_system/services/category_service.dart';
-import 'package:orphanage_management_system/models/account.dart';
-import 'package:orphanage_management_system/pages/user.dart';
 import 'package:orphanage_management_system/pages/utils.dart';
+import 'package:orphanage_management_system/services/setting_constant.dart';
+import 'package:orphanage_management_system/services/theme_manager.dart';
+import 'package:orphanage_management_system/services/category_service.dart';
+
+import '../services/theme_constant.dart';
+
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void dispose() {
+    _themeManager.removeListener(themeListener);
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    _themeManager.addListener(themeListener);
+    super.initState();
+  }
+
+  themeListener() {
+    if (mounted) {
+      setState(() {});
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: lightTheme,
+      darkTheme: darkTheme,
+      themeMode: _themeManager.themeMode,
+      home: Home(),
+    );
+  }
+}
 
 class Home extends StatefulWidget {
   @override
-  State<Home> createState() => _HomeState();
+  _HomeState createState() => _HomeState();
 }
+
+ThemeManager _themeManager = ThemeManager();
 
 class _HomeState extends State<Home> {
   List<Category> categories = CategoryService.getAllCategories();
-  Account account = new Account(name: 'Tran Cong Viet', email: 'trancongviet0710@gmail.com', avatar: 'https://images.unsplash.com/photo-1611915387288-fd8d2f5f928b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80');
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text('Home Page'),
         backgroundColor: Colors.blue,
         actions: [
+          Switch(
+              value: _themeManager.themeMode == ThemeMode.dark,
+              onChanged: (newValue) {
+                _themeManager.toggleTheme(newValue);
+              }),
           IconButton(
             icon: const Icon(Icons.notifications),
             tooltip: 'Notifications',
-            onPressed: () {},
+            mouseCursor: MouseCursor.defer,
+            hoverColor: Colors.red,
+            onPressed: () {
+              print("Notifications");
+            },
           ),
         ],
       ),
@@ -53,14 +103,8 @@ class _HomeState extends State<Home> {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           Expanded(
-                              // child: Image.network(
-                              //   'https://tech.pelmorex.com/wp-content/uploads/2020/10/flutter.png',
-                              //   fit: BoxFit.fill,
-                              // ),
                               child: GestureDetector(
                                   onTap: () {
-                                    // Navigator.pushNamed(context, '/user');
-                                    // print("Navigate to account page");
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -71,16 +115,22 @@ class _HomeState extends State<Home> {
                                     );
                                   },
                                   child: CircleAvatar(
-                                    backgroundImage: AssetImage(
-                                      'assets/${categories[i].image}',
+                                    backgroundColor: Colors.blue,
+                                    child: ClipOval(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(15),
+                                        child: Container(
+                                          child: Image.asset(
+                                              'assets/${categories[i].image}'),
+                                        ),
+                                      ),
                                     ),
-                                    backgroundColor: Colors.transparent,
                                   ))),
                           Center(
                             child: Text(
                               '${categories[i].title}',
                               style: TextStyle(
-                                fontSize: 16,
+                                fontSize: 15,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -89,22 +139,11 @@ class _HomeState extends State<Home> {
                             child: Text(
                               '${categories[i].subtitle}',
                               style: TextStyle(
-                                fontSize: 12,
+                                fontSize: 10,
                                 fontStyle: FontStyle.italic,
                               ),
                             ),
                           ),
-                          // Row(
-                          //   children: [
-                          //     Text(
-                          //       'Subtitle',
-                          //       style: TextStyle(
-                          //         fontWeight: FontWeight.bold,
-                          //         fontSize: 15,
-                          //       ),
-                          //     ),
-                          //   ],
-                          // )
                         ],
                       ),
                     ],
@@ -115,21 +154,54 @@ class _HomeState extends State<Home> {
           },
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            childAspectRatio: 1.0,
-            crossAxisSpacing: 0.0,
-            mainAxisSpacing: 5,
-            mainAxisExtent: 264,
+            childAspectRatio: 1,
+            crossAxisSpacing: 50,
+            mainAxisSpacing: 10,
+            mainAxisExtent: 300,
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Add your onPressed code here!
-        },
-        backgroundColor: Colors.grey[700],
-        child: const Icon(Icons.settings),
-      ),
-
+      floatingActionButton: Container(
+          width: 50.0,
+          height: 50.0,
+          decoration: new BoxDecoration(
+              color: Colors.pink, borderRadius: BorderRadius.circular(50.0)),
+          child: Container(
+            child: PopupMenuButton<String>(
+              color: Colors.pinkAccent,
+              icon: Icon(Icons.settings),
+              onSelected: choiceAction,
+              itemBuilder: (BuildContext context) {
+                return SettingConstant.choices.map((choice) {
+                  return PopupMenuItem<String>(
+                    height: 30,
+                    padding: EdgeInsets.all(5),
+                    mouseCursor: MaterialStateMouseCursor.clickable,
+                    value: choice,
+                    child: Text(
+                      choice,
+                      style: TextStyle(color: Colors.white, fontSize: 15.0),
+                    ),
+                  );
+                }).toList();
+              },
+            ),
+          )),
     );
+  }
+
+  void choiceAction(String choice) {
+    if (choice == 'Display') {
+    } else if (choice == 'Privacy') {
+    } else if (choice == 'Subscribe') {
+    } else if (choice == 'Help & Support') {
+    } else if (choice == 'Feedback') {
+    } else if (choice == 'Logout') {
+      // Navigator.push(context, new MaterialPageRoute(
+      //     builder: (context) =>
+      //     new Login())
+      // );
+      // Navigator.pushNamed(context, '/login');
+    }
   }
 }
