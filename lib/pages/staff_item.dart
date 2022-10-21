@@ -50,11 +50,11 @@ class _StaffItemState extends State<StaffItem> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                widget.profile.name,
+                widget.profile.name ?? "-",
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.normal),
               ),
               Text(
-                widget.profile.email,
+                widget.profile.email ?? "-",
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
               ),
             ],

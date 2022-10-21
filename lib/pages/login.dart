@@ -77,6 +77,7 @@ class _LoginState extends State<Login> {
               Container(
                 padding: const EdgeInsets.all(10),
                 child: TextField(
+                  style: TextStyle(color: Colors.white),
                   controller: nameController,
                   decoration: InputDecoration(
                     labelText: 'User Name',
@@ -96,6 +97,7 @@ class _LoginState extends State<Login> {
               Container(
                 padding: const EdgeInsets.all(10),
                 child: TextField(
+                  style: TextStyle(color: Colors.white),
                   obscureText: true,
                   controller: passwordController,
                   decoration: InputDecoration(

@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:orphanage_management_system/models/user.dart';
+import 'package:orphanage_management_system/pages/utils.dart';
+import '../models/user.dart';
 
-class UsertDetail extends StatefulWidget {
+class UserDetail extends StatefulWidget {
   final User user;
 
-  const UsertDetail({super.key, required this.user});
+  const UserDetail({super.key, required this.user});
   @override
-  State<StatefulWidget> createState() => _UsertDetailState();
+  State<StatefulWidget> createState() => _UserDetailState();
 }
 
-class _UsertDetailState extends State<UsertDetail> {
+class _UserDetailState extends State<UserDetail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,7 +51,7 @@ class _UsertDetailState extends State<UsertDetail> {
                           borderRadius: BorderRadius.circular(99),
                           child: Image.network(
                             widget.user.avatar ??
-                                "https://img4.thuthuatphanmem.vn/uploads/2020/12/26/hinh-nen-one-piece-chibi-cute_120602855.jpg",
+                                Utility.DEFAULT_AVATAR,
                             width: 150,
                             height: 150,
                             fit: BoxFit.cover,
@@ -135,7 +136,7 @@ class ProfileInfo extends StatelessWidget {
     required this.value,
   }) : super(key: key);
 
-  final UsertDetail widget;
+  final UserDetail widget;
 
   @override
   Widget build(BuildContext context) {

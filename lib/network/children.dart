@@ -9,10 +9,8 @@ import 'package:orphanage_management_system/models/children.dart';
 import 'package:orphanage_management_system/pages/utils.dart';
 
 class ChildrenNetWork {
-  static String ACCESS_TOKEN =
-      'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjY1OTkwNDcyLCJpYXQiOjE2NjU5MDQwNzIsImp0aSI6IjU1MjVjNjg2ZGQyOTRjMmRhYjUyNzZjYThiNzAyNDViIiwidXNlcl9pZCI6ImU1MzM3ZjhhLThlMzYtNGJjZC1hOWVkLTQ4YjQ0MGU1Y2Q1MyJ9.ygsnkizYsf0Juq91ntBHDNtUoLFiKFhxUw9oDMj2NUY';
-  static const String url =
-      'https://c13b-14-236-42-223.ap.ngrok.io/api/v1/children?name=&age=&gender=&status=';
+  static String url = Utility.BASE_URL +
+      'api/v1/children?name=&age=&gender=&status=';
 
   static List<Children> parseChildren(String responseBody) {
     var response = json.decode(responseBody);
@@ -30,7 +28,7 @@ class ChildrenNetWork {
     final response = await http.get(
       Uri.parse(url),
       headers: {
-        HttpHeaders.authorizationHeader: 'Bearer ' + ACCESS_TOKEN,
+        HttpHeaders.authorizationHeader: 'Bearer ' + Utility.ACCESS_TOKEN,
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Credentials': 'true',

@@ -3,9 +3,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:orphanage_management_system/models/user.dart';
 import 'package:orphanage_management_system/pages/user_detail.dart';
 import 'package:orphanage_management_system/pages/utils.dart';
+
+import '../models/user.dart';
 
 class User_Page extends StatefulWidget {
   @override
@@ -62,7 +63,7 @@ class _User_PageState extends State<User_Page> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      UsertDetail(user: users[index])));
+                                      UserDetail(user: users[index])));
                         },
                         title: Text(
                           users[index].name ?? "None Data",

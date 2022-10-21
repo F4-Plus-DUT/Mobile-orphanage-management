@@ -7,9 +7,9 @@ import 'package:orphanage_management_system/pages/staff_page.dart';
 import 'package:orphanage_management_system/pages/user.dart';
 
 class Utility {
-  static String BASE_URL = "https://c13b-14-236-42-223.ap.ngrok.io/";
+  static String BASE_URL = "https://orphanage-management-web-app.azurewebsites.net/";
   static String ACCESS_TOKEN =
-      'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjY1OTg4MzQwLCJpYXQiOjE2NjU5MDE5NDAsImp0aSI6Ijk4NWJlYzUxYzIxNzRjMmFiYjc1YThjYzZiYjczNTQ5IiwidXNlcl9pZCI6IjYwNzBhODVkLWIyZWUtNDcwMS05YzllLThjZDVkODMwNmVhZiJ9.12E-dbX-DOyWs6VZ-_c1ZDoNQQnMC42qERa9v1pZyaE';
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjY2MjY2NDcwLCJpYXQiOjE2NjYxODAwNzAsImp0aSI6IjBlYjdkM2VmOTczODQ1NzZhNzIzYjYwN2Q3YzY3NGYyIiwidXNlcl9pZCI6IjYwNzBhODVkLWIyZWUtNDcwMS05YzllLThjZDVkODMwNmVhZiJ9.jWcRqyEq2RTRyC-3_qRACjYgma2TSHIwvh60xMUbVDU';
   static String DEFAULT_AVATAR =
       "https://t3.ftcdn.net/jpg/02/09/37/00/360_F_209370065_JLXhrc5inEmGl52SyvSPeVB23hB6IjrR.jpg";
   static StatefulWidget getStatefulWidget(String name) {

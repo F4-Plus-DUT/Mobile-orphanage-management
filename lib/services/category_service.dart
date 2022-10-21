@@ -1,4 +1,4 @@
-import 'package:orphanage_management_system/models/category.dart';
+import '../models/category.dart';
 
 class CategoryService {
   static List<Category> getAllCategories() {
