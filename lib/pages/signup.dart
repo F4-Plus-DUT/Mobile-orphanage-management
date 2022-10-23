@@ -16,7 +16,6 @@ class _SignUpState extends State<SignUp> {
   String signup_url = Utility.BASE_URL + "api/v1/user/action/sign_up";
   Future<bool> sign_up(String name, String email, String pwd) async {
     bool isSuccessfully = false;
-    print("This is sign up function");
     await http
         .post(Uri.parse(signup_url),
             headers: <String, String>{
@@ -28,10 +27,6 @@ class _SignUpState extends State<SignUp> {
               'password': pwd
             }))
         .then((response) {
-      // var body = json.decode(response.body);
-      print(response);
-      print(response.statusCode);
-      // print(body);
       if (response.statusCode == 201) {
         isSuccessfully = true;
       }
@@ -107,11 +102,11 @@ class _SignUpState extends State<SignUp> {
                                   label: "Email", controller: emailController),
                               makeInput(
                                   label: "Password",
-                                  obsureText: true,
+                                  obscureText: true,
                                   controller: passwordController),
                               makeInput(
                                   label: "Confirm Password",
-                                  obsureText: true,
+                                  obscureText: true,
                                   controller: password2Controller)
                             ],
                           ),
@@ -173,7 +168,6 @@ class _SignUpState extends State<SignUp> {
                                   ));
                                 }
                                 if (await sign_up(name, email, password)) {
-                                  print("Create successfully!");
                                   Navigator.pushNamed(context, '/login');
                                 }
                               },
@@ -217,7 +211,7 @@ class _SignUpState extends State<SignUp> {
   }
 }
 
-Widget makeInput({label, obsureText = false, controller}) {
+Widget makeInput({label, obscureText = false, controller}) {
   return Container(
     child: Center(
       child: Column(
@@ -236,7 +230,7 @@ Widget makeInput({label, obsureText = false, controller}) {
           ),
           TextField(
             controller: controller,
-            obscureText: obsureText,
+            obscureText: obscureText,
             decoration: InputDecoration(
               contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
               enabledBorder: OutlineInputBorder(
