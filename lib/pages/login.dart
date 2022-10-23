@@ -27,12 +27,11 @@ class _LoginState extends State<Login> {
             body: jsonEncode(
                 <String, String>{'email': username, 'password': password}))
         .then((response) {
-      // var body = json.decode(response.body);
-      // print(response.statusCode);
-      // print(body);
-      // Utility.ACCESS_TOKEN = body['access_token'];
       if (response.statusCode == 200) {
+        var body = json.decode(response.body);
         isSuccessfully = true;
+        Utility.ACCESS_TOKEN = body['token'];
+        Utility.USER_EMAIL = username;
       }
     });
     return isSuccessfully;
@@ -180,23 +179,23 @@ class _LoginState extends State<Login> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(50))),
                     onPressed: () async {
-                      // String username = nameController.text;
-                      // String password = passwordController.text;
-                      // if (await loginToServer(username, password)) {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => MyApp()));
-                      // } else {
-                      //   ScaffoldMessenger.of(context)
-                      //       .showSnackBar(const SnackBar(
-                      //     content: Text(
-                      //       'Account is invalid. Please try again!',
-                      //       style: TextStyle(
-                      //         color: Colors.white,
-                      //       ),
-                      //     ),
-                      //     backgroundColor: Colors.red,
-                      //   ));
-                      // }
+                      String username = nameController.text;
+                      String password = passwordController.text;
+                      if (await loginToServer(username, password)) {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => MyApp()));
+                      } else {
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(
+                          content: Text(
+                            'Account is invalid. Please try again!',
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
+                          backgroundColor: Colors.red,
+                        ));
+                      }
                     },
                   )),
               Container(
@@ -215,7 +214,9 @@ class _LoginState extends State<Login> {
                       child: const Text(
                         'Sign up',
                         style: TextStyle(
-                            fontSize: 15, fontStyle: FontStyle.italic, fontWeight: FontWeight.bold),
+                            fontSize: 15,
+                            fontStyle: FontStyle.italic,
+                            fontWeight: FontWeight.bold),
                       ),
                       onPressed: () {
                         Navigator.push(context,

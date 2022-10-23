@@ -8,8 +8,6 @@ import 'package:orphanage_management_system/pages/reset_pwd.dart';
 import 'package:orphanage_management_system/pages/signup.dart';
 import 'package:orphanage_management_system/pages/user.dart';
 
-import 'models/activity.dart';
-
 void main() {
   runApp(MaterialApp(initialRoute: '/', routes: {
     '/': (context) => Loading(),

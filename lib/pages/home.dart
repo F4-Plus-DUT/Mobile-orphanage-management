@@ -8,6 +8,8 @@ import 'package:orphanage_management_system/services/theme_constant.dart';
 import 'package:orphanage_management_system/services/category_service.dart';
 
 import '../models/category.dart';
+import 'change_password.dart';
+import 'help_support.dart';
 
 class MyApp extends StatefulWidget {
   @override
@@ -58,8 +60,25 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Colors.white,
       appBar: AppBar(
+        leading: PopupMenuButton<String>(
+          color: Colors.grey,
+          icon: Icon(Icons.settings),
+          onSelected: choiceAction,
+          itemBuilder: (BuildContext context) {
+            return SettingConstant.choices.map((choice) {
+              return PopupMenuItem<String>(
+                height: 30,
+                mouseCursor: MaterialStateMouseCursor.clickable,
+                value: choice,
+                child: Text(
+                  choice,
+                  style: TextStyle(color: Colors.white, fontSize: 15.0),
+                ),
+              );
+            }).toList();
+          },
+        ),
         centerTitle: true,
         title: Text('Home'),
         backgroundColor: Colors.blue,
@@ -76,26 +95,6 @@ class _HomeState extends State<Home> {
             mouseCursor: MouseCursor.defer,
             hoverColor: Colors.red,
             onPressed: () {
-              print("Notifications");
-            },
-          ),
-          PopupMenuButton<String>(
-            color: Colors.pinkAccent,
-            icon: Icon(Icons.settings),
-            onSelected: choiceAction,
-            itemBuilder: (BuildContext context) {
-              return SettingConstant.choices.map((choice) {
-                return PopupMenuItem<String>(
-                  height: 30,
-                  padding: EdgeInsets.all(5),
-                  mouseCursor: MaterialStateMouseCursor.clickable,
-                  value: choice,
-                  child: Text(
-                    choice,
-                    style: TextStyle(color: Colors.white, fontSize: 15.0),
-                  ),
-                );
-              }).toList();
             },
           ),
         ],
@@ -109,7 +108,6 @@ class _HomeState extends State<Home> {
             return Center(
               child: InkWell(
                 onTap: () {
-                  // print(categories[i].page);
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => ChildrenPage()));
                 },
@@ -127,7 +125,6 @@ class _HomeState extends State<Home> {
                           Expanded(
                               child: GestureDetector(
                                   onTap: () {
-                                    print(categories[i].name);
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
@@ -188,11 +185,10 @@ class _HomeState extends State<Home> {
   }
 
   void choiceAction(String choice) {
-    if (choice == 'Display') {
-    } else if (choice == 'Privacy') {
-    } else if (choice == 'Subscribe') {
+    if (choice == 'Change Password') {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => ChangePassword()));
     } else if (choice == 'Help & Support') {
-    } else if (choice == 'Feedback') {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => HelpAndSupport()));
     } else if (choice == 'Logout') {
       Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
     }

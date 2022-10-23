@@ -13,7 +13,6 @@ class ActivityPage extends StatefulWidget {
 }
 
 Future<List<Activity>> getAllActivities() async {
-  print("Get All Activities");
   List<Activity> activities = [];
   String activities_url = Utility.BASE_URL + "api/v1/activity?activity_type=all&page=1&page_size=2";
   final response = await http.get(
@@ -21,7 +20,6 @@ Future<List<Activity>> getAllActivities() async {
   );
   var body = json.decode(response.body);
   var results = body['results'];
-  print("results");
   List<Map<String, dynamic>> listActivity = results.cast<Map<String, dynamic>>();
   activities = listActivity.map((e) => Activity.fromJson(e)).toList();
   return activities;
@@ -36,9 +34,6 @@ class _ActivityPageState extends State<ActivityPage> {
     getAllActivities().then((value) => {
       setState(() {
         activities = value;
-        for (var activity in activities){
-          print(activity.title);
-        }
       })
     });
   }
