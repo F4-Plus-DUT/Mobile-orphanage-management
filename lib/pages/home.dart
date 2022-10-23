@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:orphanage_management_system/pages/children_page.dart';
+import 'package:orphanage_management_system/pages/login.dart';
 import 'package:orphanage_management_system/pages/utils.dart';
 import 'package:orphanage_management_system/services/setting_constant.dart';
 import 'package:orphanage_management_system/services/theme_manager.dart';
@@ -59,9 +60,11 @@ class _HomeState extends State<Home> {
     return Scaffold(
       // backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('Home Page'),
+        centerTitle: true,
+        title: Text('Home'),
         backgroundColor: Colors.blue,
         actions: [
+
           Switch(
               value: _themeManager.themeMode == ThemeMode.dark,
               onChanged: (newValue) {
@@ -74,6 +77,25 @@ class _HomeState extends State<Home> {
             hoverColor: Colors.red,
             onPressed: () {
               print("Notifications");
+            },
+          ),
+          PopupMenuButton<String>(
+            color: Colors.pinkAccent,
+            icon: Icon(Icons.settings),
+            onSelected: choiceAction,
+            itemBuilder: (BuildContext context) {
+              return SettingConstant.choices.map((choice) {
+                return PopupMenuItem<String>(
+                  height: 30,
+                  padding: EdgeInsets.all(5),
+                  mouseCursor: MaterialStateMouseCursor.clickable,
+                  value: choice,
+                  child: Text(
+                    choice,
+                    style: TextStyle(color: Colors.white, fontSize: 15.0),
+                  ),
+                );
+              }).toList();
             },
           ),
         ],
@@ -162,32 +184,6 @@ class _HomeState extends State<Home> {
           ),
         ),
       ),
-      floatingActionButton: Container(
-          width: 50.0,
-          height: 50.0,
-          decoration: new BoxDecoration(
-              color: Colors.pink, borderRadius: BorderRadius.circular(50.0)),
-          child: Container(
-            child: PopupMenuButton<String>(
-              color: Colors.pinkAccent,
-              icon: Icon(Icons.settings),
-              onSelected: choiceAction,
-              itemBuilder: (BuildContext context) {
-                return SettingConstant.choices.map((choice) {
-                  return PopupMenuItem<String>(
-                    height: 30,
-                    padding: EdgeInsets.all(5),
-                    mouseCursor: MaterialStateMouseCursor.clickable,
-                    value: choice,
-                    child: Text(
-                      choice,
-                      style: TextStyle(color: Colors.white, fontSize: 15.0),
-                    ),
-                  );
-                }).toList();
-              },
-            ),
-          )),
     );
   }
 
@@ -198,11 +194,7 @@ class _HomeState extends State<Home> {
     } else if (choice == 'Help & Support') {
     } else if (choice == 'Feedback') {
     } else if (choice == 'Logout') {
-      // Navigator.push(context, new MaterialPageRoute(
-      //     builder: (context) =>
-      //     new Login())
-      // );
-      // Navigator.pushNamed(context, '/login');
+      Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
     }
   }
 }

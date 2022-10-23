@@ -12,7 +12,7 @@ import 'models/activity.dart';
 
 void main() {
   runApp(MaterialApp(initialRoute: '/', routes: {
-    '/': (context) => Loading(),
+    '/': (context) => MyApp(),
     '/home': (context) => MyApp(),
     '/login': (context) => Login(),
     '/signup': (context) => SignUp(),
