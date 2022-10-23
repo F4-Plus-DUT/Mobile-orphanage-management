@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:orphanage_management_system/pages/utils.dart';
 
 class ResetPassword extends StatefulWidget {
   const ResetPassword({super.key});
@@ -6,7 +7,7 @@ class ResetPassword extends StatefulWidget {
   @override
   State<ResetPassword> createState() => _ResetPasswordState();
 }
-
+TextEditingController emailController = TextEditingController();
 class _ResetPasswordState extends State<ResetPassword> {
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -57,10 +58,11 @@ class _ResetPasswordState extends State<ResetPassword> {
                       contentPadding:
                           EdgeInsets.symmetric(vertical: 0, horizontal: 10),
                       border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey),
+                        borderSide: BorderSide(color: Colors.green),
                         borderRadius: BorderRadius.circular(50.0),
                       ),
                     ),
+                    controller: emailController,
                   ),
                   SizedBox(
                     height: 30,
@@ -73,7 +75,34 @@ class _ResetPasswordState extends State<ResetPassword> {
                         .center, //Center Row contents vertically,
                     children: [
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          String email = emailController.text;
+                          if (!Utility.hexEmail.hasMatch(email)){
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(const SnackBar(
+                              content: Text(
+                                'Email is not valid.',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                              ),
+                              backgroundColor: Colors.red,
+                            ));
+                          }
+                          else {
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(const SnackBar(
+                              content: Text(
+                                'A recover password was sent to your mail. \nPlease check and get it to change your password!',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                              ),
+                              duration: const Duration(seconds: 8),
+                              backgroundColor: Colors.green,
+                            ));
+                          }
+                        },
                         child: Text(
                           "Send Reset Link",
                           style: TextStyle(

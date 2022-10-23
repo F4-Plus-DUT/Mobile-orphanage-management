@@ -215,7 +215,7 @@ class _LoginState extends State<Login> {
                       child: const Text(
                         'Sign up',
                         style: TextStyle(
-                            fontSize: 15, fontStyle: FontStyle.italic),
+                            fontSize: 15, fontStyle: FontStyle.italic, fontWeight: FontWeight.bold),
                       ),
                       onPressed: () {
                         Navigator.push(context,

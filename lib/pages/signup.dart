@@ -45,10 +45,6 @@ class _SignUpState extends State<SignUp> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController password2Controller = TextEditingController();
 
-  //Regex
-  RegExp hexEmail = RegExp(
-      r'[a-zA-Z0-9.!#$%&*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$');
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -152,7 +148,7 @@ class _SignUpState extends State<SignUp> {
                                 String password = passwordController.text;
                                 String password_2 = password2Controller.text;
                                 //Xử lý regex cho name và email
-                                if (!hexEmail.hasMatch(email)) {
+                                if (!Utility.hexEmail.hasMatch(email)) {
                                   ScaffoldMessenger.of(context)
                                       .showSnackBar(const SnackBar(
                                     content: Text(

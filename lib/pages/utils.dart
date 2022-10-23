@@ -8,6 +8,9 @@ import 'package:orphanage_management_system/pages/user.dart';
 import 'package:orphanage_management_system/pages/activity.dart';
 
 class Utility {
+  //Regex
+  static RegExp hexEmail = RegExp(
+      r'[a-zA-Z0-9.!#$%&*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$');
   static String BASE_URL = "https://cf5e-14-174-34-11.ap.ngrok.io/";
   static String ACCESS_TOKEN =
       'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjY2NjAyMTY2LCJpYXQiOjE2NjY1MTU3NjYsImp0aSI6IjI4MGEyZDQ1NGM4NzQ4MzBiNmU3MzM3ODNjNGQ2MGVjIiwidXNlcl9pZCI6IjYwNzBhODVkLWIyZWUtNDcwMS05YzllLThjZDVkODMwNmVhZiJ9.CWvbOwCYlSxZcWqN2iz6-7u1u6Pip9BEdgDSz1zc8lY';
