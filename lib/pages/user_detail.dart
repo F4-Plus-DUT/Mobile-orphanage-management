@@ -32,6 +32,7 @@ class _UserDetailState extends State<UserDetail> {
               ),
               width: MediaQuery.of(context).size.width,
               height: 16,
+
             ),
             Stack(
               children: [

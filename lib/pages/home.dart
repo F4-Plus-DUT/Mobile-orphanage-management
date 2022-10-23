@@ -105,6 +105,7 @@ class _HomeState extends State<Home> {
                           Expanded(
                               child: GestureDetector(
                                   onTap: () {
+                                    print(categories[i].name);
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
