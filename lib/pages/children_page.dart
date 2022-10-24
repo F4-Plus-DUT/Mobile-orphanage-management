@@ -87,10 +87,10 @@ class _ChildrenPageState extends State<ChildrenPage> {
       body: Container(
         padding: const EdgeInsets.only(top: 16),
         child: ListView.separated(
-          itemCount: data.length,
+          itemCount: childrenList.length,
           separatorBuilder: (_, __) => Divider(),
           itemBuilder: (_, index) {
-            return ChildrenItem(children: data[index]);
+            return ChildrenItem(children: childrenList[index]);
           },
         ),
       ),

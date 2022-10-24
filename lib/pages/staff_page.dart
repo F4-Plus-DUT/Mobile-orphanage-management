@@ -87,10 +87,10 @@ class _StaffPageState extends State<StaffPage> {
       body: Container(
         padding: const EdgeInsets.only(top: 16),
         child: ListView.separated(
-          itemCount: data.length,
+          itemCount: ProfileList.length,
           separatorBuilder: (_, __) => Divider(),
           itemBuilder: (_, index) {
-            return StaffItem(profile: data[index]);
+            return StaffItem(profile: ProfileList[index]);
           },
         ),
       ),

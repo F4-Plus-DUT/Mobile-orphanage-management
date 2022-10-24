@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:orphanage_management_system/models/children.dart';
+import 'package:orphanage_management_system/pages/edit_children_info.dart';
 
 class ChildrenDetail extends StatefulWidget {
   final Children children;
@@ -90,8 +91,14 @@ class _ChildrenDetailState extends State<ChildrenDetail> {
               ),
             ),
             ElevatedButton(
-              // Edit 
-              onPressed: () {},
+              // Edit
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            EditChildren(children: widget.children)));
+              },
               child: Text('Edit Children Profile'),
             ),
             ChildrenInfo(

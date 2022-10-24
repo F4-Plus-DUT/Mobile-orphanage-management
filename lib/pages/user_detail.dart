@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:orphanage_management_system/models/user.dart';
 
+import 'edit_profile_info.dart';
+
 class UsertDetail extends StatefulWidget {
   final User user;
 
@@ -90,7 +92,13 @@ class _UsertDetailState extends State<UsertDetail> {
             ),
             ElevatedButton(
               // Edit
-              onPressed: () {},
+              onPressed: () {
+                // Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //       builder: (context) => EditStaff(profile: widget.),
+                //     ));
+              },
               child: Text('Edit User Profile'),
             ),
             ProfileInfo(
