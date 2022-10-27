@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:orphanage_management_system/models/profile.dart';
+import 'package:orphanage_management_system/pages/edit_profile_info.dart';
 
 class StaffDetail extends StatefulWidget {
   final Profile profile;
@@ -90,7 +91,13 @@ class _StaffDetailState extends State<StaffDetail> {
             ),
             ElevatedButton(
               // Edit
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => EditStaff(profile: widget.profile),
+                    ));
+              },
               child: Text('Edit Staff Profile'),
             ),
             ProfileInfo(

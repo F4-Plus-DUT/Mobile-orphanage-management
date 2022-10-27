@@ -92,7 +92,13 @@ class _UserDetailState extends State<UserDetail> {
             ),
             ElevatedButton(
               // Edit
-              onPressed: () {},
+              onPressed: () {
+                // Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //       builder: (context) => EditStaff(profile: widget.),
+                //     ));
+              },
               child: Text('Edit User Profile'),
             ),
             ProfileInfo(

@@ -10,8 +10,11 @@ import 'package:orphanage_management_system/services/category_service.dart';
 import '../models/category.dart';
 import 'change_password.dart';
 import 'help_support.dart';
+import '../models/User.dart';
 
 class MyApp extends StatefulWidget {
+  late User? currentUser;
+  MyApp({this.currentUser});
   @override
   _MyAppState createState() => _MyAppState();
 }
@@ -56,7 +59,7 @@ ThemeManager _themeManager = ThemeManager();
 
 class _HomeState extends State<Home> {
   List<Category> categories = CategoryService.getAllCategories();
-
+  ValueNotifier<int> count_unread = ValueNotifier(99);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,12 +92,39 @@ class _HomeState extends State<Home> {
               onChanged: (newValue) {
                 _themeManager.toggleTheme(newValue);
               }),
-          IconButton(
-            icon: const Icon(Icons.notifications),
-            tooltip: 'Notifications',
-            mouseCursor: MouseCursor.defer,
-            hoverColor: Colors.red,
-            onPressed: () {
+          ValueListenableBuilder(
+            valueListenable: count_unread,
+            builder: (context, value, child) {
+              return Stack(children: [
+                IconButton(
+                  icon: const Icon(Icons.notifications, color: Colors.white),
+                  tooltip: 'Notifications',
+                  mouseCursor: MouseCursor.defer,
+                  hoverColor: Colors.red,
+                  onPressed: () {
+                    count_unread.value++;
+                  },
+                ),
+                Positioned(
+                  left: 23,
+                  top: 5,
+                  child: Container(
+                    width: 20,
+                    height: 20,
+                    // color: Colors.red,
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.red,
+                        border: Border.all(color: Colors.red)),
+                    child: Center(
+                      child: Text(
+                        count_unread.value.toString(),
+                        style: TextStyle(color: Colors.white, fontSize: 10),
+                      ),
+                    ),
+                  ),
+                )
+              ]);
             },
           ),
         ],

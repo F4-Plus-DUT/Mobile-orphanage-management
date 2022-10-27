@@ -8,8 +8,9 @@ import 'package:orphanage_management_system/pages/user.dart';
 import 'package:orphanage_management_system/pages/activity.dart';
 
 class Utility {
-  static String BASE_URL = "https://cf5e-14-174-34-11.ap.ngrok.io/";
-  static String ACCESS_TOKEN = "";
+  static String BASE_URL = "https://orphanage-management.herokuapp.com/";
+  static String ACCESS_TOKEN =
+      'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjY1OTg4MzQwLCJpYXQiOjE2NjU5MDE5NDAsImp0aSI6Ijk4NWJlYzUxYzIxNzRjMmFiYjc1YThjYzZiYjczNTQ5IiwidXNlcl9pZCI6IjYwNzBhODVkLWIyZWUtNDcwMS05YzllLThjZDVkODMwNmVhZiJ9.12E-dbX-DOyWs6VZ-_c1ZDoNQQnMC42qERa9v1pZyaE';
   static String DEFAULT_AVATAR =
       "https://t3.ftcdn.net/jpg/02/09/37/00/360_F_209370065_JLXhrc5inEmGl52SyvSPeVB23hB6IjrR.jpg";
   static String USER_EMAIL = "";

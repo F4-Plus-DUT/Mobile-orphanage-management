@@ -241,7 +241,7 @@ Widget makeInput({label, obscureText = false, controller}) {
             ),
           ),
           SizedBox(
-            height: 30,
+            height: 20,
           )
         ],
       ),
