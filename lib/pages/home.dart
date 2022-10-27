@@ -7,7 +7,11 @@ import 'package:orphanage_management_system/services/theme_manager.dart';
 import 'package:orphanage_management_system/services/theme_constant.dart';
 import 'package:orphanage_management_system/services/category_service.dart';
 
+import '../models/User.dart';
+
 class MyApp extends StatefulWidget {
+  late User? currentUser;
+  MyApp({this.currentUser});
   @override
   _MyAppState createState() => _MyAppState();
 }
@@ -52,12 +56,38 @@ ThemeManager _themeManager = ThemeManager();
 
 class _HomeState extends State<Home> {
   List<Category> categories = CategoryService.getAllCategories();
-
+  ValueNotifier<int> count_unread = ValueNotifier(99);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       // backgroundColor: Colors.white,
       appBar: AppBar(
+        leading: Container(
+            width: 50.0,
+            height: 50.0,
+            decoration: new BoxDecoration(
+                color: Colors.blue, borderRadius: BorderRadius.circular(50.0)),
+            child: Container(
+              child: PopupMenuButton<String>(
+                color: Colors.blue,
+                icon: Icon(Icons.settings),
+                onSelected: choiceAction,
+                itemBuilder: (BuildContext context) {
+                  return SettingConstant.choices.map((choice) {
+                    return PopupMenuItem<String>(
+                      height: 30,
+                      padding: EdgeInsets.all(5),
+                      mouseCursor: MaterialStateMouseCursor.clickable,
+                      value: choice,
+                      child: Text(
+                        choice,
+                        style: TextStyle(color: Colors.white, fontSize: 15.0),
+                      ),
+                    );
+                  }).toList();
+                },
+              ),
+            )),
         title: Text('Home Page'),
         backgroundColor: Colors.blue,
         actions: [
@@ -66,13 +96,39 @@ class _HomeState extends State<Home> {
               onChanged: (newValue) {
                 _themeManager.toggleTheme(newValue);
               }),
-          IconButton(
-            icon: const Icon(Icons.notifications),
-            tooltip: 'Notifications',
-            mouseCursor: MouseCursor.defer,
-            hoverColor: Colors.red,
-            onPressed: () {
-              print("Notifications");
+          ValueListenableBuilder(
+            valueListenable: count_unread,
+            builder: (context, value, child) {
+              return Stack(children: [
+                IconButton(
+                  icon: const Icon(Icons.notifications, color: Colors.white),
+                  tooltip: 'Notifications',
+                  mouseCursor: MouseCursor.defer,
+                  hoverColor: Colors.red,
+                  onPressed: () {
+                    count_unread.value++;
+                  },
+                ),
+                Positioned(
+                  left: 23,
+                  top: 5,
+                  child: Container(
+                    width: 20,
+                    height: 20,
+                    // color: Colors.red,
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.red,
+                        border: Border.all(color: Colors.red)),
+                    child: Center(
+                      child: Text(
+                        count_unread.value.toString(),
+                        style: TextStyle(color: Colors.white, fontSize: 10),
+                      ),
+                    ),
+                  ),
+                )
+              ]);
             },
           ),
         ],
@@ -160,32 +216,6 @@ class _HomeState extends State<Home> {
           ),
         ),
       ),
-      floatingActionButton: Container(
-          width: 50.0,
-          height: 50.0,
-          decoration: new BoxDecoration(
-              color: Colors.pink, borderRadius: BorderRadius.circular(50.0)),
-          child: Container(
-            child: PopupMenuButton<String>(
-              color: Colors.pinkAccent,
-              icon: Icon(Icons.settings),
-              onSelected: choiceAction,
-              itemBuilder: (BuildContext context) {
-                return SettingConstant.choices.map((choice) {
-                  return PopupMenuItem<String>(
-                    height: 30,
-                    padding: EdgeInsets.all(5),
-                    mouseCursor: MaterialStateMouseCursor.clickable,
-                    value: choice,
-                    child: Text(
-                      choice,
-                      style: TextStyle(color: Colors.white, fontSize: 15.0),
-                    ),
-                  );
-                }).toList();
-              },
-            ),
-          )),
     );
   }
 

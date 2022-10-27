@@ -1,3 +1,4 @@
+import 'package:orphanage_management_system/models/User.dart';
 import 'package:orphanage_management_system/models/category.dart';
 
 class CategoryService {
@@ -45,6 +46,82 @@ class CategoryService {
           subtitle: '',
           image: 'images/statistic.png',
           page: '')
+    ];
+  }
+
+  static List<Category> getListCategoriesbyUser(User user) {
+    Roles adminrole = new Roles(id: "", name: "");
+    if (user.roles?.contains(adminrole) ?? false) {
+      return [
+        Category(
+            name: 'Account',
+            title: 'Account',
+            subtitle: '',
+            image: 'images/account.png',
+            page: ''),
+        Category(
+            name: 'Children',
+            title: 'Children',
+            subtitle: '',
+            image: 'images/children.png',
+            page: '/children_item'),
+        Category(
+            name: 'Staff',
+            title: 'Staff',
+            subtitle: '',
+            image: 'images/staff.png',
+            page: ''),
+        Category(
+            name: 'Activity',
+            title: 'Activities',
+            subtitle: 'Donation, Valuntary',
+            image: 'images/activity.png',
+            page: ''),
+        Category(
+            name: 'Event',
+            title: 'Events',
+            subtitle: 'Funny, Picnic',
+            image: 'images/event.png',
+            page: ''),
+        Category(
+            name: 'Adoption and Introduction',
+            title: 'Children Activity',
+            subtitle: 'Adoption, Introduction',
+            image: 'images/adoption.png',
+            page: ''),
+        Category(
+            name: 'Statistic',
+            title: 'Statistic',
+            subtitle: '',
+            image: 'images/statistic.png',
+            page: '')
+      ];
+    }
+    return [
+      Category(
+          name: 'Children',
+          title: 'Children',
+          subtitle: '',
+          image: 'images/children.png',
+          page: '/children_item'),
+      Category(
+          name: 'Activity',
+          title: 'Activities',
+          subtitle: 'Donation, Valuntary',
+          image: 'images/activity.png',
+          page: ''),
+      Category(
+          name: 'Event',
+          title: 'Events',
+          subtitle: 'Funny, Picnic',
+          image: 'images/event.png',
+          page: ''),
+      Category(
+          name: 'Adoption and Introduction',
+          title: 'Children Activity',
+          subtitle: 'Adoption, Introduction',
+          image: 'images/adoption.png',
+          page: ''),
     ];
   }
 }

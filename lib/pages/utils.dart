@@ -7,7 +7,7 @@ import 'package:orphanage_management_system/pages/staff_page.dart';
 import 'package:orphanage_management_system/pages/user.dart';
 
 class Utility {
-  static String BASE_URL = "https://c13b-14-236-42-223.ap.ngrok.io/";
+  static String BASE_URL = "https://orphanage-management.herokuapp.com/";
   static String ACCESS_TOKEN =
       'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjY1OTg4MzQwLCJpYXQiOjE2NjU5MDE5NDAsImp0aSI6Ijk4NWJlYzUxYzIxNzRjMmFiYjc1YThjYzZiYjczNTQ5IiwidXNlcl9pZCI6IjYwNzBhODVkLWIyZWUtNDcwMS05YzllLThjZDVkODMwNmVhZiJ9.12E-dbX-DOyWs6VZ-_c1ZDoNQQnMC42qERa9v1pZyaE';
   static String DEFAULT_AVATAR =
