@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:orphanage_management_system/models/children.dart';
 import 'package:orphanage_management_system/pages/edit_children_info.dart';
+import 'package:orphanage_management_system/pages/utils.dart';
+
 
 class ChildrenDetail extends StatefulWidget {
   final Children children;
-
-  const ChildrenDetail({super.key, required this.children});
+  const ChildrenDetail({
+    super.key,
+    required this.children,
+  });
   @override
   State<StatefulWidget> createState() => _ChildrenDetailState();
 }
@@ -52,7 +56,7 @@ class _ChildrenDetailState extends State<ChildrenDetail> {
                           borderRadius: BorderRadius.circular(99),
                           child: Image.network(
                             widget.children.personal_picture ??
-                                "https://img4.thuthuatphanmem.vn/uploads/2020/12/26/hinh-nen-one-piece-chibi-cute_120602855.jpg",
+                                Utility.DEFAULT_AVATAR,
                             width: 150,
                             height: 150,
                             fit: BoxFit.cover,
@@ -120,14 +124,19 @@ class _ChildrenDetailState extends State<ChildrenDetail> {
               widget: widget,
               label: "Join Date",
               value: DateFormat("yyyy-MM-dd")
-                  .format(DateFormat("yyyy-MM-dd'T'HH:mm:ss")
-                      .parse(widget.children.join_date))
+                  .format(DateFormat("yyyy-MM-dd'T'HH:mm:ss").parse(
+                      widget.children.join_date ?? "2022-01-01T00:00:00"))
                   .toString(),
             ),
             ChildrenInfo(
               widget: widget,
               label: "Active",
               value: widget.children.is_active.toString(),
+            ),
+            ChildrenInfo(
+              widget: widget,
+              label: "Identifier",
+              value: widget.children.identifier.toString(),
             )
           ],
         ),

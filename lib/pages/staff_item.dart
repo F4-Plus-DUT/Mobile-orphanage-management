@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:orphanage_management_system/models/profile.dart';
+import 'package:orphanage_management_system/network/profile.dart';
 import 'package:orphanage_management_system/pages/staff_detail.dart';
 
 class StaffItem extends StatefulWidget {
@@ -21,6 +22,12 @@ class _StaffItemState extends State<StaffItem> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
+        // ProfileNetWork.getDetailStaff(widget.profile.id).then((value) => {
+        //       Navigator.of(context).push(MaterialPageRoute(
+        //           builder: (context) => StaffDetail(
+        //                 profile: value,
+        //               )))
+        //     });
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => StaffDetail(
                   profile: widget.profile,

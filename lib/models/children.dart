@@ -1,26 +1,28 @@
 class Children {
   late String id;
-  late String created_at;
+  late String? created_at;
   late String? updated_at;
   late bool is_active;
   late String name;
   late int gender;
   late int age;
   late String? personal_picture;
-  late String join_date;
+  late String? join_date;
   late String status;
+  late String identifier;
 
   Children(
       {required this.id,
-      required this.created_at,
+      this.created_at,
       this.updated_at,
       required this.is_active,
       required this.name,
       required this.gender,
       required this.age,
-      required this.personal_picture,
-      required this.join_date,
-      required this.status});
+      this.personal_picture,
+      this.join_date,
+      required this.status,
+      required this.identifier});
 
   factory Children.fromJson(Map<String, dynamic> data) {
     return Children(
@@ -33,21 +35,17 @@ class Children {
         age: data['age'],
         personal_picture: data['personal_picture'],
         join_date: data['join_date'],
-        status: data['status']);
+        status: data['status'],
+        identifier: data['identifier']);
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['created_at'] = this.created_at;
-    data['updated_at'] = this.updated_at;
-    data['is_active'] = this.is_active;
     data['name'] = this.name;
-    data['gender'] = this.gender;
-    data['age'] = this.age;
-    data['personal_picture'] = this.personal_picture;
-    data['join_date'] = this.join_date;
+    data['gender'] = this.gender.toString();
+    data['age'] = this.age.toString();
     data['status'] = this.status;
+    data['identifier'] = this.identifier;
     return data;
   }
 }

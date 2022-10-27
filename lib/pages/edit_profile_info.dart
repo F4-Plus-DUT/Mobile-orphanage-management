@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:orphanage_management_system/models/profile.dart';
 import 'package:orphanage_management_system/pages/signup.dart';
+import 'package:orphanage_management_system/pages/staff_detail.dart';
+
+import '../network/profile.dart';
 
 class EditStaff extends StatefulWidget {
   late Profile profile;
@@ -123,6 +126,23 @@ class _EditStaffState extends State<EditStaff> {
                                     wordSpacing: 5),
                               ),
                               onPressed: () async {
+                                widget.profile.name = nameController.text;
+                                widget.profile.email = emailController.text;
+                                widget.profile.age =
+                                    int.parse(ageController.text);
+                                widget.profile.address = addressController.text;
+                                widget.profile.phone = phoneController.text;
+                                widget.profile.occupation =
+                                    occupationController.text;
+                                ProfileNetWork.UpdateProfileInfo(widget.profile)
+                                    .then((value) => {
+                                          Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      StaffDetail(
+                                                        profile: value,
+                                                      )))
+                                        });
                                 String name = nameController.text;
                                 String email = emailController.text;
                                 String age = ageController.text;

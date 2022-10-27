@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:orphanage_management_system/models/children.dart';
 import 'package:orphanage_management_system/pages/signup.dart';
 
+import '../network/children.dart';
+import 'children_detail.dart';
+
 class EditChildren extends StatefulWidget {
   late Children children;
   EditChildren({
@@ -114,10 +117,22 @@ class _EditChildrenState extends State<EditChildren> {
                                     wordSpacing: 5),
                               ),
                               onPressed: () async {
-                                String name = nameController.text;
-                                String gender = genderController.text;
-                                String age = ageController.text;
-                                String status = statusController.text;
+                                widget.children.name = nameController.text;
+                                widget.children.gender =
+                                    int.parse(genderController.text);
+                                widget.children.age =
+                                    int.parse(ageController.text);
+                                widget.children.status = statusController.text;
+                                ChildrenNetWork.UpdateChildrenInfo(
+                                        widget.children)
+                                    .then((value) => {
+                                          Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      ChildrenDetail(
+                                                        children: value,
+                                                      )))
+                                        });
                                 // ignore: todo
                                 // TODO: Call edit children infor here
                               },

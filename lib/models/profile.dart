@@ -35,15 +35,12 @@ class Profile {
         phone: data['phone'],
         occupation: data['occupation']);
   }
-   Map<String, dynamic> toJson() {
+  Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['created_at'] = this.created_at;
-    data['updated_at'] = this.updated_at;
     data['name'] = this.name;
+    data['email'] = this.email;
     data['address'] = this.address;
-    data['age'] = this.age;
-    data['avatar'] = this.avatar;
+    data['age'] = this.age.toString();
     data['phone'] = this.phone;
     data['occupation'] = this.occupation;
     return data;

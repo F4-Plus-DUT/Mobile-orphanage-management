@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:orphanage_management_system/models/children.dart';
+import 'package:orphanage_management_system/network/children.dart';
 import 'package:orphanage_management_system/pages/children_detail.dart';
 
 class ChildrenItem extends StatefulWidget {
@@ -21,6 +22,12 @@ class _ChildrenItemState extends State<ChildrenItem> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
+        // ChildrenNetWork.getDetailChildren(widget.children.id).then((value) => {
+        //       Navigator.of(context).push(MaterialPageRoute(
+        //           builder: (context) => ChildrenDetail(
+        //                 children: value,
+        //               )))
+        //     });
         Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => ChildrenDetail(
                   children: widget.children,
