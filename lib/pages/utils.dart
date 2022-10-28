@@ -7,15 +7,17 @@ import 'package:orphanage_management_system/pages/staff_page.dart';
 import 'package:orphanage_management_system/pages/user.dart';
 import 'package:orphanage_management_system/pages/activity.dart';
 
+import '../models/profile.dart';
+import '../models/user.dart';
+
 class Utility {
   static String BASE_URL = "https://orphanage-management.herokuapp.com/";
   static String ACCESS_TOKEN = "";
   static String DEFAULT_AVATAR =
       "https://t3.ftcdn.net/jpg/02/09/37/00/360_F_209370065_JLXhrc5inEmGl52SyvSPeVB23hB6IjrR.jpg";
-  static String USER_EMAIL = "";
   static RegExp hexEmail = RegExp(
       r'[a-zA-Z0-9.!#$%&*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$');
-
+  static Profile CURRENT_PROFILE = Profile();
   static StatefulWidget getStatefulWidget(String name) {
     if (name == 'Account') {
       return User_Page();

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:orphanage_management_system/models/children.dart';
+import 'package:orphanage_management_system/pages/utils.dart';
 
 class ChildrenDetail extends StatefulWidget {
   final Children children;
@@ -51,7 +52,7 @@ class _ChildrenDetailState extends State<ChildrenDetail> {
                           borderRadius: BorderRadius.circular(99),
                           child: Image.network(
                             widget.children.personal_picture ??
-                                "https://img4.thuthuatphanmem.vn/uploads/2020/12/26/hinh-nen-one-piece-chibi-cute_120602855.jpg",
+                                Utility.DEFAULT_AVATAR,
                             width: 150,
                             height: 150,
                             fit: BoxFit.cover,

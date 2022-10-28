@@ -7,6 +7,8 @@ import 'package:orphanage_management_system/pages/reset_pwd.dart';
 import 'package:orphanage_management_system/pages/signup.dart';
 import 'package:orphanage_management_system/pages/utils.dart';
 
+import '../models/profile.dart';
+
 class Login extends StatefulWidget {
   const Login({super.key});
 
@@ -31,7 +33,8 @@ class _LoginState extends State<Login> {
         var body = json.decode(response.body);
         isSuccessfully = true;
         Utility.ACCESS_TOKEN = body['token'];
-        Utility.USER_EMAIL = username;
+        Map<String, dynamic> profile = body['profile'].cast<String, dynamic>();
+        Utility.CURRENT_PROFILE = Profile.fromJson(profile);
       }
     });
     return isSuccessfully;
@@ -41,6 +44,23 @@ class _LoginState extends State<Login> {
   TextEditingController passwordController = TextEditingController();
   FocusNode myFocusNode = new FocusNode();
   bool _value = false;
+  Future<void> validateLogin() async {
+    String username = nameController.text;
+    String password = passwordController.text;
+    if (await loginToServer(username, password)) {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => MyApp()));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text(
+          'Account is invalid. Please try again!',
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+        backgroundColor: Colors.red,
+      ));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,6 +96,9 @@ class _LoginState extends State<Login> {
               Container(
                 padding: const EdgeInsets.all(10),
                 child: TextField(
+                  onSubmitted: (value) {
+                    validateLogin();
+                  },
                   style: TextStyle(color: Colors.white),
                   controller: nameController,
                   decoration: InputDecoration(
@@ -96,6 +119,9 @@ class _LoginState extends State<Login> {
               Container(
                 padding: const EdgeInsets.all(10),
                 child: TextField(
+                  onSubmitted: (value) {
+                    validateLogin();
+                  },
                   style: TextStyle(color: Colors.white),
                   obscureText: true,
                   controller: passwordController,
@@ -178,24 +204,8 @@ class _LoginState extends State<Login> {
                         fixedSize: const Size(300, 100),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(50))),
-                    onPressed: () async {
-                      String username = nameController.text;
-                      String password = passwordController.text;
-                      if (await loginToServer(username, password)) {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => MyApp()));
-                      } else {
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(const SnackBar(
-                          content: Text(
-                            'Account is invalid. Please try again!',
-                            style: TextStyle(
-                              color: Colors.white,
-                            ),
-                          ),
-                          backgroundColor: Colors.red,
-                        ));
-                      }
+                    onPressed: () {
+                      validateLogin();
                     },
                   )),
               Container(
