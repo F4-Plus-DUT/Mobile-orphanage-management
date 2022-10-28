@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:orphanage_management_system/pages/children_page.dart';
 import 'package:orphanage_management_system/pages/login.dart';
 import 'package:orphanage_management_system/pages/staff_page.dart';
+import 'package:orphanage_management_system/pages/statistic.dart';
 import 'package:orphanage_management_system/pages/user.dart';
 import 'package:orphanage_management_system/pages/activity.dart';
 
@@ -28,11 +29,13 @@ class Utility {
       return StaffPage();
     } else if (name == 'Activity') {
       return ActivityPage();
-    } else if (name == 'Events') {
+    } else if (name == 'Event') {
       return EventPage();
-    } else if (name == 'Children Activity') {
+    } else if (name == 'Adoption and Introduction') {
       return ChildrenActivityPage();
-    } else if (name == 'Statistic') {}
+    } else if (name == 'Statistic') {
+      return Statistic();
+    }
     return Login();
   }
 
