@@ -14,7 +14,7 @@ class ActivityPage extends StatefulWidget {
 
 Future<List<Activity>> getAllActivities() async {
   List<Activity> activities = [];
-  String activities_url = Utility.BASE_URL + "api/v1/activity?activity_type=all&page=1&page_size=2";
+  String activities_url = Utility.BASE_URL + "api/v1/activity?activity_type=all&page=1&page_size=10";
   final response = await http.get(
     Uri.parse(activities_url),
   );

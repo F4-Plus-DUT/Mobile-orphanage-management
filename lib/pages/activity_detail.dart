@@ -54,7 +54,6 @@ class _ActivityDetailState extends State<ActivityDetail> {
                         data: """
                         + ${widget.activity.content} + 
                       """,
-                        backgroundColor: Colors.grey,
                         defaultTextStyle: TextStyle(
                           fontSize: 10.0,
                         ),
