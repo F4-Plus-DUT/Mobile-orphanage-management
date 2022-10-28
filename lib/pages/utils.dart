@@ -8,7 +8,8 @@ import 'package:orphanage_management_system/pages/user.dart';
 import 'package:orphanage_management_system/pages/activity.dart';
 
 import '../models/profile.dart';
-import '../models/user.dart';
+import 'children_activity.dart';
+import 'event.dart';
 
 class Utility {
   static String BASE_URL = "https://orphanage-management.herokuapp.com/";
@@ -25,14 +26,13 @@ class Utility {
       return ChildrenPage();
     } else if (name == 'Staff') {
       return StaffPage();
-    }
-    else if (name == 'Activity') {
+    } else if (name == 'Activity') {
       return ActivityPage();
-    }
-    else if (name == 'Statistic') {
-    }
-    else if (name == 'Events') {
-    }
+    } else if (name == 'Events') {
+      return EventPage();
+    } else if (name == 'Children Activity') {
+      return ChildrenActivityPage();
+    } else if (name == 'Statistic') {}
     return Login();
   }
 
@@ -40,5 +40,4 @@ class Utility {
     List<int> bytes = text.toString().codeUnits;
     return utf8.decode(bytes);
   }
-
 }

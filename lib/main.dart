@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:orphanage_management_system/pages/activity.dart';
 import 'package:orphanage_management_system/pages/children.dart';
+import 'package:orphanage_management_system/pages/children_activity.dart';
+import 'package:orphanage_management_system/pages/event.dart';
 import 'package:orphanage_management_system/pages/home.dart';
 import 'package:orphanage_management_system/pages/loading.dart';
 import 'package:orphanage_management_system/pages/login.dart';
@@ -38,6 +40,10 @@ Future<void> main() async {
     '/user': (context) => User_Page(),
     '/children': (context) => Children(),
     '/activity': (context) => ActivityPage(),
+    '/events': (context) => EventPage(),
+    '/children_activity': (context) => ChildrenActivityPage(),
+
+
   }));
 }
 

@@ -14,13 +14,15 @@ class ActivityPage extends StatefulWidget {
 
 Future<List<Activity>> getAllActivities() async {
   List<Activity> activities = [];
-  String activities_url = Utility.BASE_URL + "api/v1/activity?activity_type=all&page=1&page_size=10";
+  String activities_url = Utility.BASE_URL +
+      "api/v1/activity?activity_type=all&page=1&page_size=10";
   final response = await http.get(
     Uri.parse(activities_url),
   );
   var body = json.decode(response.body);
   var results = body['results'];
-  List<Map<String, dynamic>> listActivity = results.cast<Map<String, dynamic>>();
+  List<Map<String, dynamic>> listActivity =
+      results.cast<Map<String, dynamic>>();
   activities = listActivity.map((e) => Activity.fromJson(e)).toList();
   return activities;
 }
@@ -32,10 +34,10 @@ class _ActivityPageState extends State<ActivityPage> {
   void initState() {
     super.initState();
     getAllActivities().then((value) => {
-      setState(() {
-        activities = value;
-      })
-    });
+          setState(() {
+            activities = value;
+          })
+        });
   }
 
   @override
@@ -52,24 +54,24 @@ class _ActivityPageState extends State<ActivityPage> {
             itemBuilder: ((context, index) {
               return Padding(
                 padding:
-                const EdgeInsets.symmetric(vertical: 2.0, horizontal: 3.0),
+                    const EdgeInsets.symmetric(vertical: 2.0, horizontal: 3.0),
                 child: Card(
                     child: ListTile(
                         onTap: () {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>
-                                      ActivityDetail(activity: activities[index])));
+                                  builder: (context) => ActivityDetail(
+                                      activity: activities[index])));
                         },
                         title: Text(
-                          activities[index].title
-                              ?? "None Data",
+                          activities[index].title ?? "None Data",
                           style: TextStyle(fontSize: 20, color: Colors.orange),
                         ),
                         leading: CircleAvatar(
                           backgroundImage: NetworkImage(
-                              activities[index].coverPicture ?? Utility.DEFAULT_AVATAR),
+                              activities[index].coverPicture ??
+                                  Utility.DEFAULT_AVATAR),
                         ))),
               );
             })));
