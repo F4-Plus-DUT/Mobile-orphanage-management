@@ -27,7 +27,7 @@ class _ChildrenPageState extends State<ChildrenPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Children Listing Page'),
+        title: Text('Children Page'),
       ),
       body: Container(
         padding: const EdgeInsets.only(top: 16),

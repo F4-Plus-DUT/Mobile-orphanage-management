@@ -85,7 +85,7 @@ class _StaffDetailState extends State<StaffDetail> {
             ),
             Center(
               child: Text(
-                widget.profile.name,
+                widget.profile.name!,
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
             ),

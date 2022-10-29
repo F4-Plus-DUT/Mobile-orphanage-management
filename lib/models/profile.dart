@@ -1,26 +1,26 @@
 class Profile {
-  late String id;
-  late String created_at;
+  late String? id;
+  late String? created_at;
   late String? updated_at;
-  late String name;
-  late String address;
-  late int age;
+  late String? name;
+  late String? address;
+  late int? age;
   late String? avatar;
-  late String phone;
-  late String email;
-  late String occupation;
+  late String? phone;
+  late String? email;
+  late String? occupation;
 
   Profile(
-      {required this.id,
-      required this.created_at,
+      {this.id,
+      this.created_at,
       this.updated_at,
-      required this.name,
-      required this.address,
-      required this.age,
-      required this.avatar,
-      required this.phone,
-      required this.email,
-      required this.occupation});
+      this.name,
+      this.address,
+      this.age,
+      this.avatar,
+      this.phone,
+      this.email,
+      this.occupation});
 
   factory Profile.fromJson(Map<String, dynamic> data) {
     return Profile(

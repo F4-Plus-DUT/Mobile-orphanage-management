@@ -1,21 +1,26 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:orphanage_management_system/pages/utils.dart';
 
 import '../models/activity.dart';
+import 'package:http/http.dart' as http;
+
 import 'activity_detail.dart';
 
-class ActivityPage extends StatefulWidget {
+class EventPage extends StatefulWidget {
   @override
-  State<ActivityPage> createState() => _ActivityPageState();
+  State<EventPage> createState() => _EventPageState();
 }
 
 Future<List<Activity>> getAllActivities() async {
+  String event_id = "8e317981-9862-4315-b4a8-daa9b8831ef2";
   List<Activity> activities = [];
   String activities_url = Utility.BASE_URL +
-      "api/v1/activity?activity_type=all&page=1&page_size=10";
+      "api/v1/activity?activity_type=" +
+      event_id +
+      "&page=1&page_size=10";
   final response = await http.get(
     Uri.parse(activities_url),
   );
@@ -27,7 +32,7 @@ Future<List<Activity>> getAllActivities() async {
   return activities;
 }
 
-class _ActivityPageState extends State<ActivityPage> {
+class _EventPageState extends State<EventPage> {
   List<Activity> activities = [];
 
   @override
@@ -45,7 +50,7 @@ class _ActivityPageState extends State<ActivityPage> {
     return Scaffold(
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
-          title: Text('Activity Page'),
+          title: Text('Events Page'),
           backgroundColor: Colors.blue,
           elevation: 0,
         ),

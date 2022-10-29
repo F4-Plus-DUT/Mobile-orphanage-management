@@ -119,6 +119,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                                     color: Colors.white,
                                   ),
                                 ),
+                                duration: const Duration(seconds: 2),
                                 backgroundColor: Colors.red,
                               ));
                             } else if (await resetPasswordSuccessfully(email)) {
@@ -130,7 +131,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                                     color: Colors.white,
                                   ),
                                 ),
-                                duration: const Duration(seconds: 8),
+                                duration: const Duration(seconds: 4),
                                 backgroundColor: Colors.green,
                               ));
                               Navigator.push(
@@ -146,6 +147,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                                     color: Colors.white,
                                   ),
                                 ),
+                                duration: const Duration(seconds: 2),
                                 backgroundColor: Colors.red,
                               ));
                             }

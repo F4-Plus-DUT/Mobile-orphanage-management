@@ -1,21 +1,24 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:orphanage_management_system/pages/utils.dart';
-
+import 'package:http/http.dart' as http;
 import '../models/activity.dart';
 import 'activity_detail.dart';
 
-class ActivityPage extends StatefulWidget {
+class ChildrenActivityPage extends StatefulWidget {
   @override
-  State<ActivityPage> createState() => _ActivityPageState();
+  State<ChildrenActivityPage> createState() => _ChildrenActivityPageState();
 }
 
 Future<List<Activity>> getAllActivities() async {
+  String children_page_id = "7cf19074-71bd-45b1-9d64-693d663bd22f";
   List<Activity> activities = [];
   String activities_url = Utility.BASE_URL +
-      "api/v1/activity?activity_type=all&page=1&page_size=10";
+      "api/v1/activity?activity_type=" +
+      children_page_id +
+      "&page=1&page_size=10";
   final response = await http.get(
     Uri.parse(activities_url),
   );
@@ -27,7 +30,7 @@ Future<List<Activity>> getAllActivities() async {
   return activities;
 }
 
-class _ActivityPageState extends State<ActivityPage> {
+class _ChildrenActivityPageState extends State<ChildrenActivityPage> {
   List<Activity> activities = [];
 
   @override
@@ -45,7 +48,7 @@ class _ActivityPageState extends State<ActivityPage> {
     return Scaffold(
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
-          title: Text('Activity Page'),
+          title: Text('Children Activity Page'),
           backgroundColor: Colors.blue,
           elevation: 0,
         ),

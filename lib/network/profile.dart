@@ -68,7 +68,7 @@ class ProfileNetWork {
   }
 
   static Future<Profile> UpdateProfileInfo(Profile staff) async {
-    String c_url = detail_url + staff.id;
+    String c_url = detail_url + (staff.id ?? "");
     print("===============DEBUG============");
     print(staff.toJson());
     final response = await http.post(

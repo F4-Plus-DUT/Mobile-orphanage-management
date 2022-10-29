@@ -55,11 +55,12 @@ class _ChangePasswordState extends State<ChangePassword> {
                 MainAxisAlignment.center, //Center Column contents vertically,
             children: [
               TextField(
-                obscureText: true,
                 style: TextStyle(color: Colors.white),
+                obscureText: true,
                 controller: old_password_controller,
                 decoration: InputDecoration(
-                  labelText: 'Old Password',
+                  labelStyle: TextStyle(color: Colors.white),
+                  labelText: 'old password',
                   contentPadding:
                       EdgeInsets.symmetric(vertical: 0, horizontal: 10),
                   enabledBorder: OutlineInputBorder(
@@ -69,12 +70,17 @@ class _ChangePasswordState extends State<ChangePassword> {
                   ),
                 ),
               ),
+              SizedBox(
+                height: 30,
+              ),
               TextField(
-                obscureText: true,
                 style: TextStyle(color: Colors.white),
+
+                obscureText: true,
                 controller: new_password_controller,
                 decoration: InputDecoration(
-                  labelText: 'New Password',
+                  labelText: 'new password',
+                  labelStyle: TextStyle(color: Colors.white),
                   contentPadding:
                       EdgeInsets.symmetric(vertical: 0, horizontal: 10),
                   enabledBorder: OutlineInputBorder(

@@ -29,7 +29,7 @@ class _StaffPageState extends State<StaffPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Staff Listing Page'),
+        title: Text('Staff Page'),
       ),
       body: Container(
         padding: const EdgeInsets.only(top: 16),
