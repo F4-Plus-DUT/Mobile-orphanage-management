@@ -69,17 +69,16 @@ class ProfileNetWork {
 
   static Future<Profile> UpdateProfileInfo(Profile staff) async {
     String c_url = detail_url + (staff.id ?? "");
-    print("===============DEBUG============");
-    print(staff.toJson());
-    final response = await http.post(
-      Uri.parse(c_url),
-      headers: {
-        HttpHeaders.authorizationHeader: 'Bearer ' + Utility.ACCESS_TOKEN,
-      },
-      body: staff.toJson(),
-    );
-    print("===============DEBUG============");
-    print(response.statusCode);
+    var uri = Uri.parse(c_url);
+    var request = http.MultipartRequest('PUT', uri);
+    request.fields['name'] = staff.name!;
+    request.fields['email'] = staff.email!;
+    request.fields['address'] = staff.address!;
+    request.fields['phone'] = staff.phone!;
+    request.fields['occupation'] = staff.occupation!;
+    request.headers['authorization'] = 'Bearer ' + Utility.ACCESS_TOKEN;
+    final streamedResponse = await request.send();
+    var response = await http.Response.fromStream(streamedResponse);
     if (response.statusCode == 200) {
       var responses = json.decode(response.body);
       Profile result = Profile.fromJson(responses);

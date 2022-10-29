@@ -2,29 +2,28 @@
 
 import 'dart:convert';
 import 'dart:io';
-import 'package:dio/dio.dart';
+
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-import 'package:orphanage_management_system/models/children.dart';
+import 'package:orphanage_management_system/models/profile.dart';
 import 'package:orphanage_management_system/pages/utils.dart';
 
-class ChildrenNetWork {
-  static String url =
-      Utility.BASE_URL + 'api/v1/children?name=&age=&gender=&status=';
-  static String detail_url = Utility.BASE_URL + 'api/v1/children/';
-  static List<Children> parseChildren(String responseBody) {
+import '../models/user.dart';
+
+class UserNetWork {
+  static String url = Utility.BASE_URL + 'api/v1/user/get_list_employee?name=';
+  static String detail_url = Utility.BASE_URL + 'api/v1/user/';
+  static List<User> parseUser(String responseBody) {
     var response = json.decode(responseBody);
     var result = response["results"];
-    List<Map<String, dynamic>> listchildren =
+    List<Map<String, dynamic>> listprofiles =
         result.cast<Map<String, dynamic>>();
-    List<Children> children =
-        listchildren.map((e) => Children.fromJson(e)).toList();
-    return children;
+    List<User> profiles = listprofiles.map((e) => User.fromJson(e)).toList();
+    return profiles;
   }
 
-  static Future<List<Children>> fetchChildren(
-      {int page = 1, int page_size = 4}) async {
-    List<Children> list = <Children>[];
+  static Future<List<User>> fetchUser({int page = 1}) async {
+    List<User> list = <User>[];
     final response = await http.get(
       Uri.parse(url),
       headers: {
@@ -37,7 +36,7 @@ class ChildrenNetWork {
       },
     );
     if (response.statusCode == 200) {
-      return compute(parseChildren, response.body);
+      return compute(parseUser, response.body);
     } else if (response.statusCode == 404) {
       throw Exception('Not found');
     } else {
@@ -45,12 +44,13 @@ class ChildrenNetWork {
     }
   }
 
-  static Future<Children> getDetailChildren(String id) async {
+  static Future<User> getDetailStaff(String id) async {
     String c_url = detail_url + id;
     final response = await http.get(
       Uri.parse(c_url),
       headers: {
         HttpHeaders.authorizationHeader: 'Bearer ' + Utility.ACCESS_TOKEN,
+        'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Credentials': 'true',
         'Access-Control-Allow-Headers': 'Content-Type',
@@ -59,7 +59,7 @@ class ChildrenNetWork {
     );
     if (response.statusCode == 200) {
       var responses = json.decode(response.body);
-      Children result = Children.fromJson(responses);
+      User result = User.fromJson(responses);
       return result;
     } else if (response.statusCode == 404) {
       throw Exception('Not found');
@@ -68,27 +68,21 @@ class ChildrenNetWork {
     }
   }
 
-  static Map<String, String> httpHeaders = {
-    HttpHeaders.authorizationHeader: 'Bearer ' + Utility.ACCESS_TOKEN,
-    HttpHeaders.contentTypeHeader: "multipart/form-data; charset=UTF-8",
-    HttpHeaders.connectionHeader: "keep-alive",
-  };
-
-  static Future<Children> UpdateChildrenInfor(Children children) async {
-    String c_url = detail_url + children.id;
+  static Future<User> UpdateUserInfo(User user) async {
+    String c_url = detail_url + (user.id ?? "");
     var uri = Uri.parse(c_url);
     var request = http.MultipartRequest('PUT', uri);
-    request.fields['name'] = children.name;
-    request.fields['gender'] = children.gender.toString();
-    request.fields['age'] = children.age.toString();
-    request.fields['status'] = children.status;
-    request.fields['identifier'] = children.identifier;
+    request.fields['name'] = user.name!;
+    request.fields['email'] = user.email!;
+    request.fields['address'] = user.address!;
+    request.fields['phone'] = user.phone!;
+    request.fields['occupation'] = user.occupation!;
     request.headers['authorization'] = 'Bearer ' + Utility.ACCESS_TOKEN;
     final streamedResponse = await request.send();
     var response = await http.Response.fromStream(streamedResponse);
     if (response.statusCode == 200) {
       var responses = json.decode(response.body);
-      Children result = Children.fromJson(responses);
+      User result = User.fromJson(responses);
       return result;
     } else if (response.statusCode == 404) {
       throw Exception('Not found');

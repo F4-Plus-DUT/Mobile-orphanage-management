@@ -20,6 +20,7 @@ class _EditChildrenState extends State<EditChildren> {
   TextEditingController genderController = TextEditingController();
   TextEditingController ageController = TextEditingController();
   TextEditingController statusController = TextEditingController();
+  TextEditingController identifierController = TextEditingController();
   @override
   void initState() {
     // TODO: implement initState
@@ -28,6 +29,7 @@ class _EditChildrenState extends State<EditChildren> {
     genderController.text = widget.children.gender.toString();
     ageController.text = widget.children.age.toString();
     statusController.text = widget.children.status.toString();
+    identifierController.text = widget.children.identifier.toString();
   }
 
   @override
@@ -94,7 +96,11 @@ class _EditChildrenState extends State<EditChildren> {
                               makeInput(
                                   label: "Age", controller: ageController),
                               makeInput(
-                                  label: "Status", controller: statusController)
+                                  label: "Status",
+                                  controller: statusController),
+                              makeInput(
+                                  label: "Identifier",
+                                  controller: identifierController)
                             ],
                           ),
                         ),
@@ -123,7 +129,9 @@ class _EditChildrenState extends State<EditChildren> {
                                 widget.children.age =
                                     int.parse(ageController.text);
                                 widget.children.status = statusController.text;
-                                ChildrenNetWork.UpdateChildrenInfo(
+                                widget.children.identifier =
+                                    identifierController.text;
+                                ChildrenNetWork.UpdateChildrenInfor(
                                         widget.children)
                                     .then((value) => {
                                           Navigator.of(context).push(

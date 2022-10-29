@@ -4,7 +4,7 @@ class Profile {
   late String? updated_at;
   late String? name;
   late String? address;
-  late int? age;
+  late String? birthday;
   late String? avatar;
   late String? phone;
   late String? email;
@@ -16,7 +16,7 @@ class Profile {
       this.updated_at,
       this.name,
       this.address,
-      this.age,
+      this.birthday,
       this.avatar,
       this.phone,
       this.email,
@@ -29,7 +29,7 @@ class Profile {
         updated_at: data['updated_at'],
         name: data['name'],
         address: data['address'],
-        age: data['age'],
+        birthday: data['birthday'],
         avatar: data['avatar'],
         email: data['email'],
         phone: data['phone'],
@@ -40,7 +40,7 @@ class Profile {
     data['name'] = this.name;
     data['email'] = this.email;
     data['address'] = this.address;
-    data['age'] = this.age.toString();
+    data['birthday'] = this.birthday.toString();
     data['phone'] = this.phone;
     data['occupation'] = this.occupation;
     return data;

@@ -42,8 +42,8 @@ class Children {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['name'] = this.name;
-    data['gender'] = this.gender.toString();
-    data['age'] = this.age.toString();
+    data['gender'] = this.gender;
+    data['age'] = this.age;
     data['status'] = this.status;
     data['identifier'] = this.identifier;
     return data;

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:orphanage_management_system/models/profile.dart';
 import 'package:orphanage_management_system/pages/edit_profile_info.dart';
 
@@ -107,8 +108,11 @@ class _StaffDetailState extends State<StaffDetail> {
             ),
             ProfileInfo(
               widget: widget,
-              label: "Age",
-              value: widget.profile.age.toString(),
+              label: "Birthday",
+              value: DateFormat("yyyy-MM-dd")
+                  .format(DateFormat("yyyy-MM-dd'T'HH:mm:ss")
+                      .parse(widget.profile.birthday ?? "2022-01-01T00:00:00"))
+                  .toString(),
             ),
             ProfileInfo(
               widget: widget,

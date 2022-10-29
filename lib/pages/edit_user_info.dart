@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:orphanage_management_system/models/profile.dart';
+import 'package:orphanage_management_system/models/user.dart';
 import 'package:orphanage_management_system/pages/signup.dart';
-import 'package:orphanage_management_system/pages/staff_detail.dart';
 
 import '../network/profile.dart';
+import '../network/user.dart';
+import 'user_detail.dart';
 
-class EditStaff extends StatefulWidget {
-  late Profile profile;
-  EditStaff({
+class EditUser extends StatefulWidget {
+  late User user;
+  EditUser({
     Key? key,
-    required this.profile,
+    required this.user,
   }) : super(key: key);
   @override
-  State<EditStaff> createState() => _EditStaffState();
+  State<EditUser> createState() => _EditUserState();
 }
 
-class _EditStaffState extends State<EditStaff> {
+class _EditUserState extends State<EditUser> {
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
+  TextEditingController ageController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController occupationController = TextEditingController();
@@ -26,11 +27,11 @@ class _EditStaffState extends State<EditStaff> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    nameController.text = widget.profile.name.toString();
-    emailController.text = widget.profile.email.toString();
-    addressController.text = widget.profile.address.toString();
-    phoneController.text = widget.profile.phone.toString();
-    occupationController.text = widget.profile.occupation.toString();
+    nameController.text = widget.user.name.toString();
+    emailController.text = widget.user.email.toString();
+    addressController.text = widget.user.address.toString();
+    phoneController.text = widget.user.phone.toString();
+    occupationController.text = widget.user.occupation.toString();
   }
 
   @override
@@ -39,7 +40,7 @@ class _EditStaffState extends State<EditStaff> {
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          title: Text('Edit Profile Page'),
+          title: Text('Edit User Page'),
           elevation: 0,
           backgroundColor: Colors.lightBlueAccent,
           leading: IconButton(
@@ -74,7 +75,7 @@ class _EditStaffState extends State<EditStaff> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Text(
-                              "Edit Profile Information",
+                              "Edit User Information",
                               style: TextStyle(
                                 fontSize: 25,
                                 color: Colors.cyanAccent,
@@ -123,26 +124,29 @@ class _EditStaffState extends State<EditStaff> {
                                     wordSpacing: 5),
                               ),
                               onPressed: () async {
-                                widget.profile.name = nameController.text;
-                                widget.profile.email = emailController.text;
-                                widget.profile.address = addressController.text;
-                                widget.profile.phone = phoneController.text;
-                                widget.profile.occupation =
+                                widget.user.name = nameController.text;
+                                widget.user.email = emailController.text;
+                                widget.user.address = addressController.text;
+                                widget.user.phone = phoneController.text;
+                                widget.user.occupation =
                                     occupationController.text;
-                                ProfileNetWork.UpdateProfileInfo(widget.profile)
+                                UserNetWork.UpdateUserInfo(widget.user)
                                     .then((value) => {
                                           Navigator.of(context).push(
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      StaffDetail(
-                                                        profile: value,
+                                                      UserDetail(
+                                                        user: value,
                                                       )))
                                         });
                                 // ignore: todo
-                                // TODO: Call edit profile infor here
+                                // TODO: Call edit user infor here
                               },
                             ),
                           ),
+                        ),
+                        SizedBox(
+                          height: 20,
                         ),
                       ],
                     ),

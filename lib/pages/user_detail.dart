@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:orphanage_management_system/pages/edit_user_info.dart';
 import 'package:orphanage_management_system/pages/utils.dart';
 import '../models/user.dart';
 
@@ -32,7 +34,6 @@ class _UserDetailState extends State<UserDetail> {
               ),
               width: MediaQuery.of(context).size.width,
               height: 16,
-
             ),
             Stack(
               children: [
@@ -51,8 +52,7 @@ class _UserDetailState extends State<UserDetail> {
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(99),
                           child: Image.network(
-                            widget.user.avatar ??
-                                Utility.DEFAULT_AVATAR,
+                            widget.user.avatar ?? Utility.DEFAULT_AVATAR,
                             width: 150,
                             height: 150,
                             fit: BoxFit.cover,
@@ -93,11 +93,11 @@ class _UserDetailState extends State<UserDetail> {
             ElevatedButton(
               // Edit
               onPressed: () {
-                // Navigator.push(
-                //     context,
-                //     MaterialPageRoute(
-                //       builder: (context) => EditStaff(profile: widget.),
-                //     ));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => EditUser(user: widget.user),
+                    ));
               },
               child: Text('Edit User Profile'),
             ),
@@ -109,7 +109,10 @@ class _UserDetailState extends State<UserDetail> {
             ProfileInfo(
               widget: widget,
               label: "Birthday",
-              value: widget.user.birthday.toString(),
+              value: DateFormat("yyyy-MM-dd")
+                  .format(DateFormat("yyyy-MM-dd'T'HH:mm:ss")
+                      .parse(widget.user.birthday ?? "2022-01-01T00:00:00"))
+                  .toString(),
             ),
             ProfileInfo(
               widget: widget,
