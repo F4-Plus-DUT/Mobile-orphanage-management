@@ -89,4 +89,24 @@ class ProfileNetWork {
       throw Exception('Can not request');
     }
   }
+
+  static Future<Profile> UpdateProfileAvatar(String id, String avatar) async {
+    String c_url = detail_url + id;
+    var uri = Uri.parse(c_url);
+    var request = http.MultipartRequest('PUT', uri);
+    request.files.add(await http.MultipartFile.fromPath('avatar', avatar));
+    request.headers['authorization'] = 'Bearer ' + Utility.ACCESS_TOKEN;
+    final streamedResponse = await request.send();
+    var response = await http.Response.fromStream(streamedResponse);
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      var responses = json.decode(response.body);
+      Profile result = Profile.fromJson(responses);
+      return result;
+    } else if (response.statusCode == 404) {
+      throw Exception('Not found');
+    } else {
+      throw Exception('Can not request');
+    }
+  }
 }

@@ -2,7 +2,6 @@
 
 import 'dart:convert';
 import 'dart:io';
-import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:orphanage_management_system/models/children.dart';
@@ -86,6 +85,27 @@ class ChildrenNetWork {
     request.headers['authorization'] = 'Bearer ' + Utility.ACCESS_TOKEN;
     final streamedResponse = await request.send();
     var response = await http.Response.fromStream(streamedResponse);
+    if (response.statusCode == 200) {
+      var responses = json.decode(response.body);
+      Children result = Children.fromJson(responses);
+      return result;
+    } else if (response.statusCode == 404) {
+      throw Exception('Not found');
+    } else {
+      throw Exception('Can not request');
+    }
+  }
+
+  static Future<Children> UpdateChildrenAvatar(String id, String avatar) async {
+    String c_url = detail_url + id;
+    var uri = Uri.parse(c_url);
+    var request = http.MultipartRequest('PUT', uri);
+    request.files
+        .add(await http.MultipartFile.fromPath('personal_picture', avatar));
+    request.headers['authorization'] = 'Bearer ' + Utility.ACCESS_TOKEN;
+    final streamedResponse = await request.send();
+    var response = await http.Response.fromStream(streamedResponse);
+    print(response.statusCode);
     if (response.statusCode == 200) {
       var responses = json.decode(response.body);
       Children result = Children.fromJson(responses);

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:orphanage_management_system/models/profile.dart';
 import 'package:orphanage_management_system/pages/edit_profile_info.dart';
+
+import '../network/profile.dart';
 
 class StaffDetail extends StatefulWidget {
   final Profile profile;
@@ -12,6 +15,30 @@ class StaffDetail extends StatefulWidget {
 }
 
 class _StaffDetailState extends State<StaffDetail> {
+  final ImagePicker _picker = ImagePicker();
+
+  Future<void> _onImageButtonPressed({BuildContext? context}) async {
+    await _displayPickImageDialog(context!, (ImageSource source) async {
+      try {
+        final XFile? pickedFile = await _picker.pickImage(
+          source: source,
+        );
+        setState(() {
+          ProfileNetWork.UpdateProfileAvatar(
+                  widget.profile.id ?? "", pickedFile!.path)
+              .then((value) => {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => StaffDetail(
+                              profile: value,
+                            )))
+                  });
+        });
+      } catch (e) {
+        setState(() {});
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -74,6 +101,9 @@ class _StaffDetailState extends State<StaffDetail> {
                               child: Icon(Icons.camera_alt),
                             ),
                           ),
+                          onTap: () {
+                            _onImageButtonPressed(context: context);
+                          },
                         ),
                       )
                     ],
@@ -134,6 +164,38 @@ class _StaffDetailState extends State<StaffDetail> {
       ),
     );
   }
+
+  Future<void> _displayPickImageDialog(
+      BuildContext context, OnPickImageCallback onPick) async {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Edit avatar'),
+            actions: <Widget>[
+              TextButton(
+                child: const Text('Choose picture from camera'),
+                onPressed: () {
+                  onPick(ImageSource.camera);
+                  Navigator.of(context).pop();
+                },
+              ),
+              TextButton(
+                  child: const Text('Choose picture from gallery'),
+                  onPressed: () {
+                    onPick(ImageSource.gallery);
+                    Navigator.of(context).pop();
+                  }),
+              TextButton(
+                child: const Text('Cancel'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        });
+  }
 }
 
 class ProfileInfo extends StatelessWidget {
@@ -175,3 +237,5 @@ class ProfileInfo extends StatelessWidget {
     );
   }
 }
+
+typedef OnPickImageCallback = void Function(ImageSource source);
