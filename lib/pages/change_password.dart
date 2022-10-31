@@ -75,7 +75,6 @@ class _ChangePasswordState extends State<ChangePassword> {
               ),
               TextField(
                 style: TextStyle(color: Colors.white),
-
                 obscureText: true,
                 controller: new_password_controller,
                 decoration: InputDecoration(
@@ -104,7 +103,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                     onPressed: () async {
                       String old_password = old_password_controller.text;
                       String new_password = new_password_controller.text;
-                      if (old_password=='' || new_password=='') {
+                      if (old_password == '' || new_password == '') {
                         ScaffoldMessenger.of(context)
                             .showSnackBar(const SnackBar(
                           content: Text(
@@ -115,7 +114,8 @@ class _ChangePasswordState extends State<ChangePassword> {
                           ),
                           backgroundColor: Colors.red,
                         ));
-                      } else if (await changePasswordSuccessfully(old_password, new_password)) {
+                      } else if (await changePasswordSuccessfully(
+                          old_password, new_password)) {
                         ScaffoldMessenger.of(context)
                             .showSnackBar(const SnackBar(
                           content: Text(

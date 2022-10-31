@@ -86,7 +86,6 @@ class _HomeState extends State<Home> {
         title: Text('Home'),
         backgroundColor: Colors.blue,
         actions: [
-
           Switch(
               value: _themeManager.themeMode == ThemeMode.dark,
               onChanged: (newValue) {

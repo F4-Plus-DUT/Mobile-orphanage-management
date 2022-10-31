@@ -47,36 +47,32 @@ class _ActivityDetailState extends State<ActivityDetail> {
                   ),
                 ),
                 Center(
-                  child: SingleChildScrollView(
-                    child: Html(
-                      data: """ ${widget.activity.content} <hr> """,
-                      defaultTextStyle: TextStyle(
-                        fontSize: 14.0,
-                      ),
-                      padding: EdgeInsets.all(5.0),
-                      onLinkTap: (url) {},
-                      backgroundColor: Colors.white70,
+                    child: SingleChildScrollView(
+                  child: Html(
+                    data: """ ${widget.activity.content} <hr> """,
+                    defaultTextStyle: TextStyle(
+                      fontSize: 14.0,
+                    ),
+                    padding: EdgeInsets.all(5.0),
+                    onLinkTap: (url) {},
+                    backgroundColor: Colors.white70,
                   ),
-                )
-                ),
+                )),
                 Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   Padding(padding: EdgeInsets.only(top: 40.0, left: 20.0)),
                   GestureDetector(
-                    onTap: () => {
-                    },
+                    onTap: () => {},
                     child: Icon(isLike ? Icons.favorite : Icons.favorite_border,
                         size: 28.0, color: Colors.pink),
                   ),
                   Padding(padding: EdgeInsets.only(right: 20.0)),
                   GestureDetector(
                     onTap: () => {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                        CommentPage(activity_id: widget.activity.id!)
-                      )
-                    )
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CommentPage(
+                                  activity_id: widget.activity.id!)))
                     },
                     child:
                         Icon(Icons.chat, size: 28.0, color: Colors.blue[900]),

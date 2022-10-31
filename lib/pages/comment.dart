@@ -17,6 +17,8 @@ class CommentPage extends StatefulWidget {
 }
 
 class _CommentPageState extends State<CommentPage> {
+  ValueNotifier<List<Comments>> all_comments =
+      new ValueNotifier<List<Comments>>([]);
   String comment_url = Utility.BASE_URL + 'api/v1/activity/comment';
   Future<List<Comments>> getAllComments(String activity_id) async {
     List<Comments> comments = [];
@@ -31,10 +33,9 @@ class _CommentPageState extends State<CommentPage> {
         results.cast<Map<String, dynamic>>();
     comments = listComments.map((e) => Comments.fromJson(e)).toList();
     return comments;
-
   }
 
-  void commentSuccessfully(String text) async {
+  Future<void> commentSuccessfully(String text) async {
     await http
         .post(Uri.parse(comment_url),
             headers: <String, String>{
@@ -48,7 +49,9 @@ class _CommentPageState extends State<CommentPage> {
             }))
         .then((response) {
       if (response.statusCode == 201) {
-
+        print("============DONE=============");
+        print(Utility.ACCESS_TOKEN);
+        print(response.body);
       }
     });
   }
@@ -59,11 +62,8 @@ class _CommentPageState extends State<CommentPage> {
 
   @override
   void initState() {
-    getAllComments(widget.activity_id).then((value) => {
-          setState(() {
-            comments = value;
-          })
-    });
+    getAllComments(widget.activity_id)
+        .then((value) => {all_comments.value = value});
     super.initState();
   }
 
@@ -112,16 +112,24 @@ class _CommentPageState extends State<CommentPage> {
       body: Container(
         child: CommentBox(
           userImage: Utility.CURRENT_PROFILE.avatar ?? Utility.DEFAULT_AVATAR,
-          child: commentChild(comments),
+          // child: commentChild(comments),
+          child: ValueListenableBuilder(
+            valueListenable: all_comments,
+            builder: ((context, value, child) {
+              return commentChild(all_comments.value);
+            }),
+          ),
           labelText: 'Write a comment...',
           withBorder: false,
           errorText: 'Comment cannot be blank',
-          sendButtonMethod: () {
+          sendButtonMethod: () async {
             if (formKey.currentState!.validate()) {
               var text = commentController.text;
-              commentSuccessfully(text);
               commentController.clear();
               FocusScope.of(context).unfocus();
+              await commentSuccessfully(text);
+              await getAllComments(widget.activity_id)
+                  .then((value) => {all_comments.value = value});
               //FIND A WAY TO RELOAD DATA FROM SERVER
             } else {
               print("Not validated");

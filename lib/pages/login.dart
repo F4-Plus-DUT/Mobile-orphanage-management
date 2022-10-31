@@ -102,6 +102,7 @@ class _LoginState extends State<Login> {
                   style: TextStyle(color: Colors.white),
                   controller: nameController,
                   decoration: InputDecoration(
+                    border: OutlineInputBorder(),
                     labelText: 'User Name',
                     labelStyle: TextStyle(
                         color: myFocusNode.hasFocus
