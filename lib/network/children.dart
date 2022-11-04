@@ -105,7 +105,6 @@ class ChildrenNetWork {
     request.headers['authorization'] = 'Bearer ' + Utility.ACCESS_TOKEN;
     final streamedResponse = await request.send();
     var response = await http.Response.fromStream(streamedResponse);
-    print(response.statusCode);
     if (response.statusCode == 200) {
       var responses = json.decode(response.body);
       Children result = Children.fromJson(responses);

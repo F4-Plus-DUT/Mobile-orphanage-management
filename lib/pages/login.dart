@@ -17,9 +17,11 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+
   String login_url = Utility.BASE_URL + "api/v1/user/action/login";
 
   Future<bool> loginToServer(username, password) async {
+    print("Login to Server function");
     bool isSuccessfully = false;
     await http
         .post(Uri.parse(login_url),

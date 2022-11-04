@@ -14,7 +14,7 @@ import 'event.dart';
 
 class Utility {
   static String BASE_URL = "https://orphanage-management.herokuapp.com/";
-  static String ACCESS_TOKEN = "";
+  static String ACCESS_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjY3NjMzODI3LCJpYXQiOjE2Njc1NDc0MjcsImp0aSI6IjcyMTUwMTM2MTIxZDQ3NzQ5ZDQ4ZmIxYjY3MDkzZGE0IiwidXNlcl9pZCI6IjYwNzBhODVkLWIyZWUtNDcwMS05YzllLThjZDVkODMwNmVhZiJ9._eB3AGsrHPqTHmOV0DB0HvsEyxODcrD9SNSU66gzk3Q";
   static String DEFAULT_AVATAR =
       "https://t3.ftcdn.net/jpg/02/09/37/00/360_F_209370065_JLXhrc5inEmGl52SyvSPeVB23hB6IjrR.jpg";
   static RegExp hexEmail = RegExp(

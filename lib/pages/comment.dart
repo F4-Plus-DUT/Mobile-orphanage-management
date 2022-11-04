@@ -26,7 +26,6 @@ class _CommentPageState extends State<CommentPage> {
     );
     var body = json.decode(response.body);
     var results = body['comments'];
-    print(results);
     List<Map<String, dynamic>> listComments =
         results.cast<Map<String, dynamic>>();
     comments = listComments.map((e) => Comments.fromJson(e)).toList();
