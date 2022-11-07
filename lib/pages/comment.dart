@@ -21,16 +21,18 @@ class _CommentPageState extends State<CommentPage> {
       new ValueNotifier<List<Comments>>([]);
   String comment_url = Utility.BASE_URL + 'api/v1/activity/comment';
   Future<List<Comments>> getAllComments(String activity_id) async {
+    print("================DEBUG================");
+    print(Utility.ACCESS_TOKEN);
+    print(activity_id);
     List<Comments> comments = [];
-    String comments_url = Utility.BASE_URL + "api/v1/activity/" + activity_id;
+    String comments_url =
+        Utility.BASE_URL + "api/v1/activity/comment?activity=" + activity_id;
     final response = await http.get(
       Uri.parse(comments_url),
     );
     var body = json.decode(response.body);
-    var results = body['comments'];
-    print(results);
-    List<Map<String, dynamic>> listComments =
-        results.cast<Map<String, dynamic>>();
+    print(body);
+    List<Map<String, dynamic>> listComments = body.cast<Map<String, dynamic>>();
     comments = listComments.map((e) => Comments.fromJson(e)).toList();
     return comments;
   }
@@ -52,6 +54,24 @@ class _CommentPageState extends State<CommentPage> {
         print("============DONE=============");
         print(Utility.ACCESS_TOKEN);
         print(response.body);
+      }
+    });
+  }
+
+  Future<void> deletecomment(String comment_id) async {
+    String delete_url = comment_url + "/" + comment_id;
+    print(delete_url);
+    await http.delete(
+      Uri.parse(delete_url),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        HttpHeaders.authorizationHeader: 'Bearer ' + Utility.ACCESS_TOKEN,
+      },
+    ).then((response) {
+      print("===============DELETE =================");
+      print(response.statusCode);
+      if (response.statusCode == 204) {
+        print("============DONE DELETE=============");
       }
     });
   }
@@ -96,6 +116,23 @@ class _CommentPageState extends State<CommentPage> {
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               subtitle: Text(data[i].content),
+              trailing: SizedBox(
+                  height: 28,
+                  width: 50,
+                  child: InkWell(
+                    onTap: () async {
+                      await deletecomment(data[i].id);
+                      await getAllComments(widget.activity_id)
+                          .then((value) => {all_comments.value = value});
+                    },
+                    child: Text(
+                      "Delete",
+                      style: TextStyle(
+                          color: Colors.blue,
+                          fontWeight: FontWeight.bold,
+                          fontStyle: FontStyle.italic),
+                    ),
+                  )),
             ),
           )
       ],
