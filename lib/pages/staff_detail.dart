@@ -18,21 +18,33 @@ class _StaffDetailState extends State<StaffDetail> {
   final ImagePicker _picker = ImagePicker();
 
   Future<void> _onImageButtonPressed({BuildContext? context}) async {
-    await _displayPickImageDialog(context!, (ImageSource source) async {
+    await _displayPickImageDialog(context!, (ImageSource? source) async {
       try {
-        final XFile? pickedFile = await _picker.pickImage(
-          source: source,
-        );
-        setState(() {
-          ProfileNetWork.UpdateProfileAvatar(
-                  widget.profile.id ?? "", pickedFile!.path)
-              .then((value) => {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => StaffDetail(
-                              profile: value,
-                            )))
-                  });
-        });
+        if (source == null) {
+          setState(() {
+            ProfileNetWork.RemoveProfileAvatar(widget.profile.id ?? "")
+                .then((value) => {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => StaffDetail(
+                                profile: value,
+                              )))
+                    });
+          });
+        } else {
+          final XFile? pickedFile = await _picker.pickImage(
+            source: source,
+          );
+          setState(() {
+            ProfileNetWork.UpdateProfileAvatar(
+                    widget.profile.id ?? "", pickedFile!.path)
+                .then((value) => {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => StaffDetail(
+                                profile: value,
+                              )))
+                    });
+          });
+        }
       } catch (e) {
         setState(() {});
       }
@@ -187,6 +199,12 @@ class _StaffDetailState extends State<StaffDetail> {
                     Navigator.of(context).pop();
                   }),
               TextButton(
+                  child: const Text('Remove Avatar'),
+                  onPressed: () {
+                    onPick(null);
+                    Navigator.of(context).pop();
+                  }),
+              TextButton(
                 child: const Text('Cancel'),
                 onPressed: () {
                   Navigator.of(context).pop();
@@ -238,4 +256,4 @@ class ProfileInfo extends StatelessWidget {
   }
 }
 
-typedef OnPickImageCallback = void Function(ImageSource source);
+typedef OnPickImageCallback = void Function(ImageSource? source);

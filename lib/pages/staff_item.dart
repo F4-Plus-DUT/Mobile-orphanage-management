@@ -60,9 +60,12 @@ class _StaffItemState extends State<StaffItem> {
                 widget.profile.name ?? "-",
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.normal),
               ),
+              SizedBox(
+                height: 5,
+              ),
               Text(
                 widget.profile.email ?? "-",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
               ),
             ],
           ),

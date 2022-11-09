@@ -70,6 +70,9 @@ class ProfileNetWork {
   static Future<Profile> UpdateProfileInfo(Profile staff) async {
     String c_url = detail_url + (staff.id ?? "");
     var uri = Uri.parse(c_url);
+    print("=============DEBUG================");
+    print(c_url);
+    print(Utility.ACCESS_TOKEN);
     var request = http.MultipartRequest('PUT', uri);
     request.fields['name'] = staff.name!;
     request.fields['email'] = staff.email!;
@@ -79,6 +82,7 @@ class ProfileNetWork {
     request.headers['authorization'] = 'Bearer ' + Utility.ACCESS_TOKEN;
     final streamedResponse = await request.send();
     var response = await http.Response.fromStream(streamedResponse);
+    print(response.statusCode);
     if (response.statusCode == 200) {
       var responses = json.decode(response.body);
       Profile result = Profile.fromJson(responses);
@@ -98,6 +102,28 @@ class ProfileNetWork {
     request.headers['authorization'] = 'Bearer ' + Utility.ACCESS_TOKEN;
     final streamedResponse = await request.send();
     var response = await http.Response.fromStream(streamedResponse);
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      var responses = json.decode(response.body);
+      Profile result = Profile.fromJson(responses);
+      return result;
+    } else if (response.statusCode == 404) {
+      throw Exception('Not found');
+    } else {
+      throw Exception('Can not request');
+    }
+  }
+
+  static Future<Profile> RemoveProfileAvatar(String id) async {
+    String c_url = detail_url + id + "/remove_avatar";
+    var uri = Uri.parse(c_url);
+    var response = await http.delete(
+      Uri.parse(c_url),
+      headers: {
+        HttpHeaders.authorizationHeader: 'Bearer ' + Utility.ACCESS_TOKEN
+      },
+    );
+    print("=======REMOVE=========");
     print(response.statusCode);
     if (response.statusCode == 200) {
       var responses = json.decode(response.body);

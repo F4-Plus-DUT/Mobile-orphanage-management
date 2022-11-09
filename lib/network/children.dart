@@ -116,4 +116,23 @@ class ChildrenNetWork {
       throw Exception('Can not request');
     }
   }
+  static Future<Children> RemoveChildrenAvatar(String id) async {
+    String c_url = detail_url + id + "/remove_photo";
+    var uri = Uri.parse(c_url);
+    var response = await http.delete(
+      Uri.parse(c_url),
+      headers: {
+        HttpHeaders.authorizationHeader: 'Bearer ' + Utility.ACCESS_TOKEN
+      },
+    );
+    if (response.statusCode == 200) {
+      var responses = json.decode(response.body);
+      Children result = Children.fromJson(responses);
+      return result;
+    } else if (response.statusCode == 404) {
+      throw Exception('Not found');
+    } else {
+      throw Exception('Can not request');
+    }
+  }
 }

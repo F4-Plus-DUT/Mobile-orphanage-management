@@ -13,6 +13,7 @@ class Activity {
   String? coverPicture;
   double? expense;
   String? activityType;
+  String? donate;
 
   Activity(
       {this.id,
@@ -46,6 +47,7 @@ class Activity {
     coverPicture = json['cover_picture'];
     expense = json['expense'];
     activityType = json['activity_type'];
+    donate = json['donate'];
   }
 
   Map<String, dynamic> toJson() {
@@ -64,6 +66,7 @@ class Activity {
     data['cover_picture'] = this.coverPicture;
     data['expense'] = this.expense;
     data['activity_type'] = this.activityType;
+    data['donate'] = this.donate;
     return data;
   }
 }

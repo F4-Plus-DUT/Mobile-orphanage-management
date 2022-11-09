@@ -111,4 +111,23 @@ class UserNetWork {
       throw Exception('Can not request');
     }
   }
+  static Future<User> RemoveUserAvatar(String id) async {
+    String c_url = detail_url + id + "/remove_avatar";
+    var uri = Uri.parse(c_url);
+    var response = await http.delete(
+      Uri.parse(c_url),
+      headers: {
+        HttpHeaders.authorizationHeader: 'Bearer ' + Utility.ACCESS_TOKEN
+      },
+    );
+    if (response.statusCode == 200) {
+      var responses = json.decode(response.body);
+      User result = User.fromJson(responses);
+      return result;
+    } else if (response.statusCode == 404) {
+      throw Exception('Not found');
+    } else {
+      throw Exception('Can not request');
+    }
+  }
 }

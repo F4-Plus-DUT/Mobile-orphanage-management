@@ -22,22 +22,35 @@ class ChildrenDetail extends StatefulWidget {
 class _ChildrenDetailState extends State<ChildrenDetail> {
   final ImagePicker _picker = ImagePicker();
 
-  Future<void> _onImageButtonPressed({BuildContext? context}) async {
-    await _displayPickImageDialog(context!, (ImageSource source) async {
+  Future<void> _onImageButtonPressed(
+      {BuildContext? context, String? id}) async {
+    await _displayPickImageDialog(context!, (ImageSource? source) async {
       try {
-        final XFile? pickedFile = await _picker.pickImage(
-          source: source,
-        );
-        setState(() {
-          ChildrenNetWork.UpdateChildrenAvatar(
-                  widget.children.id, pickedFile!.path)
-              .then((value) => {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => ChildrenDetail(
-                              children: value,
-                            )))
-                  });
-        });
+        if (source == null) {
+          setState(() {
+            ChildrenNetWork.RemoveChildrenAvatar(widget.children.id)
+                .then((value) => {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => ChildrenDetail(
+                                children: value,
+                              )))
+                    });
+          });
+        } else {
+          final XFile? pickedFile = await _picker.pickImage(
+            source: source,
+          );
+          setState(() {
+            ChildrenNetWork.UpdateChildrenAvatar(
+                    widget.children.id, pickedFile!.path)
+                .then((value) => {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => ChildrenDetail(
+                                children: value,
+                              )))
+                    });
+          });
+        }
       } catch (e) {
         setState(() {});
       }
@@ -107,7 +120,8 @@ class _ChildrenDetailState extends State<ChildrenDetail> {
                             ),
                           ),
                           onTap: () {
-                            _onImageButtonPressed(context: context);
+                            _onImageButtonPressed(
+                                context: context, id: widget.children.id);
                           },
                         ),
                       )
@@ -197,6 +211,13 @@ class _ChildrenDetailState extends State<ChildrenDetail> {
                     Navigator.of(context).pop();
                   }),
               TextButton(
+                child: const Text('Remove Avatar'),
+                onPressed: () async {
+                  onPick(null);
+                  Navigator.of(context).pop();
+                },
+              ),
+              TextButton(
                 child: const Text('Cancel'),
                 onPressed: () {
                   Navigator.of(context).pop();
@@ -248,4 +269,4 @@ class ChildrenInfo extends StatelessWidget {
   }
 }
 
-typedef OnPickImageCallback = void Function(ImageSource source);
+typedef OnPickImageCallback = void Function(ImageSource? source);
