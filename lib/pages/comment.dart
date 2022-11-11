@@ -58,6 +58,28 @@ class _CommentPageState extends State<CommentPage> {
     });
   }
 
+  Future<void> ReplyComment(
+      String activity_id, String text, String comment_id) async {
+    await http
+        .post(Uri.parse(comment_url),
+            headers: <String, String>{
+              'Content-Type': 'application/json; charset=UTF-8',
+              HttpHeaders.authorizationHeader: 'Bearer ' + Utility.ACCESS_TOKEN,
+            },
+            body: jsonEncode(<String, String>{
+              'activity': activity_id,
+              'content': text,
+              'parent': comment_id
+            }))
+        .then((response) {
+      if (response.statusCode == 201) {
+        print("============DONE=============");
+        print(Utility.ACCESS_TOKEN);
+        print(response.body);
+      }
+    });
+  }
+
   Future<void> deletecomment(String comment_id) async {
     String delete_url = comment_url + "/" + comment_id;
     print(delete_url);

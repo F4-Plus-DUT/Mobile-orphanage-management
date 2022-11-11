@@ -13,7 +13,7 @@ class Activity {
   String? coverPicture;
   double? expense;
   String? activityType;
-  String? donate;
+  int? donate;
 
   Activity(
       {this.id,
