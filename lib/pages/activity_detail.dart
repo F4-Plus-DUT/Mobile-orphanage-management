@@ -5,6 +5,7 @@ import 'package:orphanage_management_system/pages/utils.dart';
 import '../models/activity.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'comment.dart';
+import 'package:orphanage_management_system/helper/convert.dart';
 
 class ActivityDetail extends StatefulWidget {
   final Activity activity;
@@ -12,14 +13,6 @@ class ActivityDetail extends StatefulWidget {
   const ActivityDetail({super.key, required this.activity});
   @override
   State<StatefulWidget> createState() => _ActivityDetailState();
-}
-
-String current_donate(int amount) {
-  if (amount == 0)
-    return "0";
-  else {
-    return amount.toString() + "000";
-  }
 }
 
 class _ActivityDetailState extends State<ActivityDetail> {

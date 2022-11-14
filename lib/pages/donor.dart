@@ -1,6 +1,9 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
+import 'package:orphanage_management_system/helper/convert.dart';
+import "package:orphanage_management_system/helper/string_helper.dart";
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:orphanage_management_system/models/donor.dart';
@@ -23,9 +26,17 @@ Future<List<Donor>> getAllDonors(String activity_id) async {
   print(donors_url);
   final response = await http.get(
     Uri.parse(donors_url),
+    headers: {
+      HttpHeaders.authorizationHeader: 'Bearer ' + Utility.ACCESS_TOKEN,
+      HttpHeaders.acceptEncodingHeader: 'gzip, deflate, br',
+      HttpHeaders.acceptHeader: '*/*'
+    },
   );
-  var body = json.decode(response.body);
+  print(utf8.decode(response.bodyBytes));
+  // print(utf8.decode(utf8.encode(response.body)));
+  var body = json.decode(utf8.decode(response.bodyBytes));
   var results = body['results'];
+  print(results);
   List<Map<String, dynamic>> listDonor = results.cast<Map<String, dynamic>>();
   donors = listDonor.map((e) => Donor.fromJson(e)).toList();
   return donors;
@@ -62,18 +73,18 @@ class _DonorPageState extends State<DonorPage> {
                     child: ListTile(
                   onTap: () {},
                   title: Text(
-                    donors[index].donor ?? "None Data",
+                    donors[index].donor?.toTitleCase() ?? "None Data",
                     style: TextStyle(
                         fontSize: 20,
                         color: Colors.black,
                         fontFamily: "Times New Roman"),
                   ),
                   subtitle: Text(
-                    donors[index].note ?? " - ",
+                    donors[index].note?.capitalize() ?? " - ",
                     style: TextStyle(fontSize: 20, color: Colors.black),
                   ),
                   trailing: Text(
-                    donors[index].amount.toString(),
+                    current_donate(donors[index].amount ?? 0),
                     style: TextStyle(fontSize: 20, color: Colors.black),
                   ),
                 )),
