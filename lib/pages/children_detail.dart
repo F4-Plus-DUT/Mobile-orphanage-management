@@ -186,6 +186,14 @@ class _ChildrenDetailState extends State<ChildrenDetail> {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          // Add your onPressed code here!
+        },
+        label: const Text('Request Adoption'),
+        icon: const Icon(Icons.request_quote),
+        backgroundColor: Colors.lightBlue,
+      ),
     );
   }
 

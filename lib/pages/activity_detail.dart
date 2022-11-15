@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:orphanage_management_system/pages/donate.dart';
 import 'package:orphanage_management_system/pages/donor.dart';
 import 'package:orphanage_management_system/pages/utils.dart';
 import '../models/activity.dart';
@@ -112,7 +113,24 @@ class _ActivityDetailState extends State<ActivityDetail> {
                       },
                       child:
                           Icon(Icons.chat, size: 28.0, color: Colors.blue[900]),
-                    )
+                    ),
+                    Padding(padding: EdgeInsets.only(right: 20.0)),
+                    GestureDetector(
+                      onTap: () => {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => DonatePage(
+                                      current_user: Utility.CURRENT_PROFILE,
+                                      activity: widget.activity,
+                                    )))
+                      },
+                      child: Text(
+                        "Donate",
+                        style:
+                            TextStyle(fontSize: 28, color: Colors.blueAccent),
+                      ),
+                    ),
                   ],
                 )
               ],

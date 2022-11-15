@@ -211,7 +211,7 @@ class _SignUpState extends State<SignUp> {
   }
 }
 
-Widget makeInput({label, obscureText = false, controller}) {
+Widget makeInput({label, obscureText = false, controller, enabled = true}) {
   return Container(
     child: Center(
       child: Column(
@@ -229,6 +229,7 @@ Widget makeInput({label, obscureText = false, controller}) {
             height: 5,
           ),
           TextField(
+            enabled: enabled,
             controller: controller,
             obscureText: obscureText,
             decoration: InputDecoration(
