@@ -14,5 +14,5 @@ String commented(String date) {
   } else if (current.minute - fact.minute > 0) {
     return (current.minute - fact.minute).toString() + " phút";
   } else
-    return (current.millisecond - fact.millisecond).toString() + " giây";
+    return (current.second - fact.second).toString() + " giây";
 }

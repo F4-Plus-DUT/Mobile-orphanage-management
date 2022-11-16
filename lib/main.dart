@@ -42,8 +42,5 @@ Future<void> main() async {
     '/activity': (context) => ActivityPage(),
     '/events': (context) => EventPage(),
     '/children_activity': (context) => ChildrenActivityPage(),
-
-
   }));
 }
-
