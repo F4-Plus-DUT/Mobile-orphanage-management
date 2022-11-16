@@ -6,9 +6,10 @@ class fact_comment {
   String? content;
   String? updatedAt;
   String? parent;
-  List<Comments> comments;
+  List<fact_comment> comments;
   fact_comment(
-      {this.account,
+      {this.id,
+      this.account,
       this.content,
       this.updatedAt,
       this.parent,
@@ -20,6 +21,7 @@ List<fact_comment> parseComments(List<Comments> comments) {
   for (var i = 0; i < comments.length; i++) {
     if (comments[i].parent == null) {
       fact_comment a = new fact_comment(
+          id: comments[i].id,
           account: comments[i].account,
           content: comments[i].content,
           updatedAt: comments[i].updatedAt,
@@ -30,11 +32,17 @@ List<fact_comment> parseComments(List<Comments> comments) {
   }
   for (var i = 0; i < comments.length; i++) {
     if (comments[i].parent != null) {
-      print("===============REPLY============");
-      print(comments[i].parent);
       for (var j = 0; j < data.length; j++) {
-        if (data[j].parent == comments[i].parent) {
-          data[j].comments.add(comments[i]);
+        if (data[j].id == comments[i].parent) {
+          fact_comment a = new fact_comment(
+              id: comments[i].id,
+              account: comments[i].account,
+              content: comments[i].content,
+              updatedAt: comments[i].updatedAt,
+              parent: comments[i].parent,
+              comments: []);
+          data[j].comments.add(a);
+          print(data[j].comments);
         }
       }
     }

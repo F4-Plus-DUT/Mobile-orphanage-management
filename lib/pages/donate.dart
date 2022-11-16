@@ -131,8 +131,120 @@ class _DonatePageState extends State<DonatePage> {
                                 String email = emailController.text;
                                 String note = noteController.text;
                                 int amount = int.parse(amountController.text);
+                                TextEditingController donate_email_Controller =
+                                    TextEditingController();
+                                TextEditingController
+                                    donate_card_number_Controller =
+                                    TextEditingController();
+                                TextEditingController
+                                    donate_card_cvc_Controller =
+                                    TextEditingController();
+                                TextEditingController donate_date_Controller =
+                                    TextEditingController();
                                 // ignore: todo
-                                // TODO: Call edit children infor here
+                                final result = await showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      AlertDialog(
+                                    title: Center(child: const Text('Donate')),
+                                    content: SafeArea(
+                                      child: SingleChildScrollView(
+                                          child: Container(
+                                        height:
+                                            MediaQuery.of(context).size.height,
+                                        width: double.infinity,
+                                        child: Column(children: [
+                                          makeInput(
+                                            label: "Email",
+                                            controller: donate_email_Controller,
+                                          ),
+                                          makeInput(
+                                            label: "Card Number",
+                                            controller:
+                                                donate_card_number_Controller,
+                                          ),
+                                          makeInput(
+                                            label: "Card CVC",
+                                            controller:
+                                                donate_card_cvc_Controller,
+                                          ),
+                                          Container(
+                                            child: Center(
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    "Date",
+                                                    style: TextStyle(
+                                                        fontSize: 15,
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                        color: Colors.black87,
+                                                        fontStyle:
+                                                            FontStyle.italic),
+                                                  ),
+                                                  SizedBox(
+                                                    height: 5,
+                                                  ),
+                                                  TextField(
+                                                    enabled: true,
+                                                    controller:
+                                                        donate_date_Controller,
+                                                    obscureText: false,
+                                                    decoration: InputDecoration(
+                                                      contentPadding:
+                                                          EdgeInsets.symmetric(
+                                                              vertical: 0,
+                                                              horizontal: 10),
+                                                      enabledBorder:
+                                                          OutlineInputBorder(
+                                                        borderSide: BorderSide(
+                                                            width: 3,
+                                                            color: Colors
+                                                                .grey), //<-- SEE HERE
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(50.0),
+                                                      ),
+                                                    ),
+                                                    onTap: () async {
+                                                      final Date =
+                                                          await showDatePicker(
+                                                        context: context,
+                                                        initialDate:
+                                                            DateTime.now(),
+                                                        firstDate:
+                                                            DateTime(1950),
+                                                        lastDate:
+                                                            DateTime(3000),
+                                                      ) as DateTime;
+                                                      donate_date_Controller
+                                                          .text = Date.month
+                                                              .toString() +
+                                                          "/" +
+                                                          Date.year.toString();
+                                                    },
+                                                  ),
+                                                  SizedBox(
+                                                    height: 20,
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                          )
+                                        ]),
+                                      )),
+                                    ),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(context, 'OK'),
+                                        child: const Text('OK'),
+                                      ),
+                                    ],
+                                  ),
+                                ) as String?;
                               },
                             ),
                           ),

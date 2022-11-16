@@ -19,10 +19,10 @@ class CommentPage extends StatefulWidget {
 }
 
 class _CommentPageState extends State<CommentPage> {
-  ValueNotifier<List<Comments>> all_comments =
-      new ValueNotifier<List<Comments>>([]);
+  ValueNotifier<List<fact_comment>> all_comments =
+      new ValueNotifier<List<fact_comment>>([]);
   String comment_url = Utility.BASE_URL + 'api/v1/activity/comment';
-  Future<List<Comments>> getAllComments(String activity_id) async {
+  Future<List<fact_comment>> getAllComments(String activity_id) async {
     print("================DEBUG================");
     print(Utility.ACCESS_TOKEN);
     print(activity_id);
@@ -36,7 +36,12 @@ class _CommentPageState extends State<CommentPage> {
     print(body);
     List<Map<String, dynamic>> listComments = body.cast<Map<String, dynamic>>();
     comments = listComments.map((e) => Comments.fromJson(e)).toList();
-    return comments;
+
+    final a = parseComments(comments);
+    // print("==============================CONVERT=====================");
+    // print(a[0].comments);
+    // print(a[1].comments);
+    return a;
   }
 
   Future<void> commentSuccessfully(String text) async {
@@ -112,11 +117,28 @@ class _CommentPageState extends State<CommentPage> {
   }
 
   Widget CommentPage(data) {
+    if (data != [])
+      return Container(
+        // width: MediaQuery.of(context).size.width,
+        padding: const EdgeInsets.only(top: 16),
+        child: ListView.separated(
+          itemCount: data.length,
+          separatorBuilder: (_, __) => Divider(),
+          itemBuilder: (_, index) {
+            return commentItem(data[index]);
+          },
+        ),
+      );
+    else
+      return SizedBox.shrink();
+  }
+
+  Widget CommentChildPage(data) {
     return Container(
       padding: const EdgeInsets.only(top: 16),
-      child: ListView.separated(
+      width: MediaQuery.of(context).size.width,
+      child: ListView.builder(
         itemCount: data.length,
-        separatorBuilder: (_, __) => Divider(),
         itemBuilder: (_, index) {
           return commentItem(data[index]);
         },
@@ -124,7 +146,7 @@ class _CommentPageState extends State<CommentPage> {
     );
   }
 
-  Widget commentItem(Comments comment) {
+  Widget commentItem(fact_comment comment) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -141,93 +163,96 @@ class _CommentPageState extends State<CommentPage> {
           // radius: 20.0,
         ),
         SizedBox(width: 24),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-                color: Colors.black12,
-              ),
-              child: Row(
-                children: [
-                  SizedBox(width: 8, height: 8),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        height: 8,
-                        width: 8,
-                      ),
-                      Text(
-                        comment.account?.name ?? " - ",
-                        style: TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(
-                        height: 4,
-                      ),
-                      Text(
-                        comment.content ?? " - ",
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.normal,
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  color: Colors.black12,
+                ),
+                child: Row(
+                  children: [
+                    SizedBox(width: 8, height: 8),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: 8,
+                          width: 8,
                         ),
-                        textAlign: TextAlign.left,
-                        maxLines: 20,
-                      ),
-                      SizedBox(
-                        height: 12,
-                      ),
-                    ],
+                        Text(
+                          comment.account?.name ?? " - ",
+                          style: TextStyle(
+                              fontSize: 15, fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(
+                          height: 4,
+                        ),
+                        Text(
+                          comment.content ?? " - ",
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal,
+                          ),
+                          textAlign: TextAlign.left,
+                          maxLines: 20,
+                        ),
+                        SizedBox(
+                          height: 12,
+                        ),
+                      ],
+                    ),
+                    SizedBox(width: 8, height: 8),
+                  ],
+                ),
+              ),
+              Row(
+                children: [
+                  Text(
+                    commented(comment.updatedAt ??
+                        "2022-01-01T17:40:05.419238+07:00"),
+                    style:
+                        TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
                   ),
-                  SizedBox(width: 8, height: 8),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  InkWell(
+                    onTap: (() {
+                      print("=======================DEBUG===============");
+                      // parseComments(all_comments.value);
+                    }),
+                    child: Text(
+                      "Reply",
+                      style: TextStyle(
+                          fontSize: 14, fontWeight: FontWeight.normal),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  InkWell(
+                    onTap: () async {
+                      await deletecomment(comment.id ?? "");
+                      await getAllComments(widget.activity_id)
+                          .then((value) => {all_comments.value = value});
+                    },
+                    child: Text(
+                      "Delete",
+                      style: TextStyle(
+                          fontSize: 14, fontWeight: FontWeight.normal),
+                    ),
+                  ),
                 ],
               ),
-              width: MediaQuery.of(context).size.width * 0.7,
-            ),
-            Row(
-              children: [
-                Text(
-                  commented(
-                      comment.updatedAt ?? "2022-01-01T17:40:05.419238+07:00"),
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
-                ),
-                SizedBox(
-                  width: 20,
-                ),
-                InkWell(
-                  onTap: (() {
-                    print("=======================DEBUG===============");
-                    print(parseComments(all_comments.value));
-                  }),
-                  child: Text(
-                    "Reply",
-                    style:
-                        TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
-                  ),
-                ),
-                SizedBox(
-                  width: 20,
-                ),
-                InkWell(
-                  onTap: () async {
-                    await deletecomment(comment.id ?? "");
-                    await getAllComments(widget.activity_id)
-                        .then((value) => {all_comments.value = value});
-                  },
-                  child: Text(
-                    "Delete",
-                    style:
-                        TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
-                  ),
-                ),
-              ],
-            ),
-          ],
+            ],
+          ),
         ),
+        // CommentChildPage(comment.comments),
       ],
     );
   }
