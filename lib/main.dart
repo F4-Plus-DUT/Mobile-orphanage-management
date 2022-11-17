@@ -13,6 +13,7 @@ import 'package:orphanage_management_system/pages/login.dart';
 import 'package:orphanage_management_system/pages/reset_pwd.dart';
 import 'package:orphanage_management_system/pages/signup.dart';
 import 'package:orphanage_management_system/pages/user.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 
 //solve flutter certificate verify failed error when performing a post request
 // class MyHttpOverrides extends HttpOverrides{
@@ -24,8 +25,10 @@ import 'package:orphanage_management_system/pages/user.dart';
 // }
 
 Future<void> main() async {
-  // WidgetsFlutterBinding.ensureInitialized();
-  //
+
+  WidgetsFlutterBinding.ensureInitialized;
+  Stripe.publishableKey =
+      "pk_test_51M59gTFiFkOTv4wYuWUrkxdbqY36N8mutclxxM7WiNU7ItLA9dDyfAok0g5v1LdcOmY2mkLfZxHQol0J1uTOFix100PmeDqJVg";
   // ByteData data = await PlatformAssetBundle().load('assets/ca/lets-encrypt-r3.pem');
   // SecurityContext.defaultContext.setTrustedCertificatesBytes(data.buffer.asUint8List());
   //

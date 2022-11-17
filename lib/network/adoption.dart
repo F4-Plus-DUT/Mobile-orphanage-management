@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:orphanage_management_system/models/children.dart';
 import 'package:orphanage_management_system/pages/utils.dart';
 
-class ChildrenNetWork {
+class AdoptionNetWork {
   static String url =
       Utility.BASE_URL + 'api/v1/activity/adopt_request_detail';
   

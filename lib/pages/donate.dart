@@ -1,7 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:orphanage_management_system/models/activity.dart';
 import 'package:orphanage_management_system/models/profile.dart';
+import 'package:orphanage_management_system/network/donor.dart';
 import 'package:orphanage_management_system/pages/signup.dart';
+import 'package:http/http.dart' as http;
 
 class DonatePage extends StatefulWidget {
   late Activity? activity;
@@ -18,7 +23,7 @@ class _DonatePageState extends State<DonatePage> {
   TextEditingController addressController = TextEditingController();
   TextEditingController noteController = TextEditingController();
   TextEditingController amountController = TextEditingController();
-
+  Map<String, dynamic>? paymentIntent;
   @override
   void initState() {
     // TODO: implement initState
@@ -127,10 +132,6 @@ class _DonatePageState extends State<DonatePage> {
                                     wordSpacing: 5),
                               ),
                               onPressed: () async {
-                                String activity = widget.activity?.id ?? "";
-                                String email = emailController.text;
-                                String note = noteController.text;
-                                int amount = int.parse(amountController.text);
                                 TextEditingController donate_email_Controller =
                                     TextEditingController();
                                 TextEditingController
@@ -141,110 +142,8 @@ class _DonatePageState extends State<DonatePage> {
                                     TextEditingController();
                                 TextEditingController donate_date_Controller =
                                     TextEditingController();
+                                await makePayment(amountController.text);
                                 // ignore: todo
-                                final result = await showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) =>
-                                      AlertDialog(
-                                    title: Center(child: const Text('Donate')),
-                                    content: SafeArea(
-                                      child: SingleChildScrollView(
-                                          child: Container(
-                                        height:
-                                            MediaQuery.of(context).size.height,
-                                        width: double.infinity,
-                                        child: Column(children: [
-                                          makeInput(
-                                            label: "Email",
-                                            controller: donate_email_Controller,
-                                          ),
-                                          makeInput(
-                                            label: "Card Number",
-                                            controller:
-                                                donate_card_number_Controller,
-                                          ),
-                                          makeInput(
-                                            label: "Card CVC",
-                                            controller:
-                                                donate_card_cvc_Controller,
-                                          ),
-                                          Container(
-                                            child: Center(
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    "Date",
-                                                    style: TextStyle(
-                                                        fontSize: 15,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        color: Colors.black87,
-                                                        fontStyle:
-                                                            FontStyle.italic),
-                                                  ),
-                                                  SizedBox(
-                                                    height: 5,
-                                                  ),
-                                                  TextField(
-                                                    enabled: true,
-                                                    controller:
-                                                        donate_date_Controller,
-                                                    obscureText: false,
-                                                    decoration: InputDecoration(
-                                                      contentPadding:
-                                                          EdgeInsets.symmetric(
-                                                              vertical: 0,
-                                                              horizontal: 10),
-                                                      enabledBorder:
-                                                          OutlineInputBorder(
-                                                        borderSide: BorderSide(
-                                                            width: 3,
-                                                            color: Colors
-                                                                .grey), //<-- SEE HERE
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(50.0),
-                                                      ),
-                                                    ),
-                                                    onTap: () async {
-                                                      final Date =
-                                                          await showDatePicker(
-                                                        context: context,
-                                                        initialDate:
-                                                            DateTime.now(),
-                                                        firstDate:
-                                                            DateTime(1950),
-                                                        lastDate:
-                                                            DateTime(3000),
-                                                      ) as DateTime;
-                                                      donate_date_Controller
-                                                          .text = Date.month
-                                                              .toString() +
-                                                          "/" +
-                                                          Date.year.toString();
-                                                    },
-                                                  ),
-                                                  SizedBox(
-                                                    height: 20,
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                          )
-                                        ]),
-                                      )),
-                                    ),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        onPressed: () =>
-                                            Navigator.pop(context, 'OK'),
-                                        child: const Text('OK'),
-                                      ),
-                                    ],
-                                  ),
-                                ) as String?;
                               },
                             ),
                           ),
@@ -263,4 +162,127 @@ class _DonatePageState extends State<DonatePage> {
       ),
     );
   }
+
+  Future<void> makePayment(String amount) async {
+    try {
+      paymentIntent = await createPaymentIntent(amount, 'VND');
+      //Payment Sheet
+      await Stripe.instance
+          .initPaymentSheet(
+              paymentSheetParameters: SetupPaymentSheetParameters(
+                  paymentIntentClientSecret: paymentIntent!['client_secret'],
+                  // applePay: const PaymentSheetApplePay(merchantCountryCode: '+92',),
+                  // googlePay: const PaymentSheetGooglePay(testEnv: true, currencyCode: "US", merchantCountryCode: "+92"),
+                  style: ThemeMode.dark,
+                  merchantDisplayName: 'TyrPhoon'))
+          .then((value) {});
+
+      ///now finally display payment sheeet
+      displayPaymentSheet();
+    } catch (e, s) {
+      print('exception:$e$s');
+    }
+  }
+
+  displayPaymentSheet() async {
+    try {
+      String activity = widget.activity?.id ?? "";
+      String email = emailController.text;
+      String note = noteController.text;
+      int amount = int.parse(amountController.text);
+      await Stripe.instance.presentPaymentSheet().then((value) async {
+        final a = await DonateNetWork.Donate(email, activity, amount, note);
+        print(a);
+        if (a == 201) {
+          showDialog(
+              context: context,
+              builder: (_) => AlertDialog(
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Row(
+                          children: const [
+                            Icon(
+                              Icons.check_circle,
+                              color: Colors.green,
+                            ),
+                            Text("Payment Successfull"),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ));
+
+          Navigator.pop(context);
+        } else {
+          showDialog(
+              context: context,
+              builder: (_) => AlertDialog(
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Row(
+                          children: const [
+                            Icon(
+                              Icons.check_circle,
+                              color: Colors.red,
+                            ),
+                            Text("Payment Failure"),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ));
+
+          Navigator.pop(context);
+        }
+        // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("paid successfully")));
+
+        paymentIntent = null;
+      }).onError((error, stackTrace) {
+        print('Error is:--->$error $stackTrace');
+      });
+    } on StripeException catch (e) {
+      print('Error is:---> $e');
+      showDialog(
+          context: context,
+          builder: (_) => const AlertDialog(
+                content: Text("Cancelled "),
+              ));
+    } catch (e) {
+      print('$e');
+    }
+  }
+
+  //  Future<Map<String, dynamic>>
+  createPaymentIntent(String amount, String currency) async {
+    try {
+      Map<String, dynamic> body = {
+        'amount': amount,
+        'currency': currency,
+        'payment_method_types[]': 'card'
+      };
+
+      var response = await http.post(
+        Uri.parse('https://api.stripe.com/v1/payment_intents'),
+        headers: {
+          'Authorization':
+              'Bearer sk_test_51M59gTFiFkOTv4wYruzIyhJFlTPkx5vifwn9UZmHuvx8RUT4FmlcTuxkEYs1DfFWx6ZCnIcpb9fnVPbuvP2ZCXma00JvFiyMG0',
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: body,
+      );
+      // ignore: avoid_print
+      print('Payment Intent Body->>> ${response.body.toString()}');
+      return jsonDecode(response.body);
+    } catch (err) {
+      // ignore: avoid_print
+      print('err charging user: ${err.toString()}');
+    }
+  }
+
+  // calculateAmount(String amount) {
+  //   final calculatedAmout = (int.parse(amount)) / 1000;
+  //   return calculatedAmout.toString();
+  // }
 }
