@@ -13,7 +13,7 @@ import 'children_activity.dart';
 import 'event.dart';
 
 class Utility {
-  static String BASE_URL = "https://orphanage-management.herokuapp.com/";
+  static String BASE_URL = "http://146.190.88.115:8000/";
   static String ACCESS_TOKEN = "";
   static String DEFAULT_AVATAR =
       "https://t3.ftcdn.net/jpg/02/09/37/00/360_F_209370065_JLXhrc5inEmGl52SyvSPeVB23hB6IjrR.jpg";

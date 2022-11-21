@@ -137,7 +137,8 @@ class _CommentPageState extends State<CommentPage> {
       child: CommentTreeWidget<fact_comment, fact_comment>(
         comment,
         comment.comments,
-        treeThemeData: TreeThemeData(lineColor: Colors.white, lineWidth: 3),
+        treeThemeData:
+            TreeThemeData(lineColor: Colors.grey.shade50, lineWidth: 3),
         avatarRoot: (context, data) => PreferredSize(
           child: ClipRRect(
             borderRadius: BorderRadius.circular(99),

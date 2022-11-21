@@ -191,7 +191,7 @@ class _ChildrenDetailState extends State<ChildrenDetail> {
           // Add your onPressed code here!
         },
         label: const Text('Request Adoption'),
-        icon: const Icon(Icons.request_quote),
+        icon: const Icon(Icons.request_page),
         backgroundColor: Colors.lightBlue,
       ),
     );
