@@ -168,7 +168,10 @@ class _SignUpState extends State<SignUp> {
                                   ));
                                 }
                                 if (await sign_up(name, email, password)) {
-                                  Navigator.pushNamed(context, '/login');
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Login()));
                                 }
                               },
                             ),

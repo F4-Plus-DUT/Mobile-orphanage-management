@@ -3,14 +3,14 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:orphanage_management_system/models/activity.dart';
-import 'package:orphanage_management_system/models/profile.dart';
+import 'package:orphanage_management_system/models/user.dart';
 import 'package:orphanage_management_system/network/donor.dart';
 import 'package:orphanage_management_system/pages/signup.dart';
 import 'package:http/http.dart' as http;
 
 class DonatePage extends StatefulWidget {
   late Activity? activity;
-  late Profile current_user;
+  late User current_user;
   DonatePage({this.activity, required this.current_user});
   @override
   State<DonatePage> createState() => _DonatePageState();

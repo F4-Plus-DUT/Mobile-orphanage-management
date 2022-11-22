@@ -58,7 +58,8 @@ class Home extends StatefulWidget {
 ThemeManager _themeManager = ThemeManager();
 
 class _HomeState extends State<Home> {
-  List<Category> categories = CategoryService.getAllCategories();
+  List<Category> categories =
+      CategoryService.getListCategoriesbyUser(Utility.CURRENT_PROFILE);
   ValueNotifier<int> count_unread = ValueNotifier(99);
   @override
   Widget build(BuildContext context) {
@@ -215,9 +216,11 @@ class _HomeState extends State<Home> {
 
   void choiceAction(String choice) {
     if (choice == 'Change Password') {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => ChangePassword()));
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => ChangePassword()));
     } else if (choice == 'Help & Support') {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => HelpAndSupport()));
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => HelpAndSupport()));
     } else if (choice == 'Logout') {
       Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
     }

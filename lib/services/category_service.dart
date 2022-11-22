@@ -50,7 +50,7 @@ class CategoryService {
   }
 
   static List<Category> getListCategoriesbyUser(User user) {
-    if (user.roles.levels < 3) {
+    if (user.roles.levels < 4) {
       return [
         Category(
             name: 'Account',

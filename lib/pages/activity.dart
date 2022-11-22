@@ -52,31 +52,42 @@ class _ActivityPageState extends State<ActivityPage> {
           backgroundColor: Colors.blue,
           elevation: 0,
         ),
-        body: ListView.builder(
-            itemCount: activities.length,
-            itemBuilder: ((context, index) {
-              return Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 2.0, horizontal: 3.0),
-                child: Card(
-                    child: ListTile(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ActivityDetail(
-                                      activity: activities[index])));
-                        },
-                        title: Text(
-                          activities[index].title ?? "None Data",
-                          style: TextStyle(fontSize: 20, color: Colors.orange),
-                        ),
-                        leading: CircleAvatar(
-                          backgroundImage: NetworkImage(
-                              activities[index].coverPicture ??
-                                  Utility.DEFAULT_AVATAR),
-                        ))),
-              );
-            })));
+        body: FutureBuilder<List<Activity>>(
+            future: getAllActivities(),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              activities = snapshot.data!;
+              return ListView.builder(
+                  itemCount: activities.length,
+                  itemBuilder: ((context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 2.0, horizontal: 3.0),
+                      child: Card(
+                          child: ListTile(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => ActivityDetail(
+                                            activity: activities[index])));
+                              },
+                              title: Text(
+                                activities[index].title ?? "None Data",
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.orange),
+                              ),
+                              leading: CircleAvatar(
+                                backgroundImage: NetworkImage(
+                                    activities[index].coverPicture ??
+                                        Utility.DEFAULT_AVATAR),
+                              ))),
+                    );
+                  }));
+            }));
   }
 }
