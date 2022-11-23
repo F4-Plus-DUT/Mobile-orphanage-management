@@ -77,18 +77,6 @@ class CategoryService {
             image: 'images/activity.png',
             page: ''),
         Category(
-            name: 'Event',
-            title: 'Events',
-            subtitle: 'Funny, Picnic',
-            image: 'images/event.png',
-            page: ''),
-        Category(
-            name: 'Adoption and Introduction',
-            title: 'Children Activity',
-            subtitle: 'Adoption, Introduction',
-            image: 'images/adoption.png',
-            page: ''),
-        Category(
             name: 'Statistic',
             title: 'Statistic',
             subtitle: '',

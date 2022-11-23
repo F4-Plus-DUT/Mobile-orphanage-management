@@ -1,10 +1,14 @@
 class Statistic {
-  String? key;
-  String? title;
-  int? value;
-  String? rateString;
+  late String key;
+  late String title;
+  late int value;
+  late String rateString;
 
-  Statistic({this.key, this.title, this.value, this.rateString});
+  Statistic(
+      {required this.key,
+      required this.title,
+      required this.value,
+      required this.rateString});
 
   Statistic.fromJson(Map<String, dynamic> json) {
     key = json['key'];

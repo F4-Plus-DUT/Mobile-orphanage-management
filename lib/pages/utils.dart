@@ -35,7 +35,7 @@ class Utility {
     } else if (name == 'Adoption and Introduction') {
       return ChildrenActivityPage();
     } else if (name == 'Statistic') {
-      return Statistic();
+      return StatisticPage();
     }
     return Login();
   }

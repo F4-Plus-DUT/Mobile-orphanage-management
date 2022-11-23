@@ -1,13 +1,20 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:orphanage_management_system/helper/string_helper.dart';
+import 'package:orphanage_management_system/network/statistic.dart';
+import 'package:orphanage_management_system/pages/utils.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
-class Statistic extends StatefulWidget {
+import '../models/statistic.dart';
+
+class StatisticPage extends StatefulWidget {
   @override
-  State<Statistic> createState() => _StatisticState();
+  State<StatisticPage> createState() => _StatisticState();
 }
 
-class _StatisticState extends State<Statistic> {
+class _StatisticState extends State<StatisticPage> {
   late int touchedIndex = 0;
   @override
   Widget build(BuildContext context) {
@@ -18,54 +25,43 @@ class _StatisticState extends State<Statistic> {
         elevation: 0,
       ),
       body: Card(
-        child: Column(
-          children: <Widget>[
-            Expanded(
-              child: PieChart(
-                PieChartData(
-                  pieTouchData: PieTouchData(
-                    touchCallback: (pieTouchResponse) {
-                      setState(() {
-                        if (pieTouchResponse.touchInput is FlLongPressEnd ||
-                            pieTouchResponse.touchInput is FlPanEnd) {
-                          touchedIndex = -1;
-                        } else {
-                          touchedIndex = pieTouchResponse.touchedSectionIndex;
-                        }
-                      });
-                    },
-                  ),
-                  borderData: FlBorderData(show: false),
-                  sectionsSpace: 0,
-                  centerSpaceRadius: 40,
-                  sections: getSections(touchedIndex),
-                ),
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: PieData.data
-                        .map(
-                          (data) => Container(
-                              padding: EdgeInsets.symmetric(vertical: 2),
-                              child: buildIndicator(
-                                color: data.color,
-                                text: data.name,
-                                // isSquare: true,
-                              )),
+        child: FutureBuilder<List<Statistic>>(
+            future: StatisticNetWork.GetStatistic(),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              final data = snapshot.data;
+              return Column(
+                children: <Widget>[
+                  Expanded(
+                    child: SfCartesianChart(
+                      series: <ChartSeries<Statistic, dynamic>>[
+                        BarSeries<Statistic, dynamic>(
+                          dataSource: data,
+                          // Renders the track
+                          isTrackVisible: true,
+                          xValueMapper: (Statistic data, _) =>
+                              data.key.capitalize(),
+                          yValueMapper: (Statistic data, _) => data.value,
+                          name: 'Statistic',
+                          // Enable data label
+                          dataLabelSettings: DataLabelSettings(isVisible: true),
                         )
-                        .toList(),
+                      ],
+                      primaryXAxis: CategoryAxis(
+                        majorGridLines: MajorGridLines(width: 0),
+                      ),
+                      primaryYAxis: NumericAxis(
+                          majorGridLines: MajorGridLines(width: 0),
+                          numberFormat: NumberFormat.compact()),
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ],
-        ),
+                ],
+              );
+            }),
       ),
     );
   }
@@ -99,46 +95,3 @@ class _StatisticState extends State<Statistic> {
         ],
       );
 }
-
-class PieData {
-  static List<Data> data = [
-    Data(name: 'Blue', percent: 40, color: const Color(0xff0293ee)),
-    Data(name: 'Orange', percent: 30, color: const Color(0xfff8b250)),
-    Data(name: 'Black', percent: 15, color: Colors.black),
-    Data(name: 'Green', percent: 15, color: const Color(0xff13d38e)),
-  ];
-}
-
-class Data {
-  final String name;
-
-  final double percent;
-
-  final Color color;
-
-  Data({required this.name, required this.percent, required this.color});
-}
-
-List<PieChartSectionData> getSections(int touchedIndex) => PieData.data
-    .asMap()
-    .map<int, PieChartSectionData>((index, data) {
-      final isTouched = index == touchedIndex;
-      final double fontSize = isTouched ? 25 : 16;
-      final double radius = isTouched ? 100 : 80;
-
-      final value = PieChartSectionData(
-        color: data.color,
-        value: data.percent,
-        title: '${data.percent}%',
-        radius: radius,
-        titleStyle: TextStyle(
-          fontSize: fontSize,
-          fontWeight: FontWeight.bold,
-          color: const Color(0xffffffff),
-        ),
-      );
-
-      return MapEntry(index, value);
-    })
-    .values
-    .toList();
