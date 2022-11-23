@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:orphanage_management_system/models/Category.dart';
-import 'package:orphanage_management_system/services/CategoryService.dart';
+import '../models/category.dart';
+import '../services/category_service.dart';
 
 class Children extends StatefulWidget {
   @override
@@ -15,6 +15,5 @@ class _ChildrenState extends State<Children> {
     return Scaffold(
       body: Text("Children Page"),
     );
-
   }
 }

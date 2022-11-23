@@ -1,29 +1,131 @@
 import 'package:flutter/material.dart';
-import 'package:orphanage_management_system/models/Account.dart';
-import 'package:orphanage_management_system/models/Category.dart';
-import 'package:orphanage_management_system/pages/user.dart';
+import 'package:orphanage_management_system/pages/children_page.dart';
+import 'package:orphanage_management_system/pages/login.dart';
 import 'package:orphanage_management_system/pages/utils.dart';
-import 'package:orphanage_management_system/services/CategoryService.dart';
+import 'package:orphanage_management_system/services/setting_constant.dart';
+import 'package:orphanage_management_system/services/theme_manager.dart';
+import 'package:orphanage_management_system/services/theme_constant.dart';
+import 'package:orphanage_management_system/services/category_service.dart';
+
+import '../models/category.dart';
+import 'change_password.dart';
+import 'help_support.dart';
+import '../models/User.dart';
+
+class MyApp extends StatefulWidget {
+  late User? currentUser;
+  MyApp({this.currentUser});
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void dispose() {
+    _themeManager.removeListener(themeListener);
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _themeManager.addListener(themeListener);
+  }
+
+  themeListener() {
+    if (mounted) {
+      setState(() {});
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: lightTheme,
+      darkTheme: darkTheme,
+      themeMode: _themeManager.themeMode,
+      home: Home(),
+    );
+  }
+}
 
 class Home extends StatefulWidget {
   @override
-  State<Home> createState() => _HomeState();
+  _HomeState createState() => _HomeState();
 }
 
+ThemeManager _themeManager = ThemeManager();
+
 class _HomeState extends State<Home> {
-  List<Category> categories = CategoryService.getAllCategories();
-  Account account = new Account(name: 'Tran Cong Viet', email: 'trancongviet0710@gmail.com', avatar: 'https://images.unsplash.com/photo-1611915387288-fd8d2f5f928b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&w=1000&q=80');
+  List<Category> categories =
+      CategoryService.getListCategoriesbyUser(Utility.CURRENT_PROFILE);
+  ValueNotifier<int> count_unread = ValueNotifier(99);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home Page'),
+        leading: PopupMenuButton<String>(
+          color: Colors.grey,
+          icon: Icon(Icons.settings),
+          onSelected: choiceAction,
+          itemBuilder: (BuildContext context) {
+            return SettingConstant.choices.map((choice) {
+              return PopupMenuItem<String>(
+                height: 30,
+                mouseCursor: MaterialStateMouseCursor.clickable,
+                value: choice,
+                child: Text(
+                  choice,
+                  style: TextStyle(color: Colors.white, fontSize: 15.0),
+                ),
+              );
+            }).toList();
+          },
+        ),
+        centerTitle: true,
+        title: Text('Home'),
         backgroundColor: Colors.blue,
         actions: [
-          IconButton(
-            icon: const Icon(Icons.notifications),
-            tooltip: 'Notifications',
-            onPressed: () {},
+          Switch(
+              value: _themeManager.themeMode == ThemeMode.dark,
+              onChanged: (newValue) {
+                _themeManager.toggleTheme(newValue);
+              }),
+          ValueListenableBuilder(
+            valueListenable: count_unread,
+            builder: (context, value, child) {
+              return Stack(children: [
+                IconButton(
+                  icon: const Icon(Icons.notifications, color: Colors.white),
+                  tooltip: 'Notifications',
+                  mouseCursor: MouseCursor.defer,
+                  hoverColor: Colors.red,
+                  onPressed: () {
+                    count_unread.value++;
+                  },
+                ),
+                Positioned(
+                  left: 23,
+                  top: 5,
+                  child: Container(
+                    width: 20,
+                    height: 20,
+                    // color: Colors.red,
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.red,
+                        border: Border.all(color: Colors.red)),
+                    child: Center(
+                      child: Text(
+                        count_unread.value.toString(),
+                        style: TextStyle(color: Colors.white, fontSize: 10),
+                      ),
+                    ),
+                  ),
+                )
+              ]);
+            },
           ),
         ],
       ),
@@ -35,6 +137,10 @@ class _HomeState extends State<Home> {
           itemBuilder: (context, i) {
             return Center(
               child: InkWell(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => ChildrenPage()));
+                },
                 child: Container(
                   height: 290,
                   decoration:
@@ -47,36 +153,34 @@ class _HomeState extends State<Home> {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           Expanded(
-                              // child: Image.network(
-                              //   'https://tech.pelmorex.com/wp-content/uploads/2020/10/flutter.png',
-                              //   fit: BoxFit.fill,
-                              // ),
                               child: GestureDetector(
                                   onTap: () {
-                                    // Navigator.pushNamed(context, '/user');
-                                    // print("Navigate to account page");
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => Utility.getStatefulWidget(categories[i].name),
-                                        settings: RouteSettings(
-                                          arguments: account
-                                        ),
+                                        builder: (context) =>
+                                            Utility.getStatefulWidget(
+                                                categories[i].name),
                                       ),
                                     );
                                   },
-
                                   child: CircleAvatar(
-                                    backgroundImage: AssetImage(
-                                      'assets/${categories[i].image}',
+                                    backgroundColor: Colors.blue,
+                                    child: ClipOval(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(15),
+                                        child: Container(
+                                          child: Image.asset(
+                                              'assets/${categories[i].image}'),
+                                        ),
+                                      ),
                                     ),
-                                    backgroundColor: Colors.transparent,
                                   ))),
                           Center(
                             child: Text(
                               '${categories[i].title}',
                               style: TextStyle(
-                                fontSize: 16,
+                                fontSize: 15,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -85,22 +189,11 @@ class _HomeState extends State<Home> {
                             child: Text(
                               '${categories[i].subtitle}',
                               style: TextStyle(
-                                fontSize: 12,
+                                fontSize: 10,
                                 fontStyle: FontStyle.italic,
                               ),
                             ),
                           ),
-                          // Row(
-                          //   children: [
-                          //     Text(
-                          //       'Subtitle',
-                          //       style: TextStyle(
-                          //         fontWeight: FontWeight.bold,
-                          //         fontSize: 15,
-                          //       ),
-                          //     ),
-                          //   ],
-                          // )
                         ],
                       ),
                     ],
@@ -111,21 +204,25 @@ class _HomeState extends State<Home> {
           },
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            childAspectRatio: 1.0,
-            crossAxisSpacing: 0.0,
-            mainAxisSpacing: 5,
-            mainAxisExtent: 264,
+            childAspectRatio: 1,
+            crossAxisSpacing: 50,
+            mainAxisSpacing: 10,
+            mainAxisExtent: 300,
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Add your onPressed code here!
-        },
-        backgroundColor: Colors.grey[700],
-        child: const Icon(Icons.settings),
-      ),
-
     );
+  }
+
+  void choiceAction(String choice) {
+    if (choice == 'Change Password') {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => ChangePassword()));
+    } else if (choice == 'Help & Support') {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => HelpAndSupport()));
+    } else if (choice == 'Logout') {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
+    }
   }
 }
