@@ -29,14 +29,14 @@ class Children {
         id: data['id'],
         created_at: data['created_at'],
         updated_at: data['updated_at'],
-        is_active: data['is_active'],
+        is_active: data['is_active'] ?? false,
         name: data['name'],
         gender: data['gender'],
         age: data['age'],
         personal_picture: data['personal_picture'],
         join_date: data['join_date'],
         status: data['status'],
-        identifier: data['identifier']);
+        identifier: data['identifier'] ?? " - ");
   }
 
   Map<String, dynamic> toJson() {

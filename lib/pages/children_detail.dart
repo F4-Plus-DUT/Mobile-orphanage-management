@@ -176,11 +176,6 @@ class _ChildrenDetailState extends State<ChildrenDetail> {
               ),
               ChildrenInfo(
                 widget: widget,
-                label: "Active",
-                value: widget.children.is_active.toString(),
-              ),
-              ChildrenInfo(
-                widget: widget,
                 label: "Identifier",
                 value: widget.children.identifier.toString(),
               )
@@ -281,13 +276,8 @@ class _ChildrenDetailState extends State<ChildrenDetail> {
               ),
               ChildrenInfo(
                 widget: widget,
-                label: "Active",
-                value: widget.children.is_active.toString(),
-              ),
-              ChildrenInfo(
-                widget: widget,
                 label: "Identifier",
-                value: widget.children.identifier.toString(),
+                value: widget.children.identifier,
               )
             ],
           ),
@@ -350,6 +340,8 @@ class ChildrenInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("=====================DEBUG================");
+    print(value == "null");
     return Row(
       children: [
         Expanded(
