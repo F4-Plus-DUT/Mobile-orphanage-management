@@ -30,8 +30,8 @@ class _StatisticState extends State<StatisticPage> {
             height: 10,
           ),
           Text(
-            "Statistic of DUT Orphanage",
-            style: TextStyle(fontSize: 24),
+            "Organizing Management Statistics",
+            style: TextStyle(fontSize: 20),
           ),
           SizedBox(
             height: 10,
@@ -69,8 +69,8 @@ class _StatisticState extends State<StatisticPage> {
                               )
                             ],
                             primaryXAxis: CategoryAxis(
-                              majorGridLines: MajorGridLines(width: 0),
-                            ),
+                                majorGridLines: MajorGridLines(width: 0),
+                                labelStyle: TextStyle(fontSize: 14)),
                             primaryYAxis: NumericAxis(
                                 majorGridLines: MajorGridLines(width: 0),
                                 numberFormat: NumberFormat.compact()),
@@ -80,6 +80,16 @@ class _StatisticState extends State<StatisticPage> {
                     );
                   }),
             ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Text(
+            "Annual Cost Statistic",
+            style: TextStyle(fontSize: 20),
+          ),
+          SizedBox(
+            height: 10,
           ),
           Card(
             child: FutureBuilder<DonateStatistic>(
@@ -108,7 +118,7 @@ class _StatisticState extends State<StatisticPage> {
                         child: Text(
                           "Summary",
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 24),
+                              fontWeight: FontWeight.normal, fontSize: 18),
                         ),
                       ),
                       StatisticDonate(
@@ -127,35 +137,6 @@ class _StatisticState extends State<StatisticPage> {
       ),
     );
   }
-
-  Widget buildIndicator({
-    required Color color,
-    required String text,
-    bool isSquare = false,
-    double size = 16,
-    Color textColor = const Color(0xff505050),
-  }) =>
-      Row(
-        children: <Widget>[
-          Container(
-            width: size,
-            height: size,
-            decoration: BoxDecoration(
-              shape: isSquare ? BoxShape.rectangle : BoxShape.circle,
-              color: color,
-            ),
-          ),
-          const SizedBox(width: 8),
-          Text(
-            text,
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: textColor,
-            ),
-          )
-        ],
-      );
 }
 
 class StatisticDonate extends StatelessWidget {
@@ -176,11 +157,11 @@ class StatisticDonate extends StatelessWidget {
         children: [
           Text(
             label + ": ",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+            style: TextStyle(fontWeight: FontWeight.normal, fontSize: 18),
           ),
           Text(
             amount.toString(),
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+            style: TextStyle(fontWeight: FontWeight.normal, fontSize: 18),
           ),
         ],
       ),
