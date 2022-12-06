@@ -168,7 +168,10 @@ class _SignUpState extends State<SignUp> {
                                   ));
                                 }
                                 if (await sign_up(name, email, password)) {
-                                  Navigator.pushNamed(context, '/login');
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Login()));
                                 }
                               },
                             ),
@@ -211,7 +214,7 @@ class _SignUpState extends State<SignUp> {
   }
 }
 
-Widget makeInput({label, obscureText = false, controller}) {
+Widget makeInput({label, obscureText = false, controller, enabled = true}) {
   return Container(
     child: Center(
       child: Column(
@@ -229,6 +232,7 @@ Widget makeInput({label, obscureText = false, controller}) {
             height: 5,
           ),
           TextField(
+            enabled: enabled,
             controller: controller,
             obscureText: obscureText,
             decoration: InputDecoration(

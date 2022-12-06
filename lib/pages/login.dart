@@ -8,6 +8,7 @@ import 'package:orphanage_management_system/pages/signup.dart';
 import 'package:orphanage_management_system/pages/utils.dart';
 
 import '../models/profile.dart';
+import '../models/user.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -34,7 +35,7 @@ class _LoginState extends State<Login> {
         isSuccessfully = true;
         Utility.ACCESS_TOKEN = body['token'];
         Map<String, dynamic> profile = body['profile'].cast<String, dynamic>();
-        Utility.CURRENT_PROFILE = Profile.fromJson(profile);
+        Utility.CURRENT_PROFILE = User.fromJson(profile);
       }
     });
     return isSuccessfully;

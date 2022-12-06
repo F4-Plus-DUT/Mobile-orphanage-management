@@ -27,13 +27,13 @@ class Profile {
         id: data['id'],
         created_at: data['created_at'],
         updated_at: data['updated_at'],
-        name: data['name'],
-        address: data['address'],
+        name: data['name'] ?? " - ",
+        address: data['address'] ?? " - ",
         birthday: data['birthday'],
         avatar: data['avatar'],
-        email: data['email'],
-        phone: data['phone'],
-        occupation: data['occupation']);
+        email: data['email'] ?? " - ",
+        phone: data['phone'] ?? " - ",
+        occupation: data['occupation'] ?? " - ");
   }
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();

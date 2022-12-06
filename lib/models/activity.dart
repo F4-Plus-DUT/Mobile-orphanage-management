@@ -13,20 +13,21 @@ class Activity {
   String? coverPicture;
   double? expense;
   String? activityType;
+  int? donate;
 
   Activity(
       {this.id,
-        this.comments,
-        this.createdAt,
-        this.updatedAt,
-        this.title,
-        this.content,
-        this.location,
-        this.startDate,
-        this.endDate,
-        this.coverPicture,
-        this.expense,
-        this.activityType});
+      this.comments,
+      this.createdAt,
+      this.updatedAt,
+      this.title,
+      this.content,
+      this.location,
+      this.startDate,
+      this.endDate,
+      this.coverPicture,
+      this.expense,
+      this.activityType});
 
   Activity.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -46,6 +47,7 @@ class Activity {
     coverPicture = json['cover_picture'];
     expense = json['expense'];
     activityType = json['activity_type'];
+    donate = json['donate'];
   }
 
   Map<String, dynamic> toJson() {
@@ -64,11 +66,13 @@ class Activity {
     data['cover_picture'] = this.coverPicture;
     data['expense'] = this.expense;
     data['activity_type'] = this.activityType;
+    data['donate'] = this.donate;
     return data;
   }
 }
 
 class Comments {
+  String? id;
   Account? account;
   String? content;
   String? updatedAt;
@@ -77,8 +81,9 @@ class Comments {
   Comments({this.account, this.content, this.updatedAt, this.parent});
 
   Comments.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
     account =
-    json['account'] != null ? new Account.fromJson(json['account']) : null;
+        json['account'] != null ? new Account.fromJson(json['account']) : null;
     content = Utility.utf8convert(json['content']);
     updatedAt = json['updated_at'];
     parent = json['parent'];
@@ -86,6 +91,7 @@ class Comments {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data["id"] = this.id;
     if (this.account != null) {
       data['account'] = this.account?.toJson();
     }
