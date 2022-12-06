@@ -176,25 +176,20 @@ class _ChildrenDetailState extends State<ChildrenDetail> {
               ),
               ChildrenInfo(
                 widget: widget,
-                label: "Active",
-                value: widget.children.is_active.toString(),
-              ),
-              ChildrenInfo(
-                widget: widget,
                 label: "Identifier",
                 value: widget.children.identifier.toString(),
               )
             ],
           ),
         ),
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {
-            // Add your onPressed code here!
-          },
-          label: const Text('Request Adoption'),
-          icon: const Icon(Icons.request_page),
-          backgroundColor: Colors.lightBlue,
-        ),
+        // floatingActionButton: FloatingActionButton.extended(
+        //   onPressed: () {
+        //     // Add your onPressed code here!
+        //   },
+        //   label: const Text('Request Adoption'),
+        //   icon: const Icon(Icons.request_page),
+        //   backgroundColor: Colors.lightBlue,
+        // ),
       );
     } else {
       return Scaffold(
@@ -281,13 +276,8 @@ class _ChildrenDetailState extends State<ChildrenDetail> {
               ),
               ChildrenInfo(
                 widget: widget,
-                label: "Active",
-                value: widget.children.is_active.toString(),
-              ),
-              ChildrenInfo(
-                widget: widget,
                 label: "Identifier",
-                value: widget.children.identifier.toString(),
+                value: widget.children.identifier,
               )
             ],
           ),
@@ -350,6 +340,8 @@ class ChildrenInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("=====================DEBUG================");
+    print(value == "null");
     return Row(
       children: [
         Expanded(

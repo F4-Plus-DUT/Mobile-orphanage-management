@@ -26,15 +26,15 @@ class User {
 
   User.fromJson(Map<dynamic, dynamic> json) {
     id = json['id'];
-    name = Utility.utf8convert(json['name']);
+    name = Utility.utf8convert(json['name'] ?? " - ");
     gender = json['gender'];
-    email = json['email'];
+    email = json['email'] ?? " - ";
     avatar = json['avatar'];
     birthday = json['birthday'];
-    address = json['address'];
+    address = json['address'] ?? " - ";
     roles = new Roles.fromJson(json['roles']);
-    occupation = json['occupation'];
-    phone = json['phone'];
+    occupation = json['occupation'] ?? " - ";
+    phone = json['phone'] ?? " - ";
   }
 
   Map<String, dynamic> toJson() {

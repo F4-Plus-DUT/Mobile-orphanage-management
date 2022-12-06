@@ -6,26 +6,12 @@ import 'package:http/http.dart' as http;
 import 'package:orphanage_management_system/pages/utils.dart';
 
 import '../models/activity.dart';
+import '../network/activity.dart';
 import 'activity_detail.dart';
 
 class ActivityPage extends StatefulWidget {
   @override
   State<ActivityPage> createState() => _ActivityPageState();
-}
-
-Future<List<Activity>> getAllActivities() async {
-  List<Activity> activities = [];
-  String activities_url = Utility.BASE_URL +
-      "api/v1/activity?activity_type=all&page=1&page_size=10";
-  final response = await http.get(
-    Uri.parse(activities_url),
-  );
-  var body = json.decode(response.body);
-  var results = body['results'];
-  List<Map<String, dynamic>> listActivity =
-      results.cast<Map<String, dynamic>>();
-  activities = listActivity.map((e) => Activity.fromJson(e)).toList();
-  return activities;
 }
 
 class _ActivityPageState extends State<ActivityPage> {
@@ -36,7 +22,7 @@ class _ActivityPageState extends State<ActivityPage> {
     print("===========================DEBUG==========================");
     print(Utility.CURRENT_PROFILE);
     super.initState();
-    getAllActivities().then((value) => {
+    ActivityNetwork.getAllActivities().then((value) => {
           setState(() {
             activities = value;
           })
@@ -53,7 +39,7 @@ class _ActivityPageState extends State<ActivityPage> {
           elevation: 0,
         ),
         body: FutureBuilder<List<Activity>>(
-            future: getAllActivities(),
+            future: ActivityNetwork.getAllActivities(),
             builder: (context, snapshot) {
               if (!snapshot.hasData) {
                 return Center(

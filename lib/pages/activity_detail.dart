@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:orphanage_management_system/network/activity.dart';
 import 'package:orphanage_management_system/pages/donate.dart';
 import 'package:orphanage_management_system/pages/donor.dart';
 import 'package:orphanage_management_system/pages/utils.dart';
@@ -18,29 +19,6 @@ class ActivityDetail extends StatefulWidget {
   const ActivityDetail({super.key, required this.activity});
   @override
   State<StatefulWidget> createState() => _ActivityDetailState();
-}
-
-Future<Activity> getActivity(String id) async {
-  String activities_url = Utility.BASE_URL + "api/v1/activity/" + id;
-  final response = await http.get(
-    Uri.parse(activities_url),
-    headers: {
-      HttpHeaders.authorizationHeader: 'Bearer ' + Utility.ACCESS_TOKEN,
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Credentials': 'true',
-      'Access-Control-Allow-Headers': 'Content-Type',
-      'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE'
-    },
-  );
-  if (response.statusCode == 200) {
-    var responses = json.decode(response.body);
-    Activity result = Activity.fromJson(responses);
-    return result;
-  } else if (response.statusCode == 404) {
-    throw Exception('Not found');
-  } else {
-    throw Exception('Can not request');
-  }
 }
 
 class _ActivityDetailState extends State<ActivityDetail> {
@@ -68,7 +46,7 @@ class _ActivityDetailState extends State<ActivityDetail> {
           child: Container(
             padding: EdgeInsets.all(10),
             child: FutureBuilder<Activity>(
-                future: getActivity(widget.activity.id ?? ""),
+                future: ActivityNetwork.getActivity(widget.activity.id ?? ""),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
                     return Center(
