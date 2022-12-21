@@ -218,9 +218,6 @@ class _HomeState extends State<Home> {
     if (choice == 'Change Password') {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => ChangePassword()));
-    } else if (choice == 'Help & Support') {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => HelpAndSupport()));
     } else if (choice == 'Logout') {
       Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
     }

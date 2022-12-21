@@ -60,7 +60,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                 controller: old_password_controller,
                 decoration: InputDecoration(
                   labelStyle: TextStyle(color: Colors.white),
-                  labelText: 'old password',
+                  labelText: 'Old Password',
                   contentPadding:
                       EdgeInsets.symmetric(vertical: 0, horizontal: 10),
                   enabledBorder: OutlineInputBorder(
@@ -78,7 +78,7 @@ class _ChangePasswordState extends State<ChangePassword> {
                 obscureText: true,
                 controller: new_password_controller,
                 decoration: InputDecoration(
-                  labelText: 'new password',
+                  labelText: 'New Password',
                   labelStyle: TextStyle(color: Colors.white),
                   contentPadding:
                       EdgeInsets.symmetric(vertical: 0, horizontal: 10),
